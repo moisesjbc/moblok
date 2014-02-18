@@ -13,13 +13,15 @@
     #include <SDL/SDL.h>
     #include <SDL/SDL_image.h>
 #else
-    #include <SDL.h>
-    #include <SDL_image.h>
+
 #endif
 
-#include<stdexcept>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 
-#include<iostream>
+#include <stdexcept>
+
+#include <iostream>
 
 #ifndef MATRIX_HPP
 #define MATRIX_HPP

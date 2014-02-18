@@ -3,6 +3,8 @@ CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
 
+LIBS += -lSDL -lSDL_image
+
 HEADERS += \
     ../src/Matrix.hpp \
     ../src/Player.hpp \
