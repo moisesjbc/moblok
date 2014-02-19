@@ -18,7 +18,7 @@ Tetris::Tetris( SDL_Surface *surface, const unsigned int& x, const unsigned int&
         const unsigned int& h ) : surface_(surface), tileset_(0), gameOver(0)
 {
     try{
-        tileset_ = IMG_Load( "tileset.png" );
+        tileset_ = IMG_Load( "data/img/tileset.png" );
         matrix_ = new Matrix( x, y, w, h );
         currentTetromino_ = new Tetromino( *matrix_, (w >> 1), 1 );
         if( !tileset_ ) throw std::runtime_error( "Tetris::Error - Tileset not found" );
@@ -69,7 +69,7 @@ void Tetris::Update()
         }
         gameOver = !currentTetromino_->New();
     }
-};
+}
 
 int Tetris::GameLoop(){
     SDL_Event event;
