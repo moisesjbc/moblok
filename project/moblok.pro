@@ -30,6 +30,7 @@ HEADERS += \
     ../src/Matrix.hpp \
     ../src/Player.hpp \
     ../src/Tetris.hpp \
+    ../src/Game.hpp \
     ../src/Tetromino.hpp
 
 SOURCES += \
@@ -37,6 +38,7 @@ SOURCES += \
     ../src/Matrix.cpp \
     ../src/Player.cpp \
     ../src/Tetris.cpp \
+    ../src/Game.cpp \
     ../src/Tetromino.cpp
 
 

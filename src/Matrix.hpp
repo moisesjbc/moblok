@@ -1,27 +1,14 @@
 /*
-    Module      :
-    Author      :
-    Description :
+    Module      : Matrix
+    Author      : Moisés J. Bonilla Caraballo
+    Description : Class which manages the matrix and current tetromino in game.
 */
 
 
 /*                                             Includes                                        */
 /***********************************************************************************************/
 
-
-#ifdef __APPLE__
-    #include <SDL/SDL.h>
-    #include <SDL/SDL_image.h>
-#else
-
-#endif
-
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-
-#include <stdexcept>
-
-#include <iostream>
+#include"Tetromino.hpp"
 
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
@@ -31,47 +18,74 @@ typedef const unsigned int CUint;
 /*                                        Global constants                                     */
 /***********************************************************************************************/
 
-extern const unsigned int MAX_W; // = 25
-extern const unsigned int MAX_H; // = 25
-extern const unsigned int N_COLORS; // = 8
-extern const unsigned int TILE_SIZE; // 32
-extern const unsigned int TILE_SIZE_2; // 5
-extern const unsigned int X;
-extern const unsigned int Y;
+const unsigned int MATRIX_X = 352;
+const unsigned int MATRIX_Y = 64;
+const unsigned int MATRIX_W = 10;
+const unsigned int MATRIX_H = 20;
+
+
+const unsigned int N_COLORS = 8;
+const unsigned int TILE_SIZE = 32;
+const unsigned int TILE_SIZE_2 = 5;
+const unsigned int X = 0;
+const unsigned int Y = 1;
+const int RES_X = 1024;
+const int RES_Y = 768;
+
+extern char errorMsg[151];
 
 /*                                        Type declarations                                    */
 /***********************************************************************************************/
 
+/*
+    NOTE : All the methods  of this class that returns a value except "int EraseLines()"
+    returns 0 if they succeded. Otherwise they return -1.
+*/
+
 class Matrix {
     private:
-        Sint16 x_, y_;
-        unsigned int w_, h_;
-        int **cells_;
+        int cells_[MATRIX_H+2][MATRIX_W];
+        Tetromino tetromino_;
 
     public:
-        // 1. Initialization and destruction.
-        Matrix( CUint& x, CUint& y, CUint& w, CUint& h ) throw( std::runtime_error );
-        Matrix( CUint& w, CUint& h ) throw( std::runtime_error );
+        /***************************************************************************************/
+        /*                                1. Initialization.                                   */
+        /***************************************************************************************/
+        Matrix();
 
-        ~Matrix();
+        /***************************************************************************************/
+        /*                               2. Cells management.                                  */
+        /***************************************************************************************/
+        void SetCell( CUint& x, CUint& y, CUint& cell ) throw();
+        int GetCell( CUint& x, CUint& y )               const throw();
+        void Reset()                                    throw();
+            // Sets all the cells to zero (Empty) and creates a new random tetromino.
 
-        // 2. Cells management.
-        void SetCell( CUint& x, CUint& y, CUint& cell );
-        int GetCell( CUint& x, CUint& y );
-        void Clear();
+        /***************************************************************************************/
+        /*                         3. Current tetromino manamegement.                          */
+        /***************************************************************************************/
+        int NewTetromino( int color )           throw();
+            // It creates a new tetromino with "color" color (Color also determines
+            // tetromino's shape).
+        int MoveTetromino( const int& dx )      throw();
+            // It moves the current tetromino "dx" cells horizontally.
+        int RotateTetromino()                   throw();
+            // It rotates the current tetromino to the left.
+        int TetrominoFall( const int& dy = 1 )  throw();
+            // Current tetromino falls "dy" positions.
+        void FixTetromino()                     throw();
 
-        // 3. Properties information
-        int GetX(){ return x_; }
-        int GetY(){ return y_; }
-        int GetW(){ return w_; }
-        int GetH(){ return h_+2; }
+        /***************************************************************************************/
+        /*                                5. Matrix update.                                    */
+        /***************************************************************************************/
+        int EraseLine( const int &line )    throw();
+        int EraseLines()                    throw();
 
-        // 4. Matrix update.
-        int EraseLine( const int &line );
-        int EraseLines( unsigned int min, CUint& max );
-
-        // 5. Graphic functions.
-        int Draw( SDL_Surface *screen, SDL_Surface *tileset );
+        /***************************************************************************************/
+        /*                              6. Graphic functions.                                  */
+        /***************************************************************************************/
+        int Draw( SDL_Surface *screen, SDL_Surface *tileset )           throw();
+        int DrawTetromino( SDL_Surface *surface, SDL_Surface *tileset ) throw();
 };
 
 

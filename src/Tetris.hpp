@@ -1,14 +1,14 @@
 /*
-    Module      :
-    Author      :
-    Description :
+    Module      : Tetris
+    Author      : Moisés J. Bonilla Caraballo
+    Description : Main game class. It takes the control once SDL was init at main().
 */
 
 
 /*                                             Includes                                        */
 /***********************************************************************************************/
 
-#include"Tetromino.hpp"
+#include"Game.hpp"
 
 /*                                        Global constants                                     */
 /***********************************************************************************************/
@@ -19,37 +19,22 @@
 /*                                        Type declarations                                    */
 /***********************************************************************************************/
 
-struct Player {
-    int score;
-    int filledLines;
-    Player() : score(0), filledLines(0) {}
-    void Clear(){ score = filledLines = 0; }
-};
-
 class Tetris {
     private:
-        Tetromino *currentTetromino_;
-        Matrix *matrix_;
-        SDL_Surface *surface_, *tileset_;
-
-        int gameOver;
+        Game *game_;
+        SDL_Surface* screen_;
+        Mix_Music *music_;
 
     public:
-        Tetris( SDL_Surface *surface, const unsigned int& x, const unsigned int& y, const unsigned int& w,
-                const unsigned int& h );
+        /*                         1. Inicialization and destruction                           */
+        Tetris() throw( const char* );
         ~Tetris();
-        void NewGame();
-        void NewGame( const unsigned int& x, const unsigned int& y, const unsigned int& w,
-                        const unsigned int& h );
 
-        void Update();
-
-        int GameEnd();
-        int GameLoop();
-
-
-        int Draw();
+        /*                               2. Other functions                                    */
+        void Start();
+        void MainMenu();
 };
+
 
 #endif
 // TETRIS_HPP

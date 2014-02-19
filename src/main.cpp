@@ -1,43 +1,28 @@
 
-#include<iostream>
-
 #include"Tetris.hpp"
+#include<iostream>
+using namespace std;
 
 int main( int argc, char** argv )
 {
-    (void)argc;
-    (void)argv;
-
-    SDL_Surface *screen;
-
     try{
         if( SDL_Init( SDL_INIT_VIDEO ) ){
             std::cerr << SDL_GetError() << std::endl;
             exit(1);
         }
-        atexit( SDL_Quit );
-
-        screen = SDL_SetVideoMode( 1024, 768, 8, SDL_ANYFORMAT );
-
-        SDL_FillRect( screen, NULL, SDL_MapRGB( screen->format, 20, 171, 180 ) );
-
-
-        Tetris tetris( screen, 300, 50, 10, 20 );
-
-        if( !screen ){
-            if( SDL_Init( SDL_INIT_VIDEO ) ){
-                std::cout << SDL_GetError() << std::endl;
-                exit(1);
-            }
+        if( Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) < 0 ){
+            std::cout << Mix_GetError() << std::endl;
+            exit(1);
         }
 
-        std::cout << tetris.Draw() << std::endl;
+        atexit( SDL_Quit );
+        atexit( Mix_CloseAudio );
 
-        SDL_Flip( screen );
+        Tetris tetris;
 
-        tetris.GameLoop();
+        tetris.Start();
 
-    }catch( std::runtime_error& e ){
-        std::cout << e.what() << std::endl;
+    }catch( const char errorMsg[] ){
+        std::cout << errorMsg << std::endl;
     }
 }

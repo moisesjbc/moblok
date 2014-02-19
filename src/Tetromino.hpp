@@ -1,47 +1,61 @@
 /*
-    Module      :
-    Author      :
-    Description :
+    Module      : Tetromino
+    Author      : Moisés J. Bonilla Caraballo
+    Description : This file contents all the extern libraries inclusions, the tetromino's shapes
+    (Defined as a 3 dimentional array) and struct "Tetromino" used to manage the current tetromino
+    in game.
 */
 
 
 /*                                             Includes                                        */
 /***********************************************************************************************/
 
-#include"Matrix.hpp"
+extern "C" {
+    #include <SDL/SDL.h>
+    #include <SDL/SDL_image.h>
+    #include <SDL/SDL_mixer.h>
+}
+
+#include "include/IL/buttons/ButtonsGroup.hpp"
+
+#include <stdexcept>
+
+#include "include/IL/text_renderer/TextRenderer.hpp"
 
 #ifndef TETROMINO_HPP
 #define TETROMINO_HPP
 
 
+/*                                    Global variables and constants                           */
+/***********************************************************************************************/
+
+const int Tetrominos[][4][2] =
+{
+    { { -2, -1 }, { -1, -1 }, { 0, -1 }, { 1, -1 } },
+    { { -1, -1 }, { -1, 0 }, { 0, 0 }, { 1, 0 } },
+    { { -2, 0 }, { -1, 0 }, { 0, 0 }, { 0, -1 }  },
+    { { -1, -1 }, { -1, 0 }, { 0, -1 }, { 0, 0 } },
+
+    { { -1, 0 }, { 0, 0 }, { 0, -1 }, { 1, -1 } },
+    { { -2, 0 }, { -1, 0 }, { -1, -1 }, { 0, 0 } },
+    { { -1, -1 }, { 0, -1 }, { 0, 0 }, { 1, 0 } }
+};
+
+const int LAST_POS = 0;
+const int CURRENT_POS = 1;
+const int AUX = 2;
+
+const int TETROMINO_X0 = 5;
+const int TETROMINO_Y0 = 1;
+
+
 /*                                        Type declarations                                    */
 /***********************************************************************************************/
 
-class Tetromino {
-    private:
-        int blocks_[3][4][2];
-        int x0_, y0_;
-        int x_, y_;
-        int color_;
-
-        Matrix *matrix_;
-
-    public:
-        // 1. Initialization
-        Tetromino( Matrix &matrix, const int& x, const int &y );
-        int New();
-
-        // 2. Tetromino movement.
-        int Move( const int& dx );
-        int Rotate();
-        int Fall( const int &dy = 1 );
-
-        // 3. Miscellaneous
-        void Fix();
-        void GetRange( int& minY, int& maxY );
-
-        // 4. Graphic functios.
-        void Draw( SDL_Surface *surface, SDL_Surface *tileset );
+struct Tetromino {
+    int blocks_[3][4][2];
+    int x_, y_;
+    int color_;
 };
 
 #endif

@@ -1,14 +1,14 @@
 /*
-    Module      :
-    Author      :
-    Description :
+    Module      : Player
+    Author      : Moisés J. Bonilla Caraballo
+    Description : Struct defined in order to manage all player's info and statistics.
 */
 
 
 /*                                             Includes                                        */
 /***********************************************************************************************/
 
-#include"Tetromino.hpp"
+#include"Matrix.hpp"
 
 /*                                        Global constants                                     */
 /***********************************************************************************************/
@@ -20,17 +20,23 @@
 /***********************************************************************************************/
 
 struct Player {
-    int level;
-    int score;
-    int filledLines;
+    int level_;
+    int score_;
+    int filledLines_;
+    int gameOver_;
+    int nextTetromino_;
 
-    Matrix *matrix;
-    Tetromino *tetromino;
+    Matrix matrix_;
 
-    // 1. Inicialization
+    /*******************************************************************************************/
+    /*                                    1. Inicialization                                    */
+    /*******************************************************************************************/
     Player();
-    void ResetScore();
-    void Clear();
+
+    /*******************************************************************************************/
+    /*                                    2. Other functions                                   */
+    /*******************************************************************************************/
+    void Reset();
 };
 
 
