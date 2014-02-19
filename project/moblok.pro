@@ -10,9 +10,9 @@ LIBS += -lSDL -lSDL_image -lSDL_mixer
 DESTDIR = .
 
 CONFIG( debug, debug|release ) {
-    TARGET = client_debug
+    TARGET = moblok_debug
 } else {
-    TARGET = client_release
+    TARGET = moblok_release
 }
 message( Building target: $$TARGET )
 
