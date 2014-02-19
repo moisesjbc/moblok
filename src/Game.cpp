@@ -35,8 +35,6 @@ Game::Game( SDL_Surface *screen ) throw( const char* ) : screen_(screen)
     try{
         screen_ = screen;
 
-        textRenderer = new tr::TextRenderer(1);
-
         for( int i=0; i<N_GRAPHICS; i++ ){
             graphics_[i] = IMG_Load( graphicsPaths[i] );
             if( !graphics_[i] ){
@@ -45,11 +43,6 @@ Game::Game( SDL_Surface *screen ) throw( const char* ) : screen_(screen)
                 strcat( errorMsg, "]" );
                 throw errorMsg;
             }
-        }
-
-        if( textRenderer->LoadFont( "data/font/font.ttf", 24, blackColor ) < 0 ){
-            strcpy( errorMsg, "Game::Error - Font not found" );
-            throw errorMsg;
         }
 
         player_ = new Player();
@@ -67,7 +60,6 @@ Game::~Game() throw()
     for( int i=0; i<N_GRAPHICS; i++ ){
         SDL_FreeSurface( graphics_[i] );
     }
-    delete textRenderer;
     delete player_;
 }
 
@@ -198,7 +190,7 @@ void Game::Update() throw()
 
         DrawGUI();
     }
-};
+}
 
 
 /***********************************************************************************************/
@@ -208,11 +200,13 @@ void Game::Update() throw()
 
 int Game::DrawGUI() throw()
 {
-    Uint16 score_[7];
+    //Uint16 score_[7];
 
+    /*
     for( unsigned int i = 0; i < 7; i++ ){
-        player_->score_[i] = '0' + (player_->score_ / ((10i-1));
+        player_->score_[i] = '0' + (player_->score_ / ((10*i-1)) );
     }
+    */
 
     /*char score_[7];
     // Draws the current score;

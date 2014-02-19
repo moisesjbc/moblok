@@ -50,11 +50,12 @@ void Tetris::Start()
 void Tetris::MainMenu()
 {
     SDL_Surface *background_ = IMG_Load( "data/img/menu_background.png" );
-    il::ButtonsGroup buttons(2);
-    Uint32 t0, t1;
+    //il::ButtonsGroup buttons(2);
+    //Uint32 t0, t1;
     SDL_Event event;
-    int aux = 0;
+    //int aux = 0;
 
+    /*
     try{
         buttons.LoadButton( 39, 490, "data/img/bLudi.png" );
         buttons.LoadButton( 39, 550, "data/img/bEliri.png" );
@@ -62,6 +63,7 @@ void Tetris::MainMenu()
         strcpy( errorMsg, "MainMenu::Error - Unable to load button" );
         throw errorMsg;
     }
+    */
 
     Mix_PlayMusic( music_, -1 );
 
@@ -70,6 +72,12 @@ void Tetris::MainMenu()
     SDL_FreeSurface( background_ );
 
     SDL_Flip( screen_ );
+
+    do {
+        SDL_WaitEvent( &event );
+    }while( ( event.type != SDL_KEYDOWN ) || ( event.key.keysym.sym != SDLK_RETURN ) );
+
+    /*
     t0 = SDL_GetTicks();
     for( ; ; ){
         t1 = t0;
@@ -101,4 +109,5 @@ void Tetris::MainMenu()
         buttons.DrawIfNeeded( screen_ );
         SDL_Flip( screen_ );
     }
+    */
 }

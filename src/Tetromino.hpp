@@ -16,11 +16,13 @@ extern "C" {
     #include <SDL/SDL_mixer.h>
 }
 
-#include "include/IL/buttons/ButtonsGroup.hpp"
+//#include "include/IL/buttons/ButtonsGroup.hpp"
 
 #include <stdexcept>
 
-#include "include/IL/text_renderer/TextRenderer.hpp"
+#include "Matrix.hpp"
+
+//#include "include/IL/text_renderer/TextRenderer.hpp"
 
 #ifndef TETROMINO_HPP
 #define TETROMINO_HPP

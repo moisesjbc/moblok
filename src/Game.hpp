@@ -46,7 +46,7 @@ class Game {
         Player *player_;
 
         SDL_Surface *screen_;
-        tr::TextRenderer* textRenderer;
+        //tr::TextRenderer* textRenderer;
         SDL_Surface *graphics_[N_GRAPHICS];
         SDL_Rect rects_[N_RECTS];
 

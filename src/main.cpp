@@ -5,6 +5,9 @@ using namespace std;
 
 int main( int argc, char** argv )
 {
+    (void)argc;
+    (void)argv;
+
     try{
         if( SDL_Init( SDL_INIT_VIDEO ) ){
             std::cerr << SDL_GetError() << std::endl;
