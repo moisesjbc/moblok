@@ -34,7 +34,6 @@ class Tetris {
 
         /*                               2. Other functions                                    */
         void Start();
-        void MainMenu();
 };
 
 

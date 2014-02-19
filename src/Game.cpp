@@ -133,6 +133,10 @@ int Game::GameLoop() throw()
                                     player_->matrix_.DrawTetromino( screen_, graphics_[TILESET] );
                                     SDL_Flip( screen_ );
                                 }
+                            break;
+                            case SDLK_ESCAPE:
+                                return 0;
+                            break;
                             default:
                             break;
                         }
@@ -200,20 +204,6 @@ void Game::Update() throw()
 
 int Game::DrawGUI() throw()
 {
-    //Uint16 score_[7];
-
-    /*
-    for( unsigned int i = 0; i < 7; i++ ){
-        player_->score_[i] = '0' + (player_->score_ / ((10*i-1)) );
-    }
-    */
-
-    /*char score_[7];
-    // Draws the current score;
-    SDL_FillRect( screen_, &rects[SCORE_RECT_2], 0xFFFFFFFF );
-    sprintf( score_, "%06d", player_->score_ );
-    textRenderer->RenderSolid( screen_, rects[SCORE_RECT_2].x, rects[SCORE_RECT_2].y, score_ );
-    */
     // Draws the next Tetromino;
     SDL_Rect srcRect = { (Uint16)((player_->nextTetromino_-1)*160), 0, 160, 160 };
     SDL_Rect dstRect = rects[NEXT_TETROMINO_RECT];
