@@ -6,6 +6,8 @@
     in game.
 */
 
+#ifndef TETROMINO_HPP
+#define TETROMINO_HPP
 
 /*                                             Includes                                        */
 /***********************************************************************************************/
@@ -23,9 +25,6 @@ extern "C" {
 #include "Matrix.hpp"
 
 //#include "include/IL/text_renderer/TextRenderer.hpp"
-
-#ifndef TETROMINO_HPP
-#define TETROMINO_HPP
 
 
 /*                                    Global variables and constants                           */

@@ -8,10 +8,10 @@
 /*                                             Includes                                        */
 /***********************************************************************************************/
 
-#include"Tetromino.hpp"
-
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
+
+#include "Tetromino.hpp"
 
 typedef const unsigned int CUint;
 

@@ -4,6 +4,8 @@
     Description : Struct defined in order to manage all player's info and statistics.
 */
 
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 
 /*                                             Includes                                        */
 /***********************************************************************************************/
@@ -13,8 +15,6 @@
 /*                                        Global constants                                     */
 /***********************************************************************************************/
 
-#ifndef PLAYER_HPP
-#define PLAYER_HPP
 
 /*                                        Type declarations                                    */
 /***********************************************************************************************/

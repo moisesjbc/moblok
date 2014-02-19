@@ -3,7 +3,7 @@ CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
 
-LIBS += -lSDL -lSDL_image
+LIBS += -lSDL -lSDL_image -lSDL_mixer
 
 # Set the target and the destination dir according to the current build in use.
 # http://stackoverflow.com/questions/2580934/how-to-specify-different-debug-release-output-directories-in-qmake-pro-file
@@ -38,8 +38,7 @@ SOURCES += \
     ../src/Matrix.cpp \
     ../src/Player.cpp \
     ../src/Tetris.cpp \
-    ../src/Game.cpp \
-    ../src/Tetromino.cpp
+    ../src/Game.cpp
 
 
 

@@ -4,6 +4,9 @@
     Description : Main game class. It takes the control once SDL was init at main().
 */
 
+#ifndef TETRIS_HPP
+#define TETRIS_HPP
+
 
 /*                                             Includes                                        */
 /***********************************************************************************************/
@@ -13,8 +16,7 @@
 /*                                        Global constants                                     */
 /***********************************************************************************************/
 
-#ifndef TETRIS_HPP
-#define TETRIS_HPP
+
 
 /*                                        Type declarations                                    */
 /***********************************************************************************************/
