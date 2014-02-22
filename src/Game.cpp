@@ -9,16 +9,18 @@
 
 const SDL_Color blackColor = {0,0,0,0};
 
-const char graphicsPaths[3][70] = {
+const char graphicsPaths[4][70] = {
     "data/img/tileset.png",             // TILESET
     "data/img/score.png",               // SCORE
-    "data/img/next_tetromino.png"       // NEXT_TETROMINO
+    "data/img/next_tetromino.png",      // NEXT_TETROMINO
+    "data/img/pause_text.png"           // PAUSE_TEXT
 };
 
-const SDL_Rect rects[3] = {
+const SDL_Rect rects[4] = {
     { 677, 64, 160, 26 },   // SCORE_RECT_1
     { 753, 67, 80, 21 },    // SCORE_RECT_2
-    { 677, 100, 160, 160 }  // NEXT_TETROMINO_RECT
+    { 677, 100, 160, 160 }, // NEXT_TETROMINO_RECT
+    { 365, 100, 0, 0 }      // PAUSE_TEXT
 };
 
 
@@ -93,13 +95,14 @@ int Game::GameLoop() throw()
     SDL_Event event;
     lockTime_ = INITIAL_LOCK_TIME;
     Uint32 t0, t1;
+    bool exitGame = false;
 
     // Draws the matrix and GUI.
     Draw();
     SDL_Flip( screen_ );
 
     // Game loop
-    while( !player_->gameOver_ ){
+    while( !exitGame && !player_->gameOver_ ){
 
         t0 = SDL_GetTicks();
         do{
@@ -135,7 +138,10 @@ int Game::GameLoop() throw()
                                 }
                             break;
                             case SDLK_ESCAPE:
-                                return 0;
+                                Mix_PauseMusic();
+                                Pause( exitGame );
+                                Mix_ResumeMusic();
+                                Draw();
                             break;
                             default:
                             break;
@@ -146,7 +152,7 @@ int Game::GameLoop() throw()
                         Draw();
                     break;
                     case SDL_QUIT:
-                        exit(0);
+                        exitGame = true;
                     break;
                     default:
                     break;
@@ -166,7 +172,6 @@ int Game::GameLoop() throw()
         SDL_Flip( screen_ );
     }
 
-    SDL_Delay(2500);
     return 0;
 }
 
@@ -194,6 +199,26 @@ void Game::Update() throw()
 
         DrawGUI();
     }
+}
+
+
+void Game::Pause( bool& exitGame ) throw()
+{
+    SDL_Event event;
+    SDL_Rect dstRect = rects[PAUSE_TEXT_RECT];
+
+    SDL_BlitSurface( graphics_[PAUSE_TEXT], NULL, screen_, &dstRect );
+
+    SDL_Flip( screen_ );
+
+    // Keep waiting until player press a key.
+    do {
+        SDL_WaitEvent( &event );
+    }while( ( event.type != SDL_QUIT ) && ( event.type != SDL_KEYDOWN ) );
+
+    // Check if user wants to exit game instead of resume it.
+    exitGame = ( event.type == SDL_QUIT )
+                || ( ( event.type == SDL_KEYDOWN ) && ( event.key.keysym.sym == SDLK_ESCAPE ) );
 }
 
 

@@ -23,6 +23,7 @@ enum GRAPHICS {
     TILESET = 0,
     SCORE,
     NEXT_TETROMINO,
+    PAUSE_TEXT,
     N_GRAPHICS
 };
 
@@ -30,6 +31,7 @@ enum RECTS {
     SCORE_RECT_1 = 0,
     SCORE_RECT_2,
     NEXT_TETROMINO_RECT,
+    PAUSE_TEXT_RECT,
     N_RECTS
 };
 
@@ -64,6 +66,7 @@ class Game {
         /***************************************************************************************/
         int GameLoop()  throw();
         void Update()   throw();
+        void Pause( bool& exitGame ) throw();
 
         /***************************************************************************************/
         /*                                 3. Graphic functions.                               */
