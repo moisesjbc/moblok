@@ -12,7 +12,7 @@ DESTDIR = .
 CONFIG( debug, debug|release ) {
     TARGET = moblok_debug
 } else {
-    TARGET = moblok_release
+    TARGET = moblok
 }
 message( Building target: $$TARGET )
 
