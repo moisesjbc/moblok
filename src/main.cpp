@@ -28,4 +28,6 @@ int main( int argc, char** argv )
     }catch( const char errorMsg[] ){
         std::cout << errorMsg << std::endl;
     }
+
+	return 0;
 }

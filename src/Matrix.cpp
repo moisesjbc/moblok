@@ -232,8 +232,8 @@ int Matrix::Draw( SDL_Surface *screen, SDL_Surface *tileset ) throw()
 
 int Matrix::DrawTetromino( SDL_Surface *surface, SDL_Surface *tileset ) throw()
 {
-    SDL_Rect srcRect = { (Uint16)(tetromino_.color_<<TILE_SIZE_2), 0, (Uint16)TILE_SIZE, (Uint16)TILE_SIZE };
-    SDL_Rect dstRect = { 0, 0, (Uint16)TILE_SIZE, (Uint16)TILE_SIZE };
+    SDL_Rect srcRect = { (Sint16)(tetromino_.color_<<TILE_SIZE_2), 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };
+    SDL_Rect dstRect = { 0, 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };
 
     // Deletes the last position.
     for( int i=0; i<4; i++ ){
@@ -255,5 +255,3 @@ int Matrix::DrawTetromino( SDL_Surface *surface, SDL_Surface *tileset ) throw()
 
     return 0;
 }
-
-

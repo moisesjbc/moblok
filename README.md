@@ -11,7 +11,7 @@ Dependencies
 In order to compile Moblok' you will need to have the following libraries installed:
 - SDL 1.2
 - SDL_image 1.2
-- SDL_mixed 1.2
+- SDL_mixer 1.2
 
 Music
 ===

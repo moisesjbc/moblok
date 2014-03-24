@@ -218,7 +218,7 @@ void Game::Pause( bool& exitGame ) throw()
 
     // Check if user wants to exit game instead of resume it.
     exitGame = ( event.type == SDL_QUIT )
-                || ( ( event.type == SDL_KEYDOWN ) && ( event.key.keysym.sym == SDLK_ESCAPE ) );
+                || ( ( event.type == SDL_KEYDOWN ) && ( event.key.keysym.sym == SDLK_F1 ) );
 }
 
 
@@ -230,7 +230,7 @@ void Game::Pause( bool& exitGame ) throw()
 int Game::DrawGUI() throw()
 {
     // Draws the next Tetromino;
-    SDL_Rect srcRect = { (Uint16)((player_->nextTetromino_-1)*160), 0, 160, 160 };
+    SDL_Rect srcRect = { (Sint16)((player_->nextTetromino_-1)*160), 0, 160, 160 };
     SDL_Rect dstRect = rects[NEXT_TETROMINO_RECT];
     return SDL_BlitSurface( graphics_[NEXT_TETROMINO], &srcRect, screen_, &dstRect );
 }
