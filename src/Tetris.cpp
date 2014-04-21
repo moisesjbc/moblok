@@ -21,6 +21,8 @@ Tetris::Tetris() throw( const char* )
         screen_ = SDL_SetVideoMode( RES_X, RES_Y, 8, SDL_ANYFORMAT );
         game_ = new Game( screen_ );
         music_ = Mix_LoadMUS( "data/music/Tetris_theme.ogg" );
+
+        SDL_WM_SetCaption( "Moblok'", NULL );
         if( !music_ ){
             throw Mix_GetError();
         }
