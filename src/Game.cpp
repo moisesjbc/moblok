@@ -42,7 +42,9 @@ Game::Game( SDL_Surface *screen ) throw( const char* ) : screen_(screen)
             if( !graphics_[i] ){
                 strcpy( errorMsg, "Game::Error - Unable to load resource [" );
                 strcat( errorMsg, graphicsPaths[i] );
-                strcat( errorMsg, "]" );
+                strcat( errorMsg, "] (" );
+                strcat( errorMsg, IMG_GetError() );
+                strcat( errorMsg, ")" );
                 throw errorMsg;
             }
         }
