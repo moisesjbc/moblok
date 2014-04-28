@@ -47,7 +47,7 @@ The images used by the game (directory "build/data/img/") are licensed under the
 
 ### Third-party work
 
-The libraries SDL, SDL_image and SDL_mixer, as well as the libraries used by them (directorys "build/data/lib/") are property of their respective owners. The licenses of every library is present in the directory "build/data/license/sdl*.
+The libraries SDL, SDL_image and SDL_mixer, as well as their dependencies are property of their respective owners. The licenses for every library used by the game is present in the directory "build/data/license/sdl*.
 
 The music played in the game has been downloaded from Wikimedia Commons in the next url: http://commons.wikimedia.org/wiki/File:Tetris_theme.ogg?uselang=es. As stated by that url, the music has been made by Bogozi and it is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0). To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.
 
