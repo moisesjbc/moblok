@@ -41,13 +41,13 @@ git clone git@github.com:Neodivert/moblok
 
 ### Own work
 
-The source code of the game (folder "src") is under the GPLv3 license. You can find a copy of this license in the file build/data/license/LICENSE.moblok.txt.
+The source code of the game (directory "src") is under the GPLv3 license. You can find a copy of this license in the file build/data/license/LICENSE.moblok.txt.
 
-The images used by the game (folder "build/data/img/") are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+The images used by the game (directory "build/data/img/") are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
 
 ### Third-party work
 
-The libraries SDL, SDL_image and SDL_mixer, as well as the libraries used by them (folders "build/data/lib/") are property of their respective owners. The licenses of every library is present in the folder "build/data/license/sdl*.
+The libraries SDL, SDL_image and SDL_mixer, as well as the libraries used by them (directorys "build/data/lib/") are property of their respective owners. The licenses of every library is present in the directory "build/data/license/sdl*.
 
 The music played in the game has been downloaded from Wikimedia Commons in the next url: http://commons.wikimedia.org/wiki/File:Tetris_theme.ogg?uselang=es. As stated by that url, the music has been made by Bogozi and it is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0). To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.
 
