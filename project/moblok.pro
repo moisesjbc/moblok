@@ -31,7 +31,7 @@ RCC_DIR = $$BUILD_DATA_DIR/qrc
 UI_DIR = $$BUILD_DATA_DIR/ui
 
 # Libs
-LIBS += -lSDL_image -lSDL_mixer `sdl-config --libs` -ljpeg  -lpng -lvorbisfile -lvorbis -logg  -lz -lm
+LIBS += -lSDL_image -lSDL_mixer `sdl-config --libs` -lpng -lvorbisfile -lvorbis -logg
 
 # C++ flags
 QMAKE_CXXFLAGS_WARN_ON += -Wall -Werror
