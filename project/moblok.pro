@@ -35,7 +35,7 @@ LIBS += -lSDL_image -lSDL_mixer `sdl-config --libs` -lpng -lvorbisfile -lvorbis 
 
 # C++ flags
 QMAKE_CXXFLAGS_WARN_ON += -Wall -Werror
-QMAKE_CXXFLAGS += `sdl-config --cflags` -pedantic-errors
+QMAKE_CXXFLAGS += -pedantic-errors
 
 windows_x86_64 {
     # Withot these options, running the application throws "library not
