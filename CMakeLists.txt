@@ -23,7 +23,7 @@ include_directories( ${SDL_INCLUDE_DIR} )
 include_directories( ${SDLIMAGE_INCLUDE_DIR} )
 include_directories( ${SDLMIXER_INCLUDE_DIR} )
 
-set( CMAKE_CXX_FLAGS "-Wall -Werror -pedantic-errors -std=c++0x" )
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -ansi -Werror -pedantic -pedantic-errors -std=c++0x" )
 
 # Executable
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES} ${${PROJECT_NAME}_INCLUDES} )
