@@ -1,6 +1,6 @@
 
-#include "../include/Tetris.hpp"
-#include<iostream>
+#include <Tetris.hpp>
+#include <iostream>
 using namespace std;
 
 int main( int argc, char** argv )

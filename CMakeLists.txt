@@ -18,6 +18,7 @@ find_package( SDL_image REQUIRED )
 find_package( SDL_mixer REQUIRED )
 
 # Include directories
+include_directories( source/include )
 include_directories( ${SDL_INCLUDE_DIR} )
 include_directories( ${SDLIMAGE_INCLUDE_DIR} )
 include_directories( ${SDLMIXER_INCLUDE_DIR} )
