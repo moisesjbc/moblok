@@ -19,10 +19,8 @@ find_package( SDL_mixer REQUIRED )
 
 # Include directories
 include_directories( source/include )
-include_directories( ${SDL_INCLUDE_DIR} )
-include_directories( ${SDLIMAGE_INCLUDE_DIR} )
-include_directories( ${SDLMIXER_INCLUDE_DIR} )
 
+# Compiler flags
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -ansi -Werror -pedantic -pedantic-errors -std=c++0x" )
 
 # Executable
