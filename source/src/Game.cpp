@@ -39,12 +39,16 @@ Game::Game( SDL_Surface *screen ) throw( const char* ) : screen_(screen)
 
         for( int i=0; i<N_GRAPHICS; i++ ){
             graphics_[i] = IMG_Load( graphicsPaths[i] );
+
+            #if defined(__linux__)
+                if( !graphics_[i] ){
+                    graphics_[i] = IMG_Load( ( std::string( "/usr/share/moblok/" ) + graphicsPaths[i] ).c_str() );
+                }
+            #endif
+
             if( !graphics_[i] ){
-                strcpy( errorMsg, "Game::Error - Unable to load resource [" );
-                strcat( errorMsg, graphicsPaths[i] );
-                strcat( errorMsg, "] (" );
+                strcpy( errorMsg, "Game::Error - Unable to load resource - " );
                 strcat( errorMsg, IMG_GetError() );
-                strcat( errorMsg, ")" );
                 throw errorMsg;
             }
         }
