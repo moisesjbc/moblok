@@ -2,6 +2,7 @@
 /*                                             Includes                                        */
 /***********************************************************************************************/
 
+#include <config.hpp>
 #include <Tetris.hpp>
 
 /*                                        Global constants                                     */
@@ -20,12 +21,18 @@ Tetris::Tetris() throw( const char* )
     try{
         screen_ = SDL_SetVideoMode( RES_X, RES_Y, 8, SDL_ANYFORMAT );
         game_ = new Game( screen_ );
-        music_ = Mix_LoadMUS( "data/music/Tetris_theme.ogg" );
+
+        music_ = Mix_LoadMUS( ( std::string( DATA_SOURCE_DIR ) + "/music/Tetris_theme.ogg" ).c_str() );
+
+        if( !music_ ){
+            music_ = Mix_LoadMUS( ( std::string( DATA_INSTALL_DIR ) + "/music/Tetris_theme.ogg" ).c_str() );
+
+            if( !music_ ){
+                throw Mix_GetError();
+            }
+        }
 
         SDL_WM_SetCaption( "Moblok'", NULL );
-        if( !music_ ){
-            throw Mix_GetError();
-        }
     }catch( const char* ){
         throw;
     }

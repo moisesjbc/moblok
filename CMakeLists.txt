@@ -8,6 +8,8 @@ set( ${PROJECT_NAME}_VERSION_MAJOR 0 )
 set( ${PROJECT_NAME}_VERSION_MINOR 7 )
 set( ${PROJECT_NAME}_VERSION_PATCH 1 )
 
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/source/include/config.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/source/include/config.hpp )
+
 # Add sources
 file( GLOB ${PROJECT_NAME}_INCLUDES source/include/*.hpp )
 file( GLOB ${PROJECT_NAME}_SOURCES source/src/*.cpp )
@@ -32,9 +34,12 @@ target_link_libraries (${PROJECT_NAME} ${SDLIMAGE_LIBRARY} )
 target_link_libraries (${PROJECT_NAME} ${SDLMIXER_LIBRARY} )
 
 message( STATUS "${SDL_LIBRARY}" )
+message( STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}" )
+message( STATUS "CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}" )
 
 # Install
 install( TARGETS ${PROJECT_NAME} DESTINATION bin )
+install( DIRECTORY ${CMAKE_HOME_DIRECTORY}/share/moblok DESTINATION share )
 
 #<----snip your usual build instructions snip--->
 set( CPACK_PACKAGE_VERSION ${VERSION} )

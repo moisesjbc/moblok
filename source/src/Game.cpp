@@ -2,18 +2,23 @@
 /*                                             Includes                                        */
 /***********************************************************************************************/
 
+#include <config.hpp>
 #include <Game.hpp>
+#include <iostream>
 
 /*                                        Global constants                                     */
 /***********************************************************************************************/
 
 const SDL_Color blackColor = {0,0,0,0};
 
+#define PROJ_BUILD_DIR_DEFINE "${PROJECT_BINARY_DIR}"
+#define PROJ_SOURCE_DIR_DEFINE "${CMAKE_HOME_DIRECTORY}"
+
 const char graphicsPaths[4][70] = {
-    "data/img/tileset.png",             // TILESET
-    "data/img/score.png",               // SCORE
-    "data/img/next_tetromino.png",      // NEXT_TETROMINO
-    "data/img/pause_text.png"           // PAUSE_TEXT
+    "/img/tileset.png",	 			// TILESET
+    "/img/score.png",        		// SCORE
+    "/img/next_tetromino.png",  	// NEXT_TETROMINO
+    "/img/pause_text.png"           // PAUSE_TEXT
 };
 
 const SDL_Rect rects[4] = {
@@ -38,18 +43,18 @@ Game::Game( SDL_Surface *screen ) throw( const char* ) : screen_(screen)
         screen_ = screen;
 
         for( int i=0; i<N_GRAPHICS; i++ ){
-            graphics_[i] = IMG_Load( graphicsPaths[i] );
+            graphics_[i] = IMG_Load( ( std::string( DATA_SOURCE_DIR ) + graphicsPaths[i] ).c_str() );
 
-            #if defined(__linux__)
-                if( !graphics_[i] ){
-                    graphics_[i] = IMG_Load( ( std::string( "/usr/share/moblok/" ) + graphicsPaths[i] ).c_str() );
-                }
-            #endif
+            std::cout << ( std::string( DATA_SOURCE_DIR ) + graphicsPaths[i] ).c_str() << std::endl;
 
             if( !graphics_[i] ){
-                strcpy( errorMsg, "Game::Error - Unable to load resource - " );
-                strcat( errorMsg, IMG_GetError() );
-                throw errorMsg;
+                graphics_[i] = IMG_Load( ( std::string( DATA_INSTALL_DIR ) + graphicsPaths[i] ).c_str() );
+
+                if( !graphics_[i] ){
+                    strcpy( errorMsg, "Game::Error - Unable to load resource - " );
+                    strcat( errorMsg, IMG_GetError() );
+                    throw errorMsg;
+                }
             }
         }
 
