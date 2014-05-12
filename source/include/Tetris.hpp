@@ -11,7 +11,8 @@
 /*                                             Includes                                        */
 /***********************************************************************************************/
 
-#include"Game.hpp"
+#include <resource_loader.hpp>
+#include "Game.hpp"
 
 /*                                        Global constants                                     */
 /***********************************************************************************************/
@@ -27,9 +28,11 @@ class Tetris {
         SDL_Surface* screen_;
         Mix_Music *music_;
 
+        ResourceLoader resourceLoader_;
+
     public:
         /*                         1. Inicialization and destruction                           */
-        Tetris() throw( const char* );
+        Tetris();
         ~Tetris();
 
         /*                               2. Other functions                                    */

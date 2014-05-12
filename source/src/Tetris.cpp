@@ -4,6 +4,7 @@
 
 #include <config.hpp>
 #include <Tetris.hpp>
+#include <iostream>
 
 /*                                        Global constants                                     */
 /***********************************************************************************************/
@@ -16,21 +17,14 @@
 
 /*                               1. Inicialization and destruction                             */
 
-Tetris::Tetris() throw( const char* )
+Tetris::Tetris() :
+    resourceLoader_( { DATA_INSTALL_DIR, DATA_SOURCE_DIR } )
 {
     try{
         screen_ = SDL_SetVideoMode( RES_X, RES_Y, 8, SDL_ANYFORMAT );
         game_ = new Game( screen_ );
 
-        music_ = Mix_LoadMUS( ( std::string( DATA_SOURCE_DIR ) + "/music/Tetris_theme.ogg" ).c_str() );
-
-        if( !music_ ){
-            music_ = Mix_LoadMUS( ( std::string( DATA_INSTALL_DIR ) + "/music/Tetris_theme.ogg" ).c_str() );
-
-            if( !music_ ){
-                throw Mix_GetError();
-            }
-        }
+        music_ = resourceLoader_.loadMusic( "Tetris_theme.ogg" );
 
         SDL_WM_SetCaption( "Moblok'", NULL );
     }catch( const char* ){
@@ -49,7 +43,7 @@ Tetris::~Tetris(){
 
 void Tetris::Start()
 {
-    SDL_Surface *background_ = NULL;
+    SDL_Surface *background_ = nullptr;
     SDL_Event event;
     bool playGame = false;
     bool exitGame = false;
@@ -59,9 +53,11 @@ void Tetris::Start()
 
     while( !exitGame ){
         // Load the main menu background and display it.
-        background_ = IMG_Load( "data/img/menu_background.png" );
+        background_ = resourceLoader_.loadImage( "menu_background.png" );
         SDL_BlitSurface( background_, NULL, screen_, NULL );
         SDL_Flip( screen_ );
+
+        std::cout << "SDL_GetError(): " << SDL_GetError() << std::endl;
 
         // Initialize the available options: play the game or exit it.
         playGame = false;

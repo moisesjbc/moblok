@@ -37,12 +37,17 @@ const SDL_Rect rects[4] = {
 /*                               1. Inicialization and destruction.                            */
 /***********************************************************************************************/
 
-Game::Game( SDL_Surface *screen ) throw( const char* ) : screen_(screen)
+Game::Game( SDL_Surface *screen ) throw( const char* ) :
+    player_( nullptr ),
+    screen_(screen),
+    graphics_( { nullptr } )
 {
     try{
         screen_ = screen;
 
         for( int i=0; i<N_GRAPHICS; i++ ){
+            graphics_[i] = nullptr;
+
             graphics_[i] = IMG_Load( ( std::string( DATA_SOURCE_DIR ) + graphicsPaths[i] ).c_str() );
 
             std::cout << ( std::string( DATA_SOURCE_DIR ) + graphicsPaths[i] ).c_str() << std::endl;
@@ -254,6 +259,8 @@ int Game::Draw() throw()
     DrawGUI();
     player_->matrix_.Draw( screen_, graphics_[TILESET] );
     player_->matrix_.DrawTetromino( screen_, graphics_[TILESET] );
+
+    std::cout << "SDL_GetError(): " << SDL_GetError() << std::endl;
 
     return 0;
 }
