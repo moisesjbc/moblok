@@ -8,8 +8,8 @@ The project is currently inactive, and I don't plan to continue it any time soon
 
 1. Go to the [releases page](https://github.com/Neodivert/moblok/releases).
 2. Find and download the latest release that matches your OS and architecture.
-3a. (Windows only): Unzip the downloaded file and execute moblok.exe.
-3b. (Linux only - DEB): Unzip and install the downloaded DEB package. Then, open a terminal and execute "moblok".
+3. (Windows only): Unzip the downloaded file and execute moblok.exe.
+3. (Linux only - DEB): Unzip and install the downloaded DEB package. Then, open a terminal and execute "moblok".
 4. Enjoy!.
 
 ## Building Moblok' from code
@@ -71,4 +71,4 @@ The music played in the game (directory "share/moblok/music/Tetris_theme.ogg") h
 - Added facilities for building a DEB package for Moblok' from source code.
 
 ### v0.7.0
-First demo. It allows you to play calmly to death (no score, no levels, no victory screen).
+- First demo. It allows you to play calmly to death (no score, no levels, no victory screen).
