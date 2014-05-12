@@ -50,8 +50,6 @@ Game::Game( SDL_Surface *screen ) throw( const char* ) :
 
             graphics_[i] = IMG_Load( ( std::string( DATA_SOURCE_DIR ) + graphicsPaths[i] ).c_str() );
 
-            std::cout << ( std::string( DATA_SOURCE_DIR ) + graphicsPaths[i] ).c_str() << std::endl;
-
             if( !graphics_[i] ){
                 graphics_[i] = IMG_Load( ( std::string( DATA_INSTALL_DIR ) + graphicsPaths[i] ).c_str() );
 
@@ -259,8 +257,6 @@ int Game::Draw() throw()
     DrawGUI();
     player_->matrix_.Draw( screen_, graphics_[TILESET] );
     player_->matrix_.DrawTetromino( screen_, graphics_[TILESET] );
-
-    std::cout << "SDL_GetError(): " << SDL_GetError() << std::endl;
 
     return 0;
 }

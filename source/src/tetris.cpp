@@ -61,8 +61,6 @@ void Tetris::start()
         SDL_BlitSurface( background_, NULL, screen_, NULL );
         SDL_Flip( screen_ );
 
-        std::cout << "SDL_GetError(): " << SDL_GetError() << std::endl;
-
         // Initialize the available options: play the game or exit it.
         playGame = false;
         exitGame = false;

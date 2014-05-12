@@ -10,6 +10,7 @@
 /*                                             Includes                                        */
 /***********************************************************************************************/
 
+#include <resource_loader.hpp>
 #include <player.hpp>
 
 /*                                        Global constants                                     */

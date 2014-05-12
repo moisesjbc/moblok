@@ -12,15 +12,9 @@
 /*                                             Includes                                        */
 /***********************************************************************************************/
 
-extern "C" {
-    #include <SDL/SDL.h>
-    #include <SDL/SDL_image.h>
-    #include <SDL/SDL_mixer.h>
-}
 
 #include <stdexcept>
 #include <matrix.hpp>
-
 
 
 /*                                    Global variables and constants                           */

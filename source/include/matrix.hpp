@@ -13,6 +13,10 @@
 
 #include <tetromino.hpp>
 
+extern "C" {
+    #include <SDL/SDL.h>
+}
+
 typedef const unsigned int CUint;
 
 /*                                        Global constants                                     */
