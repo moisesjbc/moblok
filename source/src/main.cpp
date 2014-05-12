@@ -1,5 +1,5 @@
 
-#include <Tetris.hpp>
+#include <tetris.hpp>
 #include <iostream>
 using namespace std;
 
@@ -23,7 +23,7 @@ int main( int argc, char** argv )
 
         Tetris tetris;
 
-        tetris.Start();
+        tetris.start();
 
     }catch( const char errorMsg[] ){
         std::cout << errorMsg << std::endl;

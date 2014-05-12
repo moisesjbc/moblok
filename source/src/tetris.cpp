@@ -3,7 +3,7 @@
 /***********************************************************************************************/
 
 #include <config.hpp>
-#include <Tetris.hpp>
+#include <tetris.hpp>
 #include <iostream>
 
 /*                                        Global constants                                     */
@@ -15,7 +15,9 @@
 /*                                       Type definitions                                      */
 /***********************************************************************************************/
 
-/*                               1. Inicialization and destruction                             */
+/***
+ * 1. Construction and destruction
+ ***/
 
 Tetris::Tetris() :
     resourceLoader_( { DATA_INSTALL_DIR, DATA_SOURCE_DIR } )
@@ -39,9 +41,11 @@ Tetris::~Tetris(){
 }
 
 
-/*                                       2. Other functions                                    */
+/***
+ * 2. Game initialization
+ ***/
 
-void Tetris::Start()
+void Tetris::start()
 {
     SDL_Surface *background_ = nullptr;
     SDL_Event event;

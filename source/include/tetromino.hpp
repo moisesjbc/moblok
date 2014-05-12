@@ -18,13 +18,9 @@ extern "C" {
     #include <SDL/SDL_mixer.h>
 }
 
-//#include "include/IL/buttons/ButtonsGroup.hpp"
-
 #include <stdexcept>
+#include <matrix.hpp>
 
-#include "Matrix.hpp"
-
-//#include "include/IL/text_renderer/TextRenderer.hpp"
 
 
 /*                                    Global variables and constants                           */

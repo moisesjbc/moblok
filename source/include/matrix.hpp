@@ -11,7 +11,7 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-#include "Tetromino.hpp"
+#include <tetromino.hpp>
 
 typedef const unsigned int CUint;
 

@@ -12,7 +12,7 @@
 /***********************************************************************************************/
 
 #include <resource_loader.hpp>
-#include "Game.hpp"
+#include <game.hpp>
 
 /*                                        Global constants                                     */
 /***********************************************************************************************/
@@ -31,12 +31,17 @@ class Tetris {
         ResourceLoader resourceLoader_;
 
     public:
-        /*                         1. Inicialization and destruction                           */
+        /***
+         * 1. Construction and destruction
+         ***/
         Tetris();
         ~Tetris();
 
-        /*                               2. Other functions                                    */
-        void Start();
+
+        /***
+         * 2. Game initialization
+         ***/
+        void start();
 };
 
 
