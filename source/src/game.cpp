@@ -15,10 +15,10 @@ const SDL_Color blackColor = {0,0,0,0};
 #define PROJ_SOURCE_DIR_DEFINE "${CMAKE_HOME_DIRECTORY}"
 
 const char graphicsPaths[4][70] = {
-    "/img/tileset.png",	 			// TILESET
-    "/img/score.png",        		// SCORE
-    "/img/next_tetromino.png",  	// NEXT_TETROMINO
-    "/img/pause_text.png"           // PAUSE_TEXT
+    "tileset.png",	 			// TILESET
+    "score.png",        		// SCORE
+    "next_tetromino.png",       // NEXT_TETROMINO
+    "pause_text.png"            // PAUSE_TEXT
 };
 
 const SDL_Rect rects[4] = {
@@ -37,8 +37,7 @@ const SDL_Rect rects[4] = {
 /*                               1. Inicialization and destruction.                            */
 /***********************************************************************************************/
 
-Game::Game( SDL_Surface *screen ) throw( const char* ) :
-    player_( nullptr ),
+Game::Game( SDL_Surface *screen, const ResourceLoader* resourceLoader ) throw( const char* ) :
     screen_(screen),
     graphics_( { nullptr } )
 {
@@ -46,22 +45,8 @@ Game::Game( SDL_Surface *screen ) throw( const char* ) :
         screen_ = screen;
 
         for( int i=0; i<N_GRAPHICS; i++ ){
-            graphics_[i] = nullptr;
-
-            graphics_[i] = IMG_Load( ( std::string( DATA_SOURCE_DIR ) + graphicsPaths[i] ).c_str() );
-
-            if( !graphics_[i] ){
-                graphics_[i] = IMG_Load( ( std::string( DATA_INSTALL_DIR ) + graphicsPaths[i] ).c_str() );
-
-                if( !graphics_[i] ){
-                    strcpy( errorMsg, "Game::Error - Unable to load resource - " );
-                    strcat( errorMsg, IMG_GetError() );
-                    throw errorMsg;
-                }
-            }
+            graphics_[i] = resourceLoader->loadImage( graphicsPaths[i] );
         }
-
-        player_ = new Player();
 
     }catch( const char* ){
         throw;
@@ -76,7 +61,6 @@ Game::~Game() throw()
     for( int i=0; i<N_GRAPHICS; i++ ){
         SDL_FreeSurface( graphics_[i] );
     }
-    delete player_;
 }
 
 
@@ -92,7 +76,7 @@ void Game::NewGame() throw()
 
     SDL_FillRect( screen_, NULL, SDL_MapRGB( screen_->format, 20, 171, 180 ) );
 
-    player_->Reset();
+    player_.Reset();
     GameLoop();
 
     // Enable all the events.
@@ -116,7 +100,7 @@ int Game::GameLoop() throw()
     SDL_Flip( screen_ );
 
     // Game loop
-    while( !exitGame && !player_->gameOver_ ){
+    while( !exitGame && !player_.gameOver_ ){
 
         t0 = SDL_GetTicks();
         do{
@@ -128,26 +112,26 @@ int Game::GameLoop() throw()
 
                         switch( event.key.keysym.sym ){
                             case SDLK_LEFT:
-                                if( !player_->matrix_.MoveTetromino( -1 ) ){
-                                    player_->matrix_.DrawTetromino( screen_, graphics_[TILESET] );
+                                if( !player_.matrix_.MoveTetromino( -1 ) ){
+                                    player_.matrix_.DrawTetromino( screen_, graphics_[TILESET] );
                                     SDL_Flip( screen_ );
                                 }
                             break;
                             case SDLK_RIGHT:
-                                if( !player_->matrix_.MoveTetromino( 1 ) ){
-                                    player_->matrix_.DrawTetromino( screen_, graphics_[TILESET] );
+                                if( !player_.matrix_.MoveTetromino( 1 ) ){
+                                    player_.matrix_.DrawTetromino( screen_, graphics_[TILESET] );
                                     SDL_Flip( screen_ );
                                 }
                             break;
                             case SDLK_UP:
-                                if( !player_->matrix_.RotateTetromino() ){
-                                    player_->matrix_.DrawTetromino( screen_, graphics_[TILESET] );
+                                if( !player_.matrix_.RotateTetromino() ){
+                                    player_.matrix_.DrawTetromino( screen_, graphics_[TILESET] );
                                     SDL_Flip( screen_ );
                                 }
                             break;
                             case SDLK_DOWN:
-                                if( !player_->matrix_.TetrominoFall() ){
-                                    player_->matrix_.DrawTetromino( screen_, graphics_[TILESET] );
+                                if( !player_.matrix_.TetrominoFall() ){
+                                    player_.matrix_.DrawTetromino( screen_, graphics_[TILESET] );
                                     SDL_Flip( screen_ );
                                 }
                             break;
@@ -182,7 +166,7 @@ int Game::GameLoop() throw()
         Update();
 
         // Display.
-        player_->matrix_.DrawTetromino( screen_, graphics_[TILESET] );
+        player_.matrix_.DrawTetromino( screen_, graphics_[TILESET] );
         SDL_Flip( screen_ );
     }
 
@@ -194,22 +178,22 @@ void Game::Update() throw()
 {
     int erasedLines = 0;
 
-    if( player_->matrix_.TetrominoFall() < 0 ){
-        erasedLines = player_->matrix_.EraseLines();
+    if( player_.matrix_.TetrominoFall() < 0 ){
+        erasedLines = player_.matrix_.EraseLines();
         if( erasedLines ){
-            player_->matrix_.Draw( screen_, graphics_[TILESET] );
+            player_.matrix_.Draw( screen_, graphics_[TILESET] );
             SDL_Flip( screen_ );
-            player_->filledLines_ += erasedLines;
-            player_->score_ += 10*erasedLines;
+            player_.filledLines_ += erasedLines;
+            player_.score_ += 10*erasedLines;
 
-            if( player_->filledLines_ >= player_->level_*10 ){
-                player_->score_ += 100;
-                player_->level_++;
+            if( player_.filledLines_ >= player_.level_*10 ){
+                player_.score_ += 100;
+                player_.level_++;
                 lockTime_ -= 10;
             }
         }
-        player_->gameOver_ = (player_->matrix_.NewTetromino( player_->nextTetromino_ ) == -1);
-        player_->nextTetromino_ = (rand()%7)+1;
+        player_.gameOver_ = (player_.matrix_.NewTetromino( player_.nextTetromino_ ) == -1);
+        player_.nextTetromino_ = (rand()%7)+1;
 
         DrawGUI();
     }
@@ -244,7 +228,7 @@ void Game::Pause( bool& exitGame ) throw()
 int Game::DrawGUI() throw()
 {
     // Draws the next Tetromino;
-    SDL_Rect srcRect = { (Sint16)((player_->nextTetromino_-1)*160), 0, 160, 160 };
+    SDL_Rect srcRect = { (Sint16)((player_.nextTetromino_-1)*160), 0, 160, 160 };
     SDL_Rect dstRect = rects[NEXT_TETROMINO_RECT];
     return SDL_BlitSurface( graphics_[NEXT_TETROMINO], &srcRect, screen_, &dstRect );
 }
@@ -255,8 +239,8 @@ int Game::Draw() throw()
     SDL_Rect dstRect = rects[SCORE_RECT_1];
     SDL_BlitSurface( graphics_[SCORE], NULL, screen_, &dstRect );
     DrawGUI();
-    player_->matrix_.Draw( screen_, graphics_[TILESET] );
-    player_->matrix_.DrawTetromino( screen_, graphics_[TILESET] );
+    player_.matrix_.Draw( screen_, graphics_[TILESET] );
+    player_.matrix_.DrawTetromino( screen_, graphics_[TILESET] );
 
     return 0;
 }

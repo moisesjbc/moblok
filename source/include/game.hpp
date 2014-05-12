@@ -46,7 +46,7 @@ const int INITIAL_LOCK_TIME = 250;
 
 class Game {
     private:
-        Player *player_;
+        Player player_;
 
         SDL_Surface *screen_;
         //tr::TextRenderer* textRenderer;
@@ -58,7 +58,7 @@ class Game {
         /***************************************************************************************/
         /*                            1. Inicialization and destruction.                       */
         /***************************************************************************************/
-        Game( SDL_Surface *screen  )    throw( const char* );
+        Game( SDL_Surface *screen, const ResourceLoader* resourceLoader )    throw( const char* );
         ~Game()                         throw();
         void NewGame()                  throw();
 

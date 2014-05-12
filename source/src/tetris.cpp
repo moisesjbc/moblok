@@ -24,7 +24,7 @@ Tetris::Tetris() :
 {
     try{
         screen_ = SDL_SetVideoMode( RES_X, RES_Y, 8, SDL_ANYFORMAT );
-        game_ = new Game( screen_ );
+        game_ = new Game( screen_, &resourceLoader_ );
 
         music_ = resourceLoader_.loadMusic( "Tetris_theme.ogg" );
 
