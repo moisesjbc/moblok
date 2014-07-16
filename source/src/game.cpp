@@ -39,7 +39,7 @@ const SDL_Rect rects[4] = {
 
 Game::Game( SDL_Surface *screen, const ResourceLoader* resourceLoader ) throw( const char* ) :
     screen_(screen),
-    graphics_( { nullptr } )
+    graphics_{ nullptr }
 {
     try{
         screen_ = screen;

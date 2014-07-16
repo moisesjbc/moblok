@@ -15,9 +15,14 @@ file( GLOB ${PROJECT_NAME}_INCLUDES source/include/*.hpp )
 file( GLOB ${PROJECT_NAME}_SOURCES source/src/*.cpp )
 
 # Load SDL
-find_package( SDL REQUIRED )
-find_package( SDL_image REQUIRED )
-find_package( SDL_mixer REQUIRED )
+#find_package( SDL2 REQUIRED )
+#find_package( SDL2_image REQUIRED )
+#find_package( SDL2_mixer REQUIRED )
+
+INCLUDE( FindPkgConfig )
+PKG_SEARCH_MODULE( SDL2 REQUIRED sdl2 )
+PKG_SEARCH_MODULE( SDL2IMAGE REQUIRED SDL2_image>=2.0.0 )
+PKG_SEARCH_MODULE( SDL2MIXER REQUIRED SDL2_mixer>=2.0.0 )
 
 # Include directories
 include_directories( source/include )
@@ -29,11 +34,11 @@ set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -ansi -Werror -pedantic -
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES} ${${PROJECT_NAME}_INCLUDES} )
 
 # Target libraries
-target_link_libraries (${PROJECT_NAME} ${SDL_LIBRARY} )
-target_link_libraries (${PROJECT_NAME} ${SDLIMAGE_LIBRARY} )
-target_link_libraries (${PROJECT_NAME} ${SDLMIXER_LIBRARY} )
+target_link_libraries (${PROJECT_NAME} ${SDL2_LIBRARY} )
+target_link_libraries (${PROJECT_NAME} ${SDLIMAGE2_LIBRARY} )
+target_link_libraries (${PROJECT_NAME} ${SDLMIXER2_LIBRARY} )
 
-message( STATUS "${SDL_LIBRARY}" )
+message( STATUS "${SDL2_LIBRARY}" )
 message( STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}" )
 message( STATUS "CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}" )
 
@@ -61,11 +66,11 @@ set( CPACK_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR
 if( UNIX )
 #DEB
 set( CPACK_DEBIAN_PACKAGE_MAINTAINER "Moisés J. Bonilla Caraballo <moisesjbc@gmail.com>" )
-set( CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl1.2debian (>= 1.2), libsdl-mixer1.2 (>= 1.2), libsdl-image1.2 (>= 1.2), g++ (>= 4.6), cmake (>= 2.8)" )
+set( CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl1.2debian (>= 1.2), libsdl-mixer1.2 (>= 1.2), libsdl-image1.2 (>= 1.2), g++ (>= 4.6), cmake (>= 2.8)" ) #TODO: Change this to SDL2
 set( CPACK_DEBIAN_PACKAGE_SECTION "games" )
 
 #RPM
-#set( CPACK_RPM_PACKAGE_REQUIRES "libsdl1.2 (>= 1.2), libsdl-mixer1.2 (>= 1.2), libsdl-image1.2 (>= 1.2), g++ (>= 4.6), cmake (>= 2.8)" )
+#set( CPACK_RPM_PACKAGE_REQUIRES "libsdl1.2 (>= 1.2), libsdl-mixer1.2 (>= 1.2), libsdl-image1.2 (>= 1.2), g++ (>= 4.6), cmake (>= 2.8)" ) #TODO: Change this to SDL2
 endif( UNIX )
 
 include(CPack)
