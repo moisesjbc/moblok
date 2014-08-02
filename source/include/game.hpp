@@ -48,9 +48,11 @@ class Game {
     private:
         Player player_;
 
-        SDL_Surface *screen_;
+        SDL_Window *screen_;
+        SDL_Renderer* renderer_;
+
         //tr::TextRenderer* textRenderer;
-        SDL_Surface *graphics_[N_GRAPHICS];
+        SDL_Texture* graphics_[N_GRAPHICS];
         SDL_Rect rects_[N_RECTS];
 
         unsigned int lockTime_;
@@ -58,7 +60,7 @@ class Game {
         /***************************************************************************************/
         /*                            1. Inicialization and destruction.                       */
         /***************************************************************************************/
-        Game( SDL_Surface *screen, const ResourceLoader* resourceLoader )    throw( const char* );
+        Game( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader )    throw( const char* );
         ~Game()                         throw();
         void NewGame()                  throw();
 

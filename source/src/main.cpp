@@ -14,7 +14,7 @@ int main( int argc, char** argv )
             exit(1);
         }
         if( Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) < 0 ){
-            std::cout << Mix_GetError() << std::endl;
+            std::cerr << Mix_GetError() << std::endl;
             exit(1);
         }
 
@@ -26,7 +26,7 @@ int main( int argc, char** argv )
         tetris.start();
 
     }catch( const char errorMsg[] ){
-        std::cout << errorMsg << std::endl;
+        std::cerr << errorMsg << std::endl;
     }
 
 	return 0;

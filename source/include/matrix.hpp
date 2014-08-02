@@ -88,8 +88,8 @@ class Matrix {
         /***************************************************************************************/
         /*                              6. Graphic functions.                                  */
         /***************************************************************************************/
-        int Draw( SDL_Surface *screen, SDL_Surface *tileset )           throw();
-        int DrawTetromino( SDL_Surface *surface, SDL_Surface *tileset ) throw();
+        int Draw( SDL_Renderer* renderer, SDL_Texture* tileset )            throw();
+        int DrawTetromino( SDL_Renderer* renderer, SDL_Texture* tileset )   throw();
 };
 
 

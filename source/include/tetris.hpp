@@ -25,8 +25,9 @@
 class Tetris {
     private:
         Game *game_;
-        SDL_Surface* screen_;
+        SDL_Window* screen_; // TODO: Rename as window.
         Mix_Music *music_;
+        SDL_Renderer* renderer_;
 
         ResourceLoader resourceLoader_;
 

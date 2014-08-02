@@ -5,6 +5,7 @@
 #include <config.hpp>
 #include <tetris.hpp>
 #include <iostream>
+#include <cassert>
 
 /*                                        Global constants                                     */
 /***********************************************************************************************/
@@ -23,19 +24,31 @@ Tetris::Tetris() :
     resourceLoader_( { DATA_INSTALL_DIR, DATA_SOURCE_DIR } )
 {
     try{
-        screen_ = SDL_SetVideoMode( RES_X, RES_Y, 8, SDL_ANYFORMAT );
-        game_ = new Game( screen_, &resourceLoader_ );
+        screen_ = SDL_CreateWindow( "Moblok'",
+                                    SDL_WINDOWPOS_UNDEFINED,
+                                    SDL_WINDOWPOS_UNDEFINED,
+                                    RES_X,
+                                    RES_Y,
+                                    0 );
+        renderer_ = SDL_CreateRenderer( screen_, -1, 0);
+
+        // TODO: Add checks;
+
+        SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "linear" );
+        SDL_RenderSetLogicalSize( renderer_, RES_X, RES_Y );
+
+
+        game_ = new Game( screen_, renderer_, &resourceLoader_ );
 
         music_ = resourceLoader_.loadMusic( "Tetris_theme.ogg" );
-
-        SDL_WM_SetCaption( "Moblok'", NULL );
     }catch( const char* ){
         throw;
     }
 }
 
 Tetris::~Tetris(){
-    SDL_FreeSurface( screen_ );
+    SDL_DestroyWindow( screen_ );
+    SDL_DestroyRenderer( renderer_ );
     Mix_FreeMusic( music_ );
     delete game_;
 }
@@ -47,7 +60,7 @@ Tetris::~Tetris(){
 
 void Tetris::start()
 {
-    SDL_Surface *background_ = nullptr;
+    SDL_Texture* background_ = nullptr;
     SDL_Event event;
     bool playGame = false;
     bool exitGame = false;
@@ -57,9 +70,9 @@ void Tetris::start()
 
     while( !exitGame ){
         // Load the main menu background and display it.
-        background_ = resourceLoader_.loadImage( "menu_background.png" );
-        SDL_BlitSurface( background_, NULL, screen_, NULL );
-        SDL_Flip( screen_ );
+        background_ = resourceLoader_.loadImage( "menu_background.png", renderer_ );
+        SDL_RenderCopy( renderer_, background_, nullptr, nullptr );
+        SDL_RenderPresent( renderer_ );
 
         // Initialize the available options: play the game or exit it.
         playGame = false;
@@ -84,7 +97,7 @@ void Tetris::start()
         }while( !playGame && !exitGame );
 
         // Free resources.
-        SDL_FreeSurface( background_ );
+        SDL_DestroyTexture( background_ );
 
         // Start the game if player wants to.
         if( playGame ){

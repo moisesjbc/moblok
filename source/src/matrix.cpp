@@ -3,6 +3,7 @@
 /***********************************************************************************************/
 
 #include <matrix.hpp>
+#include <iostream>
 
 
 
@@ -211,26 +212,28 @@ int Matrix::EraseLines() throw()
 /*                                      3. Graphic functions.                                  */
 /***********************************************************************************************/
 
-int Matrix::Draw( SDL_Surface *screen, SDL_Surface *tileset ) throw()
+int Matrix::Draw( SDL_Renderer* renderer, SDL_Texture* tileset ) throw()
 {
+    unsigned int row, column;
+
     SDL_Rect srcRect_ = {0, 0, TILE_SIZE, TILE_SIZE};
-    SDL_Rect dstRect_ = {MATRIX_X, MATRIX_Y, 0, 0};
-    for( unsigned int i=2; i<(MATRIX_H+2); i++ ){
-        for( unsigned int j=0; j<MATRIX_W; j++ ){
-            srcRect_.x = cells_[i][j] << TILE_SIZE_2;
-            if( SDL_BlitSurface( tileset, &srcRect_, screen, &dstRect_ ) < 0 ){
-                return -1;
-            }
+    SDL_Rect dstRect_ = {MATRIX_X, MATRIX_Y, TILE_SIZE, TILE_SIZE};
+    for( row = 2; row < (MATRIX_H+2); row++ ){
+        for( column=0; column<MATRIX_W; column++ ){
+            srcRect_.x = cells_[row][column] << TILE_SIZE_2;
+            SDL_RenderCopy( renderer, tileset, &srcRect_, &dstRect_ );
             dstRect_.x += TILE_SIZE;
         }
         dstRect_.x = MATRIX_X;
         dstRect_.y += TILE_SIZE;
     }
 
+    DrawTetromino( renderer, tileset );
+
     return 0;
 }
 
-int Matrix::DrawTetromino( SDL_Surface *surface, SDL_Surface *tileset ) throw()
+int Matrix::DrawTetromino( SDL_Renderer* renderer, SDL_Texture* tileset ) throw()
 {
     SDL_Rect srcRect = { (Sint16)(tetromino_.color_<<TILE_SIZE_2), 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };
     SDL_Rect dstRect = { 0, 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };
@@ -240,7 +243,8 @@ int Matrix::DrawTetromino( SDL_Surface *surface, SDL_Surface *tileset ) throw()
         if( tetromino_.blocks_[LAST_POS][i][Y] >= 2 ){
             dstRect.x = MATRIX_X+((tetromino_.blocks_[LAST_POS][i][X])<<TILE_SIZE_2);
             dstRect.y = MATRIX_Y+((tetromino_.blocks_[LAST_POS][i][Y]-2)<<TILE_SIZE_2);
-            SDL_FillRect( surface, &dstRect, 0xFFFFFFFF );
+            SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
+            SDL_RenderFillRect( renderer, &dstRect );
         }
     }
 
@@ -249,7 +253,7 @@ int Matrix::DrawTetromino( SDL_Surface *surface, SDL_Surface *tileset ) throw()
         if( tetromino_.blocks_[CURRENT_POS][i][Y] >= 2 ){
             dstRect.x = MATRIX_X+(tetromino_.blocks_[CURRENT_POS][i][X]<<TILE_SIZE_2);
             dstRect.y = MATRIX_Y+((tetromino_.blocks_[CURRENT_POS][i][Y]-2)<<TILE_SIZE_2);
-            if( SDL_BlitSurface( tileset, &srcRect, surface, &dstRect ) < 0 ) return -1;
+            if( SDL_RenderCopy( renderer, tileset, &srcRect, &dstRect ) < 0 ) return -1;
         }
     }
 
