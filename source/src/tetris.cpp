@@ -38,7 +38,7 @@ Tetris::Tetris() :
         SDL_RenderSetLogicalSize( renderer_, RES_X, RES_Y );
 
 
-        game_ = new Game( screen_, renderer_, &resourceLoader_ );
+        game_ = new GameLoop( screen_, renderer_, &resourceLoader_ );
 
         music_ = resourceLoader_.loadMusic( "Tetris_theme.ogg" );
     }catch( const char* ){
@@ -55,7 +55,7 @@ Tetris::~Tetris(){
 
 
 /***
- * 2. Game initialization
+ * 2. GameLoop initialization
  ***/
 
 void Tetris::start()

@@ -37,7 +37,7 @@ const SDL_Rect rects[4] = {
 /*                               1. Inicialization and destruction.                            */
 /***********************************************************************************************/
 
-Game::Game( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader ) throw( const char* ) :
+GameLoop::GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader ) throw( const char* ) :
     screen_(screen),
     renderer_( renderer ),
     graphics_{ nullptr }
@@ -52,12 +52,12 @@ Game::Game( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* re
     }catch( const char* ){
         throw;
     }catch( std::bad_alloc& ){
-        strcpy( errorMsg, "Game::Error - Memory cant be allocated" );
+        strcpy( errorMsg, "GameLoop::Error - Memory cant be allocated" );
         throw errorMsg;
     }
 }
 
-Game::~Game() throw()
+GameLoop::~GameLoop() throw()
 {
     for( int i=0; i<N_GRAPHICS; i++ ){
         SDL_DestroyTexture( graphics_[i] );
@@ -65,7 +65,7 @@ Game::~Game() throw()
 }
 
 
-void Game::NewGame() throw()
+void GameLoop::NewGame() throw()
 {
     // Ignore all events except SDL_QUIT, SDL_KEYDOWN and SDL_VIDEOEXPOSE.
     SetEventsState( SDL_IGNORE );
@@ -75,7 +75,7 @@ void Game::NewGame() throw()
 
     player_.Reset();
     matrix_.Reset();
-    GameLoop();
+    MainLoop();
 
     // Enable all the events.
     SetEventsState( SDL_ENABLE );
@@ -83,10 +83,10 @@ void Game::NewGame() throw()
 
 
 /***********************************************************************************************/
-/*                                   2. Game loop's related functions.                         */
+/*                                   2. GameLoop loop's related functions.                         */
 /***********************************************************************************************/
 
-int Game::GameLoop() throw()
+int GameLoop::MainLoop() throw()
 {
     SDL_Event event;
     lockTime_ = INITIAL_LOCK_TIME;
@@ -96,7 +96,7 @@ int Game::GameLoop() throw()
     // Draws the matrix and GUI.
     Draw();
 
-    // Game loop
+    // GameLoop loop
     while( !exitGame && !player_.gameOver_ ){
 
         t0 = SDL_GetTicks();
@@ -157,7 +157,7 @@ int Game::GameLoop() throw()
 }
 
 
-void Game::Update() throw()
+void GameLoop::Update() throw()
 {
     int erasedLines = 0;
 
@@ -183,7 +183,7 @@ void Game::Update() throw()
 }
 
 
-void Game::Pause( bool& exitGame ) throw()
+void GameLoop::Pause( bool& exitGame ) throw()
 {
     SDL_Event event;
     SDL_Rect dstRect = rects[PAUSE_TEXT_RECT];
@@ -208,7 +208,7 @@ void Game::Pause( bool& exitGame ) throw()
 /***********************************************************************************************/
 
 
-int Game::DrawGUI() throw()
+int GameLoop::DrawGUI() throw()
 {
     // Draw the score panel.
     SDL_Rect dstRect = rects[SCORE_RECT_1];
@@ -221,7 +221,7 @@ int Game::DrawGUI() throw()
 }
 
 
-int Game::Draw() throw()
+int GameLoop::Draw() throw()
 {
     // Clear screen with background color.
     SDL_SetRenderDrawColor( renderer_, 20, 171, 180, 255);
@@ -243,7 +243,7 @@ int Game::Draw() throw()
 /*                                       4. Auxiliar functions.                                */
 /***********************************************************************************************/
 
-void Game::SetEventsState( int state ) const throw()
+void GameLoop::SetEventsState( int state ) const throw()
 {
     (void)( state ); // TODO: Reimplement this.
     /*

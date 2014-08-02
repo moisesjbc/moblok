@@ -45,7 +45,7 @@ const int INITIAL_LOCK_TIME = 250;
     Otherwise they return -1.
 */
 
-class Game {
+class GameLoop {
     private:
         Player player_;
 
@@ -63,14 +63,14 @@ class Game {
         /***************************************************************************************/
         /*                            1. Inicialization and destruction.                       */
         /***************************************************************************************/
-        Game( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader )    throw( const char* );
-        ~Game()                         throw();
+        GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader )    throw( const char* );
+        ~GameLoop()                         throw();
         void NewGame()                  throw();
 
         /***************************************************************************************/
-        /*                             2. Game loop's related functions.                       */
+        /*                             2. GameLoop loop's related functions.                       */
         /***************************************************************************************/
-        int GameLoop()  throw();
+        int MainLoop()  throw();
         void Update()   throw();
         void Pause( bool& exitGame ) throw();
 

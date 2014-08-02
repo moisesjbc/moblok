@@ -24,7 +24,7 @@
 
 class Tetris {
     private:
-        Game *game_;
+        GameLoop *game_;
         SDL_Window* screen_; // TODO: Rename as window.
         Mix_Music *music_;
         SDL_Renderer* renderer_;
@@ -40,7 +40,7 @@ class Tetris {
 
 
         /***
-         * 2. Game initialization
+         * 2. GameLoop initialization
          ***/
         void start();
 };
