@@ -108,30 +108,21 @@ int Game::GameLoop() throw()
 
                         switch( event.key.keysym.sym ){
                             case SDLK_LEFT:
-                                if( !player_.matrix_.MoveTetromino( -1 ) ){
-                                    player_.matrix_.DrawTetromino( renderer_, graphics_[TILESET] );
-                                }
+                                player_.matrix_.MoveTetromino( -1 );
                             break;
                             case SDLK_RIGHT:
-                                if( !player_.matrix_.MoveTetromino( 1 ) ){
-                                    player_.matrix_.DrawTetromino( renderer_, graphics_[TILESET] );
-                                }
+                                player_.matrix_.MoveTetromino( 1 );
                             break;
                             case SDLK_UP:
-                                if( !player_.matrix_.RotateTetromino() ){
-                                    player_.matrix_.DrawTetromino( renderer_, graphics_[TILESET] );
-                                }
+                                player_.matrix_.RotateTetromino();
                             break;
                             case SDLK_DOWN:
-                                if( !player_.matrix_.TetrominoFall() ){
-                                    player_.matrix_.DrawTetromino( renderer_, graphics_[TILESET] );
-                                }
+                                player_.matrix_.TetrominoFall();
                             break;
                             case SDLK_ESCAPE:
                                 Mix_PauseMusic();
                                 Pause( exitGame );
                                 Mix_ResumeMusic();
-                                Draw();
                             break;
                             default:
                             break;
@@ -159,7 +150,6 @@ int Game::GameLoop() throw()
 
         // Display.
         Draw();
-        SDL_RenderPresent( renderer_ );
     }
 
     return 0;
