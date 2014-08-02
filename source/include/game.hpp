@@ -12,6 +12,7 @@
 
 #include <resource_loader.hpp>
 #include <player.hpp>
+#include <matrix.hpp>
 
 /*                                        Global constants                                     */
 /***********************************************************************************************/
@@ -56,6 +57,8 @@ class Game {
         SDL_Rect rects_[N_RECTS];
 
         unsigned int lockTime_;
+
+        Matrix matrix_;
     public:
         /***************************************************************************************/
         /*                            1. Inicialization and destruction.                       */

@@ -3,6 +3,7 @@
 /***********************************************************************************************/
 
 #include <player.hpp>
+#include <cstdlib>
 
 /*                                        Global constants                                     */
 /***********************************************************************************************/
@@ -32,6 +33,5 @@ void Player::Reset()
     level_ = 1;
     score_ = filledLines_ = gameOver_ = 0;
     nextTetromino_ = (rand()%7)+1;
-    matrix_.Reset();
 }
 
