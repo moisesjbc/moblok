@@ -43,10 +43,11 @@ const int TETROMINO_Y0 = 1;
 /*                                        Type declarations                                    */
 /***********************************************************************************************/
 
-struct Tetromino {
-    int blocks_[3][4][2];
-    int x_, y_;
-    int color_;
+class Tetromino {
+    public:
+        int blocks_[3][4][2];
+        int x_, y_;
+        int color_;
 };
 
 #endif

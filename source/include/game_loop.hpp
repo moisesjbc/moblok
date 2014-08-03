@@ -37,6 +37,8 @@ enum RECTS {
     N_RECTS
 };
 
+const unsigned int REFRESH_TIME = 33; // 33 ms ~ 30 fps.
+
 const int INITIAL_LOCK_TIME = 250;
 
 

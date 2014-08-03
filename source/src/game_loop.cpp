@@ -145,7 +145,7 @@ int GameLoop::MainLoop() throw()
 
 
             t1 = SDL_GetTicks();
-        }while( t1-t0 < lockTime_ );
+        }while( t1-t0 < REFRESH_TIME );
 
         // Logic update.
         Update();
