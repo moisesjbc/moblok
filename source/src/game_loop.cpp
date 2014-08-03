@@ -49,7 +49,7 @@ GameLoop::GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLo
             graphics_[i] = resourceLoader->loadImage( graphicsPaths[i], renderer_ );
         }
 
-        font_ = resourceLoader->loadFont( "LiberationSans-Bold.ttf", 12 );
+        font_ = resourceLoader->loadFont( "LiberationSans-Bold.ttf", 20 );
 
     }catch( const char* ){
         throw;
@@ -85,7 +85,7 @@ void GameLoop::NewGame() throw()
 
 
 /***********************************************************************************************/
-/*                                   2. GameLoop loop's related functions.                         */
+/*                                   2. GameLoop loop's related functions.                     */
 /***********************************************************************************************/
 
 int GameLoop::MainLoop() throw()
@@ -222,9 +222,13 @@ int GameLoop::DrawGUI() throw()
     SDL_RenderCopy( renderer_, graphics_[SCORE], nullptr, &dstRect );
 
     // Draw the score.
-    sprintf( scoreString, "%05i", player_.score_ );
+    sprintf( scoreString, "%012i", player_.score_ );
     scoreSurface = TTF_RenderText_Solid( font_, scoreString, scoreColor );
     scoreTexture = SDL_CreateTextureFromSurface( renderer_, scoreSurface );
+    dstRect.x = dstRect.x + ( dstRect.w - scoreSurface->w ) / 2;
+    dstRect.y = dstRect.y + ( dstRect.h - scoreSurface->h ) / 2;
+    dstRect.w = scoreSurface->w;
+    dstRect.h = scoreSurface->h;
     SDL_RenderCopy( renderer_, scoreTexture, nullptr, &dstRect );
     SDL_FreeSurface( scoreSurface );
     SDL_DestroyTexture( scoreTexture );
