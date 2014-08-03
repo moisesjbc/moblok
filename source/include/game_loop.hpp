@@ -26,7 +26,7 @@ enum GRAPHICS {
     TILESET = 0,
     SCORE,
     NEXT_TETROMINO,
-    PAUSE_TEXT,
+    PAUSE_MENU,
     N_GRAPHICS
 };
 
@@ -34,7 +34,6 @@ enum RECTS {
     SCORE_RECT_1 = 0,
     SCORE_RECT_2,
     NEXT_TETROMINO_RECT,
-    PAUSE_TEXT_RECT,
     N_RECTS
 };
 

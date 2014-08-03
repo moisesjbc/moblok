@@ -18,14 +18,13 @@ const char graphicsPaths[4][70] = {
     "tileset.png",	 			// TILESET
     "score.png",        		// SCORE
     "next_tetromino.png",       // NEXT_TETROMINO
-    "pause_text.png"            // PAUSE_TEXT
+    "pause_menu.png"            // PAUSE_MENU
 };
 
 const SDL_Rect rects[4] = {
     { 677, 64, 160, 26 },   // SCORE_RECT_1
     { 753, 67, 80, 21 },    // SCORE_RECT_2
-    { 677, 100, 160, 160 }, // NEXT_TETROMINO_RECT
-    { 365, 100, 0, 0 }      // PAUSE_TEXT
+    { 677, 100, 160, 160 }  // NEXT_TETROMINO_RECT
 };
 
 
@@ -123,9 +122,9 @@ int GameLoop::MainLoop() throw()
                                 matrix_.TetrominoFall();
                             break;
                             case SDLK_ESCAPE:
-                                Mix_PauseMusic();
+                                //Mix_PauseMusic();
                                 Pause( exitGame );
-                                Mix_ResumeMusic();
+                                //Mix_ResumeMusic();
                             break;
                             default:
                             break;
@@ -188,20 +187,50 @@ void GameLoop::Update() throw()
 void GameLoop::Pause( bool& exitGame ) throw()
 {
     SDL_Event event;
-    SDL_Rect dstRect = rects[PAUSE_TEXT_RECT];
+    bool exitPauseMenu = false;
+    int pauseMenuWidth, pauseMenuHeight;
 
-    SDL_RenderCopy( renderer_, graphics_[PAUSE_TEXT], nullptr, &dstRect );
+    SDL_QueryTexture( graphics_[PAUSE_MENU],
+                      nullptr,
+                      nullptr,
+                      &pauseMenuWidth,
+                      &pauseMenuHeight );
 
+    SDL_Rect pauseMenuRect = {
+        (RES_X - pauseMenuWidth ) >> 1,
+        (RES_Y - pauseMenuHeight ) >> 1,
+        pauseMenuWidth,
+        pauseMenuHeight
+    };
+
+    SDL_RenderCopy( renderer_, graphics_[PAUSE_MENU], nullptr, &pauseMenuRect );
     SDL_RenderPresent( renderer_ );
 
-    // Keep waiting until player press a key.
-    do {
-        SDL_WaitEvent( &event );
-    }while( ( event.type != SDL_QUIT ) && ( event.type != SDL_KEYDOWN ) );
 
-    // Check if user wants to exit game instead of resume it.
-    exitGame = ( event.type == SDL_QUIT )
-                || ( ( event.type == SDL_KEYDOWN ) && ( event.key.keysym.sym == SDLK_F1 ) );
+    while( !exitPauseMenu ){
+        // Keep waiting until player press a valid key.
+        SDL_WaitEvent( &event );
+
+        // Process user event.
+        if( event.type == SDL_QUIT ){
+            exitGame = true;
+        }else if( event.type == SDL_KEYDOWN ){
+            SDL_Keycode key = event.key.keysym.sym;
+
+            if( key == SDLK_ESCAPE || ( key == SDLK_1 ) ){
+                exitPauseMenu = true;
+            }else if( key == SDLK_2 ){
+                if( Mix_PausedMusic() ){
+                    Mix_ResumeMusic();
+                }else{
+                    Mix_PauseMusic();
+                }
+            }else if( key == SDLK_3 ){
+                exitPauseMenu = true;
+                exitGame = true;
+            }
+        }
+    }
 }
 
 
