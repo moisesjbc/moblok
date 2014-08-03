@@ -17,9 +17,14 @@ int main( int argc, char** argv )
             std::cerr << Mix_GetError() << std::endl;
             exit(1);
         }
+        if( TTF_Init() == -1 ){
+            std::cerr << TTF_GetError() << std::endl;
+            exit(2);
+        }
 
         atexit( SDL_Quit );
-        atexit( Mix_CloseAudio );
+        atexit( Mix_Quit );
+        atexit( TTF_Quit );
 
         Tetris tetris;
 

@@ -14,6 +14,7 @@
 #include <player.hpp>
 #include <matrix.hpp>
 
+
 /*                                        Global constants                                     */
 /***********************************************************************************************/
 
@@ -59,6 +60,7 @@ class GameLoop {
         unsigned int lockTime_;
 
         Matrix matrix_;
+
     public:
         /***************************************************************************************/
         /*                            1. Inicialization and destruction.                       */
