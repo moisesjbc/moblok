@@ -2,7 +2,7 @@
 Moblok' is just another tetris clone, as simple as that!.
 
 ## Current project status
-The project is currently inactive, and I don't plan to continue it any time soon. However, exist downloable and playable demos for GNU/Linux and Windows (x86_64) so you can enjoy this masterpiece (sarcasm).
+Currently, this project is "slightly active", meaning that I'm planning to finish it, but I am doing it on my free time and not on a regular basis.
 
 ## Playing the latest demo
 
@@ -17,13 +17,15 @@ The project is currently inactive, and I don't plan to continue it any time soon
 ### Dependencies
 
 Building tools:
-- C++ compiler.
+- [g++ (C++ compiler)](http://gcc.gnu.org/).
+- [Qt Creator](http://qt-project.org/wiki/category:tools::qtcreator)
 - [cmake 2.8](http://www.cmake.org/)
 
 Libraries (both development and runtime versions):
-- [SDL 1.2](http://www.libsdl.org/)
-- [SDL_image 1.2](http://www.libsdl.org/projects/SDL_image/release-1.2.html)
-- [SDL_mixer 1.2](http://www.libsdl.org/projects/SDL_mixer/release-1.2.html)
+- [SDL 2](http://www.libsdl.org/)
+- [SDL_image 2](http://www.libsdl.org/projects/SDL_image/)
+- [SDL_mixer 2](http://www.libsdl.org/projects/SDL_mixer/)
+- [SDL_ttf 2](http://www.libsdl.org/projects/SDL_ttf/)
 
 ### Donwloading and building
 
@@ -60,7 +62,9 @@ The images used by the game (directory "share/moblok/img/") are licensed under t
 
 The libraries SDL, SDL_image and SDL_mixer, as well as their dependencies are property of their respective owners. The licenses for every library used by the game are present in the directory "share/moblok/license/sdl*.
 
-The music played in the game (directory "share/moblok/music/Tetris_theme.ogg") has been downloaded from Wikimedia Commons in the next url: http://commons.wikimedia.org/wiki/File:Tetris_theme.ogg?uselang=es. As stated by that url, the music has been made by Bogozi and it is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0). To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.
+The music played in the game (directory "share/moblok/music/Tetris_theme.ogg") has been downloaded from Wikimedia Commons on [this url](http://commons.wikimedia.org/wiki/File:Tetris_theme.ogg?uselang=es). As stated by that url, the music has been made by Bogozi and it is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0). To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.
+
+The font used in the game is [LiberationSans-Bold.ttf](http://en.wikipedia.org/wiki/Liberation_fonts).
 
 ## Changelog
 
