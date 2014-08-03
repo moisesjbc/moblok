@@ -63,7 +63,7 @@ Mix_Music* ResourceLoader::loadMusic( const std::string relativePath ) const
 }
 
 
-TTF_Font *ResourceLoader::loadFont( const std::string relativePath, int ptSize )
+TTF_Font *ResourceLoader::loadFont( const std::string relativePath, int ptSize ) const
 {
     unsigned int i = 0;
     std::string fullFontPath;

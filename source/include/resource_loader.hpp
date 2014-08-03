@@ -29,8 +29,8 @@ class ResourceLoader
          * 2. Loading methods
          ***/
         SDL_Texture* loadImage( const std::string relativePath, SDL_Renderer* renderer ) const;
-        Mix_Music* loadMusic( const std::string relativePath ) const ;
-        TTF_Font* loadFont( const std::string relativePath, int ptSize );
+        Mix_Music* loadMusic( const std::string relativePath ) const;
+        TTF_Font* loadFont( const std::string relativePath, int ptSize ) const;
 };
 
 

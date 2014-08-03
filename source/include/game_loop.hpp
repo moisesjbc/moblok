@@ -61,6 +61,8 @@ class GameLoop {
 
         Matrix matrix_;
 
+        TTF_Font* font_;
+
     public:
         /***************************************************************************************/
         /*                            1. Inicialization and destruction.                       */

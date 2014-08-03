@@ -49,6 +49,8 @@ GameLoop::GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLo
             graphics_[i] = resourceLoader->loadImage( graphicsPaths[i], renderer_ );
         }
 
+        font_ = resourceLoader->loadFont( "LiberationSans-Bold.ttf", 12 );
+
     }catch( const char* ){
         throw;
     }catch( std::bad_alloc& ){
@@ -210,9 +212,22 @@ void GameLoop::Pause( bool& exitGame ) throw()
 
 int GameLoop::DrawGUI() throw()
 {
-    // Draw the score panel.
     SDL_Rect dstRect = rects[SCORE_RECT_1];
+    char scoreString[32];
+    SDL_Surface* scoreSurface = nullptr;
+    SDL_Color scoreColor = { 0, 0, 0, 0 };
+    SDL_Texture* scoreTexture = nullptr;
+
+    // Draw the score panel.
     SDL_RenderCopy( renderer_, graphics_[SCORE], nullptr, &dstRect );
+
+    // Draw the score.
+    sprintf( scoreString, "%05i", player_.score_ );
+    scoreSurface = TTF_RenderText_Solid( font_, scoreString, scoreColor );
+    scoreTexture = SDL_CreateTextureFromSurface( renderer_, scoreSurface );
+    SDL_RenderCopy( renderer_, scoreTexture, nullptr, &dstRect );
+    SDL_FreeSurface( scoreSurface );
+    SDL_DestroyTexture( scoreTexture );
 
     // Draws the next Tetromino;
     SDL_Rect srcRect = { (Sint16)((player_.nextTetromino_-1)*160), 0, 160, 160 };
