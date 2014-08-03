@@ -3,7 +3,7 @@
 /***********************************************************************************************/
 
 #include <config.hpp>
-#include <game.hpp>
+#include <game_loop.hpp>
 #include <iostream>
 
 /*                                        Global constants                                     */
