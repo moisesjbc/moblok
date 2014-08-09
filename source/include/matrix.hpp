@@ -11,8 +11,6 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-#include <tetromino.hpp>
-
 extern "C" {
     #include <SDL2/SDL.h>
 }
@@ -49,7 +47,6 @@ extern char errorMsg[151];
 class Matrix {
     private:
         int cells_[MATRIX_H+2][MATRIX_W];
-        Tetromino tetromino_;
 
     public:
         /***************************************************************************************/
@@ -65,25 +62,12 @@ class Matrix {
         void Reset()                                    throw();
             // Sets all the cells to zero (Empty) and creates a new random tetromino.
 
-        /***************************************************************************************/
-        /*                         3. Current tetromino manamegement.                          */
-        /***************************************************************************************/
-        int NewTetromino( int color )           throw();
-            // It creates a new tetromino with "color" color (Color also determines
-            // tetromino's shape).
-        int MoveTetromino( const int& dx )      throw();
-            // It moves the current tetromino "dx" cells horizontally.
-        int RotateTetromino()                   throw();
-            // It rotates the current tetromino to the left.
-        int TetrominoFall( const int& dy = 1 )  throw();
-            // Current tetromino falls "dy" positions.
-        void FixTetromino()                     throw();
 
         /***************************************************************************************/
         /*                                5. Matrix update.                                    */
         /***************************************************************************************/
         int EraseLine( const int &line )    throw();
-        int EraseLines()                    throw();
+        int EraseLines( int lowestRow = 0, int highestRow = MATRIX_H - 2 ) throw();
 
         /***************************************************************************************/
         /*                              6. Graphic functions.                                  */

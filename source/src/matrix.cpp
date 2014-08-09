@@ -54,103 +54,7 @@ void Matrix::Reset() throw()
         }
     }
 
-    NewTetromino( (rand()%7)+1 );
-}
-
-
-/***********************************************************************************************/
-/*                                   3. Current tetromino manamegement                         */
-/***********************************************************************************************/
-
-int Matrix::NewTetromino( int color ) throw()
-{
-    tetromino_.color_ = color;
-    tetromino_.x_ = TETROMINO_X0;
-    tetromino_.y_ = TETROMINO_Y0;
-
-    for( int i=0; i<4; i++ ){
-        tetromino_.blocks_[LAST_POS][i][X] = -1;
-        tetromino_.blocks_[LAST_POS][i][Y] = -1;
-
-        tetromino_.blocks_[CURRENT_POS][i][X] = tetromino_.x_ + Tetrominos[color-1][i][X];
-        tetromino_.blocks_[CURRENT_POS][i][Y] = tetromino_.y_ + Tetrominos[color-1][i][Y];
-
-        if( GetCell( tetromino_.blocks_[CURRENT_POS][i][X], tetromino_.blocks_[CURRENT_POS][i][Y] ) ) return -1;
-    }
-    return 0;
-}
-
-int Matrix::MoveTetromino( const int& dx ) throw()
-{
-    for( int i=0; i<4; i++ ){
-        tetromino_.blocks_[AUX][i][X] = tetromino_.blocks_[CURRENT_POS][i][X]+dx;
-        if( GetCell( tetromino_.blocks_[AUX][i][X], tetromino_.blocks_[CURRENT_POS][i][Y] ) ){
-            return -1;
-        }
-    }
-
-    for( int i=0; i<4; i++ ){
-        tetromino_.blocks_[LAST_POS][i][X] = tetromino_.blocks_[CURRENT_POS][i][X];
-        tetromino_.blocks_[LAST_POS][i][Y] = tetromino_.blocks_[CURRENT_POS][i][Y];
-
-        tetromino_.blocks_[CURRENT_POS][i][X] = tetromino_.blocks_[AUX][i][X];
-        tetromino_.blocks_[CURRENT_POS][i][Y] = tetromino_.blocks_[LAST_POS][i][Y];
-    }
-    tetromino_.x_ += dx;
-
-    return 0;
-}
-
-int Matrix::RotateTetromino() throw()
-{
-    for( int i=0; i<4; i++ ){
-        tetromino_.blocks_[AUX][i][X] = tetromino_.x_ - (tetromino_.blocks_[CURRENT_POS][i][Y]-tetromino_.y_) - 1;
-        tetromino_.blocks_[AUX][i][Y] = tetromino_.y_ + (tetromino_.blocks_[CURRENT_POS][i][X]-tetromino_.x_);
-
-        if( GetCell( tetromino_.blocks_[AUX][i][X], tetromino_.blocks_[AUX][i][Y] ) ){
-            return -1;
-        }
-    }
-
-    for( int i=0; i<4; i++ ){
-        tetromino_.blocks_[LAST_POS][i][X] = tetromino_.blocks_[CURRENT_POS][i][X];
-        tetromino_.blocks_[LAST_POS][i][Y] = tetromino_.blocks_[CURRENT_POS][i][Y];
-
-        tetromino_.blocks_[CURRENT_POS][i][X] = tetromino_.blocks_[AUX][i][X];
-        tetromino_.blocks_[CURRENT_POS][i][Y] = tetromino_.blocks_[AUX][i][Y];
-    }
-
-    return 0;
-}
-
-int Matrix::TetrominoFall( const int& dy ) throw()
-{
-    for( int i=0; i<4; i++ ){
-        tetromino_.blocks_[AUX][i][Y] = tetromino_.blocks_[CURRENT_POS][i][Y] + dy;
-        if( GetCell( tetromino_.blocks_[CURRENT_POS][i][X], tetromino_.blocks_[AUX][i][Y] )  )
-        {
-            FixTetromino();
-            return -1;
-        }
-    }
-
-    for( int i=0; i<4; i++ ){
-        tetromino_.blocks_[LAST_POS][i][X] = tetromino_.blocks_[CURRENT_POS][i][X];
-        tetromino_.blocks_[LAST_POS][i][Y] = tetromino_.blocks_[CURRENT_POS][i][Y];
-
-        tetromino_.blocks_[CURRENT_POS][i][X] = tetromino_.blocks_[LAST_POS][i][X];
-        tetromino_.blocks_[CURRENT_POS][i][Y] = tetromino_.blocks_[AUX][i][Y];
-    }
-    tetromino_.y_ += dy;
-
-    return 0;
-}
-
-void Matrix::FixTetromino() throw()
-{
-    for( int j=0; j<4; j++ ){
-        SetCell( tetromino_.blocks_[CURRENT_POS][j][X], tetromino_.blocks_[CURRENT_POS][j][Y], tetromino_.color_ );
-    }
+    //NewTetromino( (rand()%7)+1 );
 }
 
 
@@ -181,31 +85,24 @@ int Matrix::EraseLine( const int& line ) throw()
     return 0;
 }
 
-int Matrix::EraseLines() throw()
+
+
+int Matrix::EraseLines( int lowestRow, int highestRow ) throw()
 {
     int res = 0;
-    int i, min=255, max=0;
+    int currentRow;
 
-    for( i=0; i<4; i++ ){
-        if( tetromino_.blocks_[CURRENT_POS][i][Y] < min ){
-            min = tetromino_.blocks_[CURRENT_POS][i][Y];
-        }
-        if( tetromino_.blocks_[CURRENT_POS][i][Y] > max ){
-            max = tetromino_.blocks_[CURRENT_POS][i][Y];
-        }
-    }
-
-    for( i=max; i>=min; ){
-        if( EraseLine( i ) == 0 ){
+    for( currentRow = highestRow; currentRow >= lowestRow; ){
+        if( EraseLine( currentRow ) == 0 ){
             res++;
-            min++;
+            //lowestRow++;
         }else{
-            i--;
+            currentRow--;
         }
     }
-
     return res;
 }
+
 
 
 /***********************************************************************************************/
@@ -228,11 +125,10 @@ int Matrix::Draw( SDL_Renderer* renderer, SDL_Texture* tileset ) throw()
         dstRect_.y += TILE_SIZE;
     }
 
-    DrawTetromino( renderer, tileset );
-
     return 0;
 }
 
+/*
 int Matrix::DrawTetromino( SDL_Renderer* renderer, SDL_Texture* tileset ) throw()
 {
     SDL_Rect srcRect = { (Sint16)(tetromino_.color_<<TILE_SIZE_2), 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };
@@ -259,3 +155,4 @@ int Matrix::DrawTetromino( SDL_Renderer* renderer, SDL_Texture* tileset ) throw(
 
     return 0;
 }
+*/

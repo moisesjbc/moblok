@@ -15,6 +15,7 @@
 
 #include <stdexcept>
 #include <matrix.hpp>
+#include <resource_loader.hpp>
 
 
 /*                                    Global variables and constants                           */
@@ -44,10 +45,41 @@ const int TETROMINO_Y0 = 1;
 /***********************************************************************************************/
 
 class Tetromino {
-    public:
+    private:
+        SDL_Texture* texture_;
+        Matrix& gameMatrix_;
+
         int blocks_[3][4][2];
         int x_, y_;
         int color_;
+
+
+    public:
+        /***
+         * 1. Construction
+         ***/
+        Tetromino( const ResourceLoader* resourceLoader, SDL_Renderer* renderer, Matrix& gameMatrix );
+
+
+        /***
+         * 2. Initialization
+         ***/
+        int NewTetromino( int color ) throw();
+
+
+        /***
+         * 3. Updating
+         ***/
+        int MoveTetromino( const int& dx ) throw();
+        int RotateTetromino() throw();
+        int TetrominoFall( const int& dy = 1 ) throw();
+        void FixTetromino() throw();
+
+
+        /***
+         * 4. Drawing
+         ***/
+        int Draw( SDL_Renderer* renderer );
 };
 
 #endif

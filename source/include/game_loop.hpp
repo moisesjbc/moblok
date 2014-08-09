@@ -12,6 +12,7 @@
 
 #include <resource_loader.hpp>
 #include <player.hpp>
+#include <tetromino.hpp>
 #include <matrix.hpp>
 
 
@@ -61,6 +62,7 @@ class GameLoop {
         unsigned int lockTime_;
 
         Matrix matrix_;
+        Tetromino currentTetromino_;
 
         TTF_Font* font_;
 
