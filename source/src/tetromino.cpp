@@ -23,13 +23,10 @@ int Tetromino::Reset( int color ) throw()
     y_ = TETROMINO_Y0;
 
     for( int i=0; i<4; i++ ){
-        blocks_[LAST_POS][i][X] = -1;
-        blocks_[LAST_POS][i][Y] = -1;
+        blocks_[i][X] = x_ + Tetrominos[color-1][i][X];
+        blocks_[i][Y] = y_ + Tetrominos[color-1][i][Y];
 
-        blocks_[CURRENT_POS][i][X] = x_ + Tetrominos[color-1][i][X];
-        blocks_[CURRENT_POS][i][Y] = y_ + Tetrominos[color-1][i][Y];
-
-        if( gameMatrix_.GetCell( blocks_[CURRENT_POS][i][X], blocks_[CURRENT_POS][i][Y] ) ) return -1;
+        if( gameMatrix_.GetCell( blocks_[i][X], blocks_[i][Y] ) ) return -1;
     }
     return 0;
 }
@@ -42,41 +39,34 @@ int Tetromino::Reset( int color ) throw()
 int Tetromino::MoveTetromino( const int& dx ) throw()
 {
     for( int i=0; i<4; i++ ){
-        blocks_[AUX][i][X] = blocks_[CURRENT_POS][i][X]+dx;
-        if( gameMatrix_.GetCell( blocks_[AUX][i][X], blocks_[CURRENT_POS][i][Y] ) ){
+        if( gameMatrix_.GetCell( blocks_[i][X] + dx, blocks_[i][Y] ) ){
             return -1;
         }
     }
 
     for( int i=0; i<4; i++ ){
-        blocks_[LAST_POS][i][X] = blocks_[CURRENT_POS][i][X];
-        blocks_[LAST_POS][i][Y] = blocks_[CURRENT_POS][i][Y];
-
-        blocks_[CURRENT_POS][i][X] = blocks_[AUX][i][X];
-        blocks_[CURRENT_POS][i][Y] = blocks_[LAST_POS][i][Y];
+        blocks_[i][X] += dx;
     }
     x_ += dx;
 
     return 0;
 }
 
+
 int Tetromino::RotateTetromino() throw()
 {
     for( int i=0; i<4; i++ ){
-        blocks_[AUX][i][X] = x_ - (blocks_[CURRENT_POS][i][Y]-y_) - 1;
-        blocks_[AUX][i][Y] = y_ + (blocks_[CURRENT_POS][i][X]-x_);
+        int aux_x = blocks_[i][X];
 
-        if( gameMatrix_.GetCell( blocks_[AUX][i][X], blocks_[AUX][i][Y] ) ){
-            return -1;
+        if( gameMatrix_.GetCell( x_ - (blocks_[i][Y]-y_) - 1, y_ + (aux_x-x_) ) ){
+                return -1;
         }
     }
 
     for( int i=0; i<4; i++ ){
-        blocks_[LAST_POS][i][X] = blocks_[CURRENT_POS][i][X];
-        blocks_[LAST_POS][i][Y] = blocks_[CURRENT_POS][i][Y];
-
-        blocks_[CURRENT_POS][i][X] = blocks_[AUX][i][X];
-        blocks_[CURRENT_POS][i][Y] = blocks_[AUX][i][Y];
+        int aux_x = blocks_[i][X];
+        blocks_[i][X] = x_ - (blocks_[i][Y]-y_) - 1;
+        blocks_[i][Y] = y_ + (aux_x-x_);
     }
 
     return 0;
@@ -85,8 +75,7 @@ int Tetromino::RotateTetromino() throw()
 int Tetromino::TetrominoFall( const int& dy ) throw()
 {
     for( int i=0; i<4; i++ ){
-        blocks_[AUX][i][Y] = blocks_[CURRENT_POS][i][Y] + dy;
-        if( gameMatrix_.GetCell( blocks_[CURRENT_POS][i][X], blocks_[AUX][i][Y] )  )
+        if( gameMatrix_.GetCell( blocks_[i][X], blocks_[i][Y] + dy )  )
         {
             FixTetromino();
             return -1;
@@ -94,11 +83,7 @@ int Tetromino::TetrominoFall( const int& dy ) throw()
     }
 
     for( int i=0; i<4; i++ ){
-        blocks_[LAST_POS][i][X] = blocks_[CURRENT_POS][i][X];
-        blocks_[LAST_POS][i][Y] = blocks_[CURRENT_POS][i][Y];
-
-        blocks_[CURRENT_POS][i][X] = blocks_[LAST_POS][i][X];
-        blocks_[CURRENT_POS][i][Y] = blocks_[AUX][i][Y];
+        blocks_[i][Y] += dy;
     }
     y_ += dy;
 
@@ -108,7 +93,7 @@ int Tetromino::TetrominoFall( const int& dy ) throw()
 void Tetromino::FixTetromino() throw()
 {
     for( int j=0; j<4; j++ ){
-        gameMatrix_.SetCell( blocks_[CURRENT_POS][j][X], blocks_[CURRENT_POS][j][Y], color_ );
+        gameMatrix_.SetCell( blocks_[j][X], blocks_[j][Y], color_ );
     }
 }
 
@@ -122,23 +107,10 @@ int Tetromino::Draw( SDL_Renderer* renderer )
     SDL_Rect srcRect = { (Sint16)(color_<<TILE_SIZE_2), 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };
     SDL_Rect dstRect = { 0, 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };
 
-    // Deletes the last position.
-    /*
     for( int i=0; i<4; i++ ){
-        if( blocks_[LAST_POS][i][Y] >= 2 ){
-            dstRect.x = MATRIX_X+((blocks_[LAST_POS][i][X])<<TILE_SIZE_2);
-            dstRect.y = MATRIX_Y+((blocks_[LAST_POS][i][Y]-2)<<TILE_SIZE_2);
-            SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-            SDL_RenderFillRect( renderer, &dstRect );
-        }
-    }
-    */
-
-    // Draws the new one.
-    for( int i=0; i<4; i++ ){
-        if( blocks_[CURRENT_POS][i][Y] >= 2 ){
-            dstRect.x = MATRIX_X+(blocks_[CURRENT_POS][i][X]<<TILE_SIZE_2);
-            dstRect.y = MATRIX_Y+((blocks_[CURRENT_POS][i][Y]-2)<<TILE_SIZE_2);
+        if( blocks_[i][Y] >= 2 ){
+            dstRect.x = MATRIX_X+(blocks_[i][X]<<TILE_SIZE_2);
+            dstRect.y = MATRIX_Y+((blocks_[i][Y]-2)<<TILE_SIZE_2);
             if( SDL_RenderCopy( renderer, texture_, &srcRect, &dstRect ) < 0 ) return -1;
         }
     }
