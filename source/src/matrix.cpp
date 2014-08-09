@@ -92,13 +92,12 @@ int Matrix::EraseLines( int firstRow, int lastRow ) throw()
     int res = 0;
     int currentRow;
 
-    for( currentRow = firstRow; currentRow > lastRow; ){
-        std::cout << "Checking row: " << currentRow << std::endl;
+    for( currentRow = firstRow; currentRow < lastRow; ){
         if( EraseLine( currentRow ) == 0 ){
             res++;
             //currentRow++;
         }else{
-            currentRow--;
+            currentRow++;
         }
     }
     return res;
@@ -127,4 +126,20 @@ int Matrix::Draw( SDL_Renderer* renderer, SDL_Texture* tileset ) throw()
     }
 
     return 0;
+}
+
+
+void Matrix::Print()
+{
+    unsigned int row, column;
+
+    std::cout << "Matrix::Print()" << std::endl
+              << "-----------------------------------------------" << std::endl;
+    for( row = 0; row < N_MATRIX_ROWS; row++ ){
+        for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
+            std::cout << cells_[row][column] << ", ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "-----------------------------------------------" << std::endl;
 }

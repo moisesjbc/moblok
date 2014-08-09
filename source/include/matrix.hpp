@@ -76,7 +76,7 @@ class Matrix {
         /*                              6. Graphic functions.                                  */
         /***************************************************************************************/
         int Draw( SDL_Renderer* renderer, SDL_Texture* tileset )            throw();
-        int DrawTetromino( SDL_Renderer* renderer, SDL_Texture* tileset )   throw();
+        void Print();
 };
 
 

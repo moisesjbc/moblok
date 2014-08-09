@@ -25,7 +25,6 @@ int Tetromino::Reset( int color ) throw()
     x_ = TETROMINO_X0;
     y_ = TETROMINO_Y0;
 
-    std::cout << "Reset - 1" << std::endl;
     for( int i=0; i<4; i++ ){
         blocks_[i][X] = x_ + Tetrominos[color-1][i][X];
         blocks_[i][Y] = y_ + Tetrominos[color-1][i][Y];
@@ -33,7 +32,6 @@ int Tetromino::Reset( int color ) throw()
         if( gameMatrix_.GetCell( blocks_[i][X], blocks_[i][Y] ) ) return -1;
     }
 
-    std::cout << "Reset - 2" << std::endl;
     return 0;
 }
 
@@ -80,8 +78,6 @@ int Tetromino::RotateTetromino() throw()
 
 int Tetromino::TetrominoFall( const int& dy ) throw()
 {
-    std::cout << "TetrominoFall - 1" << std::endl;
-
     for( int i=0; i<4; i++ ){
         if( gameMatrix_.GetCell( blocks_[i][X], blocks_[i][Y] + dy )  )
         {
@@ -95,33 +91,19 @@ int Tetromino::TetrominoFall( const int& dy ) throw()
     }
     y_ += dy;
 
-    std::cout << "TetrominoFall - 2" << std::endl;
-
     return 0;
 }
 
 void Tetromino::FixTetromino() throw()
 {
-    unsigned int row, column;
+    gameMatrix_.Print();
 
-    for( row = 0; row < N_MATRIX_ROWS; row++ ){
-        for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
-            std::cout << gameMatrix_.GetCell( row, column ) << ", ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "----------------" << std::endl;
     std::cout << "Fixing tetromino!" << std::endl;
     for( int j=0; j<4; j++ ){
         gameMatrix_.SetCell( blocks_[j][X], blocks_[j][Y], color_ );
     }
-    for( row = 0; row < N_MATRIX_ROWS; row++ ){
-        for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
-            std::cout << gameMatrix_.GetCell( row, column ) << ", ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "----------------" << std::endl;
+
+    gameMatrix_.Print();
 }
 
 
