@@ -64,7 +64,7 @@ class Tetromino {
         /***
          * 2. Initialization
          ***/
-        int NewTetromino( int color ) throw();
+        int Reset( int color ) throw();
 
 
         /***

@@ -177,7 +177,7 @@ void GameLoop::Update() throw()
                 lockTime_ -= 10;
             }
         }
-        player_.gameOver_ = (currentTetromino_.NewTetromino( player_.nextTetromino_ ) == -1);
+        player_.gameOver_ = (currentTetromino_.Reset( player_.nextTetromino_ ) == -1);
         player_.nextTetromino_ = (rand()%7)+1;
 
         DrawGUI();

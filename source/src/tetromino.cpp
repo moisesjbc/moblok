@@ -16,7 +16,7 @@ Tetromino::Tetromino( const ResourceLoader* resourceLoader, SDL_Renderer* render
  * 2. Initialization
  ***/
 
-int Tetromino::NewTetromino( int color ) throw()
+int Tetromino::Reset( int color ) throw()
 {
     color_ = color;
     x_ = TETROMINO_X0;

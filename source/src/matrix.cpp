@@ -53,8 +53,6 @@ void Matrix::Reset() throw()
             cells_[i][j] = 0;
         }
     }
-
-    //NewTetromino( (rand()%7)+1 );
 }
 
 
