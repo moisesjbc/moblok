@@ -20,11 +20,14 @@ typedef const unsigned int CUint;
 /*                                        Global constants                                     */
 /***********************************************************************************************/
 
+
 const unsigned int MATRIX_X = 352;
 const unsigned int MATRIX_Y = 64;
-const unsigned int MATRIX_W = 10;
-const unsigned int MATRIX_H = 20;
 
+const unsigned int FIRST_VISIBLE_ROW = 1;
+const unsigned int N_MATRIX_VISIBLE_ROWS = 20;
+const unsigned int N_MATRIX_ROWS = N_MATRIX_VISIBLE_ROWS + FIRST_VISIBLE_ROW + 1;
+const unsigned int N_MATRIX_COLUMNS = 10;
 
 const unsigned int N_COLORS = 8;
 const unsigned int TILE_SIZE = 32;
@@ -46,7 +49,7 @@ extern char errorMsg[151];
 
 class Matrix {
     private:
-        int cells_[MATRIX_H+2][MATRIX_W];
+        int cells_[N_MATRIX_ROWS][N_MATRIX_COLUMNS];
 
     public:
         /***************************************************************************************/
@@ -57,8 +60,8 @@ class Matrix {
         /***************************************************************************************/
         /*                               2. Cells management.                                  */
         /***************************************************************************************/
-        void SetCell( CUint& x, CUint& y, CUint& cell ) throw();
-        int GetCell( CUint& x, CUint& y )               const throw();
+        void SetCell( CUint& x, CUint& y, CUint& cell );
+        int GetCell( CUint& x, CUint& y )               const;
         void Reset()                                    throw();
             // Sets all the cells to zero (Empty) and creates a new random tetromino.
 
@@ -67,7 +70,7 @@ class Matrix {
         /*                                5. Matrix update.                                    */
         /***************************************************************************************/
         int EraseLine( const int &line )    throw();
-        int EraseLines( int lowestRow = 0, int highestRow = MATRIX_H - 2 ) throw();
+        int EraseLines( int firstRow = 0, int lastRow = N_MATRIX_ROWS - 1 ) throw();
 
         /***************************************************************************************/
         /*                              6. Graphic functions.                                  */

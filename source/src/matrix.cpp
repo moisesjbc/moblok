@@ -6,7 +6,6 @@
 #include <iostream>
 
 
-
 /*                                        Global constants                                     */
 /***********************************************************************************************/
 
@@ -30,16 +29,16 @@ Matrix::Matrix()
 /*                                       2. Cells management.                                  */
 /***********************************************************************************************/
 
-void Matrix::SetCell( CUint& x, CUint& y, CUint& cell ) throw()
+void Matrix::SetCell( CUint& x, CUint& y, CUint& cell )
 {
-    if( ( x < MATRIX_W ) && ( y < (MATRIX_H+2) ) && ( cell < N_COLORS ) ){
+    if( ( y < N_MATRIX_ROWS ) && ( x < (N_MATRIX_COLUMNS) ) && ( cell < N_COLORS ) ){
         cells_[y][x] = cell;
     }
 }
 
-int Matrix::GetCell( CUint& x, CUint& y ) const throw()
+int Matrix::GetCell( CUint& x, CUint& y ) const
 {
-    if( ( x < MATRIX_W ) && ( y < (MATRIX_H+2) ) ){
+    if( ( y < N_MATRIX_ROWS) && ( x < (N_MATRIX_COLUMNS ) ) ){
         return cells_[y][x];
     }else{
         return -1;
@@ -48,9 +47,11 @@ int Matrix::GetCell( CUint& x, CUint& y ) const throw()
 
 void Matrix::Reset() throw()
 {
-    for( unsigned int i=0; i<(MATRIX_H+2); i++ ){
-        for( unsigned int j=0; j<MATRIX_W; j++ ){
-            cells_[i][j] = 0;
+    unsigned int row, column;
+
+    for( row = 0; row < N_MATRIX_ROWS; row++ ){
+        for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
+            cells_[row][column] = 0;
         }
     }
 }
@@ -60,24 +61,25 @@ void Matrix::Reset() throw()
 /*                                         4. Matrix update                                    */
 /***********************************************************************************************/
 
-int Matrix::EraseLine( const int& line ) throw()
+int Matrix::EraseLine( const int& rowToBeChecked ) throw()
 {
-    unsigned int i, j, k;
+    unsigned int row, column = 0;
 
-    for( i=0; i<MATRIX_W; i++ ){
-        if( !cells_[line][i] ){
+    // Check if the given row is completed.
+    std::cout << "rowToBeChecked: " << rowToBeChecked << std::endl;
+    for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
+        if( !cells_[rowToBeChecked][column] ){
+            std::cout << "\t\t(" << rowToBeChecked << ", " << column << ") is empty" << std::endl;
             return -1;
         }
     }
 
-    for( j=line; j>0; j-- ){
-        for( k=0; k<MATRIX_W; k++ ){
-            cells_[j][k] = cells_[j-1][k];
+    // The given row is completed, delete it by making the above rows to
+    // "fall".
+    for( row = rowToBeChecked; row >= FIRST_VISIBLE_ROW; row-- ){
+        for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
+            cells_[row][column] = cells_[row-1][column];
         }
-    }
-
-    for( k=0; k<MATRIX_W; k++ ){
-        cells_[0][k] = 0;
     }
 
     return 0;
@@ -85,15 +87,16 @@ int Matrix::EraseLine( const int& line ) throw()
 
 
 
-int Matrix::EraseLines( int lowestRow, int highestRow ) throw()
+int Matrix::EraseLines( int firstRow, int lastRow ) throw()
 {
     int res = 0;
     int currentRow;
 
-    for( currentRow = highestRow; currentRow >= lowestRow; ){
+    for( currentRow = firstRow; currentRow > lastRow; ){
+        std::cout << "Checking row: " << currentRow << std::endl;
         if( EraseLine( currentRow ) == 0 ){
             res++;
-            //lowestRow++;
+            //currentRow++;
         }else{
             currentRow--;
         }
@@ -113,8 +116,8 @@ int Matrix::Draw( SDL_Renderer* renderer, SDL_Texture* tileset ) throw()
 
     SDL_Rect srcRect_ = {0, 0, TILE_SIZE, TILE_SIZE};
     SDL_Rect dstRect_ = {MATRIX_X, MATRIX_Y, TILE_SIZE, TILE_SIZE};
-    for( row = 2; row < (MATRIX_H+2); row++ ){
-        for( column=0; column<MATRIX_W; column++ ){
+    for( row = FIRST_VISIBLE_ROW; row < N_MATRIX_ROWS; row++ ){
+        for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
             srcRect_.x = cells_[row][column] << TILE_SIZE_2;
             SDL_RenderCopy( renderer, tileset, &srcRect_, &dstRect_ );
             dstRect_.x += TILE_SIZE;
@@ -125,32 +128,3 @@ int Matrix::Draw( SDL_Renderer* renderer, SDL_Texture* tileset ) throw()
 
     return 0;
 }
-
-/*
-int Matrix::DrawTetromino( SDL_Renderer* renderer, SDL_Texture* tileset ) throw()
-{
-    SDL_Rect srcRect = { (Sint16)(tetromino_.color_<<TILE_SIZE_2), 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };
-    SDL_Rect dstRect = { 0, 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };
-
-    // Deletes the last position.
-    for( int i=0; i<4; i++ ){
-        if( tetromino_.blocks_[LAST_POS][i][Y] >= 2 ){
-            dstRect.x = MATRIX_X+((tetromino_.blocks_[LAST_POS][i][X])<<TILE_SIZE_2);
-            dstRect.y = MATRIX_Y+((tetromino_.blocks_[LAST_POS][i][Y]-2)<<TILE_SIZE_2);
-            SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-            SDL_RenderFillRect( renderer, &dstRect );
-        }
-    }
-
-    // Draws the new one.
-    for( int i=0; i<4; i++ ){
-        if( tetromino_.blocks_[CURRENT_POS][i][Y] >= 2 ){
-            dstRect.x = MATRIX_X+(tetromino_.blocks_[CURRENT_POS][i][X]<<TILE_SIZE_2);
-            dstRect.y = MATRIX_Y+((tetromino_.blocks_[CURRENT_POS][i][Y]-2)<<TILE_SIZE_2);
-            if( SDL_RenderCopy( renderer, tileset, &srcRect, &dstRect ) < 0 ) return -1;
-        }
-    }
-
-    return 0;
-}
-*/
