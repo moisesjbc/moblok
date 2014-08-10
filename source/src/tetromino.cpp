@@ -39,7 +39,7 @@ int Tetromino::reset( int color )
  * 3. Updating
  ***/
 
-int Tetromino::moveTetromino( const int& dx )
+int Tetromino::moveHorizontally( const int& dx )
 {
     for( int i=0; i<4; i++ ){
         if( gameMatrix_.getCell( blocks_[i][X] + dx, blocks_[i][Y] ) ){
@@ -56,7 +56,7 @@ int Tetromino::moveTetromino( const int& dx )
 }
 
 
-int Tetromino::rotateTetromino()
+int Tetromino::rotate()
 {
     for( int i=0; i<4; i++ ){
         int aux_x = blocks_[i][X];
@@ -76,12 +76,12 @@ int Tetromino::rotateTetromino()
 }
 
 
-int Tetromino::tetrominoFall( const int& dy )
+int Tetromino::fall( const int& dy )
 {
     for( int i=0; i<4; i++ ){
         if( gameMatrix_.getCell( blocks_[i][X], blocks_[i][Y] + dy )  )
         {
-            fixTetromino();
+            fixToGameMatrix();
             return -1;
         }
     }
@@ -94,7 +94,8 @@ int Tetromino::tetrominoFall( const int& dy )
     return 0;
 }
 
-void Tetromino::fixTetromino()
+
+void Tetromino::fixToGameMatrix()
 {
     gameMatrix_.print();
 

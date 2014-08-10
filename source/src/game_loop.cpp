@@ -121,16 +121,16 @@ int GameLoop::runMainLoop()
 
                         switch( event.key.keysym.sym ){
                             case SDLK_LEFT:
-                                currentTetromino_.moveTetromino( -1 );
+                                currentTetromino_.moveHorizontally( -1 );
                             break;
                             case SDLK_RIGHT:
-                                currentTetromino_.moveTetromino( 1 );
+                                currentTetromino_.moveHorizontally( 1 );
                             break;
                             case SDLK_UP:
-                                currentTetromino_.rotateTetromino();
+                                currentTetromino_.rotate();
                             break;
                             case SDLK_DOWN:
-                                currentTetromino_.tetrominoFall();
+                                currentTetromino_.fall();
                             break;
                             case SDLK_ESCAPE:
                                 pause( exitGame );
@@ -171,7 +171,7 @@ void GameLoop::updateLogic()
 {
     int erasedLines = 0;
 
-    if( currentTetromino_.tetrominoFall() < 0 ){
+    if( currentTetromino_.fall() < 0 ){
         erasedLines = matrix_.eraseCompletedRows();
         if( erasedLines ){
             matrix_.draw( renderer_, graphics_[TILESET] );

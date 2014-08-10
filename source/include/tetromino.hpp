@@ -61,9 +61,9 @@ class Tetromino {
         /***
          * 3. Updating
          ***/
-        int moveTetromino( const int& dx );
-        int rotateTetromino();
-        int tetrominoFall( const int& dy = 1 );
+        int moveHorizontally( const int& dx );
+        int rotate();
+        int fall( const int& dy = 1 ); // TODO: Remove the argument and rename as update()?
 
 
         /***
@@ -76,7 +76,7 @@ class Tetromino {
          * 5. Tetromino fixing.
          ***/
     private:
-        void fixTetromino();
+        void fixToGameMatrix();
 
 
     private:
