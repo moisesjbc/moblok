@@ -89,8 +89,8 @@ void GameLoop::run()
 
 void GameLoop::newGame()
 {
-    player_.Reset();
-    matrix_.Reset();
+    player_.reset();
+    matrix_.reset();
 }
 
 
@@ -121,16 +121,16 @@ int GameLoop::runMainLoop()
 
                         switch( event.key.keysym.sym ){
                             case SDLK_LEFT:
-                                currentTetromino_.MoveTetromino( -1 );
+                                currentTetromino_.moveTetromino( -1 );
                             break;
                             case SDLK_RIGHT:
-                                currentTetromino_.MoveTetromino( 1 );
+                                currentTetromino_.moveTetromino( 1 );
                             break;
                             case SDLK_UP:
-                                currentTetromino_.RotateTetromino();
+                                currentTetromino_.rotateTetromino();
                             break;
                             case SDLK_DOWN:
-                                currentTetromino_.TetrominoFall();
+                                currentTetromino_.tetrominoFall();
                             break;
                             case SDLK_ESCAPE:
                                 pause( exitGame );
@@ -171,10 +171,10 @@ void GameLoop::updateLogic()
 {
     int erasedLines = 0;
 
-    if( currentTetromino_.TetrominoFall() < 0 ){
-        erasedLines = matrix_.EraseLines();
+    if( currentTetromino_.tetrominoFall() < 0 ){
+        erasedLines = matrix_.eraseCompletedRows();
         if( erasedLines ){
-            matrix_.Draw( renderer_, graphics_[TILESET] );
+            matrix_.draw( renderer_, graphics_[TILESET] );
             SDL_RenderPresent( renderer_ );
             player_.filledLines_ += erasedLines;
             player_.score_ += 10*erasedLines;
@@ -185,7 +185,7 @@ void GameLoop::updateLogic()
                 lockTime_ -= 10;
             }
         }
-        player_.gameOver_ = (currentTetromino_.Reset( player_.nextTetromino_ ) == -1);
+        player_.gameOver_ = (currentTetromino_.reset( player_.nextTetromino_ ) == -1);
         player_.nextTetromino_ = (rand()%7)+1;
 
         drawGUI();
@@ -287,9 +287,9 @@ int GameLoop::draw()
     drawGUI();
 
     // Draw the game matrix.
-    matrix_.Draw( renderer_, graphics_[TILESET] );
+    matrix_.draw( renderer_, graphics_[TILESET] );
 
-    currentTetromino_.Draw( renderer_ );
+    currentTetromino_.draw( renderer_ );
 
     SDL_RenderPresent( renderer_ );
 

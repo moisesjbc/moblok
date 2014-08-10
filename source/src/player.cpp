@@ -30,7 +30,7 @@ Player::Player()
  * 2. Initialization
  ***/
 
-void Player::Reset()
+void Player::reset()
 {
     level_ = 1;
     score_ = filledLines_ = gameOver_ = 0;

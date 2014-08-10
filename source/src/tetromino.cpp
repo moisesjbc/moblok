@@ -10,7 +10,7 @@ Tetromino::Tetromino( const ResourceLoader* resourceLoader, SDL_Renderer* render
 {
     texture_ = resourceLoader->loadImage( "tileset.png", renderer );
 
-    Reset( (rand()%7)+1 );
+    reset( (rand()%7)+1 );
 }
 
 
@@ -18,7 +18,7 @@ Tetromino::Tetromino( const ResourceLoader* resourceLoader, SDL_Renderer* render
  * 2. Initialization
  ***/
 
-int Tetromino::Reset( int color )
+int Tetromino::reset( int color )
 {
     color_ = color;
     x_ = TETROMINO_X0;
@@ -28,7 +28,7 @@ int Tetromino::Reset( int color )
         blocks_[i][X] = x_ + Tetrominos[color-1][i][X];
         blocks_[i][Y] = y_ + Tetrominos[color-1][i][Y];
 
-        if( gameMatrix_.GetCell( blocks_[i][X], blocks_[i][Y] ) ) return -1;
+        if( gameMatrix_.getCell( blocks_[i][X], blocks_[i][Y] ) ) return -1;
     }
 
     return 0;
@@ -39,10 +39,10 @@ int Tetromino::Reset( int color )
  * 3. Updating
  ***/
 
-int Tetromino::MoveTetromino( const int& dx )
+int Tetromino::moveTetromino( const int& dx )
 {
     for( int i=0; i<4; i++ ){
-        if( gameMatrix_.GetCell( blocks_[i][X] + dx, blocks_[i][Y] ) ){
+        if( gameMatrix_.getCell( blocks_[i][X] + dx, blocks_[i][Y] ) ){
             return -1;
         }
     }
@@ -56,12 +56,12 @@ int Tetromino::MoveTetromino( const int& dx )
 }
 
 
-int Tetromino::RotateTetromino()
+int Tetromino::rotateTetromino()
 {
     for( int i=0; i<4; i++ ){
         int aux_x = blocks_[i][X];
 
-        if( gameMatrix_.GetCell( x_ - (blocks_[i][Y]-y_) - 1, y_ + (aux_x-x_) ) ){
+        if( gameMatrix_.getCell( x_ - (blocks_[i][Y]-y_) - 1, y_ + (aux_x-x_) ) ){
                 return -1;
         }
     }
@@ -76,12 +76,12 @@ int Tetromino::RotateTetromino()
 }
 
 
-int Tetromino::TetrominoFall( const int& dy )
+int Tetromino::tetrominoFall( const int& dy )
 {
     for( int i=0; i<4; i++ ){
-        if( gameMatrix_.GetCell( blocks_[i][X], blocks_[i][Y] + dy )  )
+        if( gameMatrix_.getCell( blocks_[i][X], blocks_[i][Y] + dy )  )
         {
-            FixTetromino();
+            fixTetromino();
             return -1;
         }
     }
@@ -94,15 +94,15 @@ int Tetromino::TetrominoFall( const int& dy )
     return 0;
 }
 
-void Tetromino::FixTetromino()
+void Tetromino::fixTetromino()
 {
-    gameMatrix_.Print();
+    gameMatrix_.print();
 
     for( int j=0; j<4; j++ ){
-        gameMatrix_.SetCell( blocks_[j][X], blocks_[j][Y], color_ );
+        gameMatrix_.setCell( blocks_[j][X], blocks_[j][Y], color_ );
     }
 
-    gameMatrix_.Print();
+    gameMatrix_.print();
 }
 
 
@@ -110,7 +110,7 @@ void Tetromino::FixTetromino()
  * 4. Drawing
  ***/
 
-int Tetromino::Draw( SDL_Renderer* renderer )
+int Tetromino::draw( SDL_Renderer* renderer )
 {
     SDL_Rect srcRect = { (Sint16)(color_<<TILE_SIZE_2), 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };
     SDL_Rect dstRect = { 0, 0, (Sint16)TILE_SIZE, (Sint16)TILE_SIZE };

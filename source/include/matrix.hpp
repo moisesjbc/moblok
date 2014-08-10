@@ -35,9 +35,6 @@ extern char errorMsg[151];
 /***********************************************************************************************/
 
 class Matrix {
-    private:
-        int cells_[N_MATRIX_ROWS][N_MATRIX_COLUMNS];
-
     public:
         /***
          * 1. Construction
@@ -48,28 +45,37 @@ class Matrix {
         /***
          * 2. Initialization
          ***/
-        void Reset();
+        void reset();
 
 
         /***
          * 3. Cells management
          ***/
-        int GetCell( CUint& x, CUint& y ) const;
-        void SetCell( CUint& x, CUint& y, CUint& cell );
+        int getCell( CUint& x, CUint& y ) const;
+        void setCell( CUint& x, CUint& y, CUint& cell );
 
 
         /***
          * 4. Updating
          ***/
-        int EraseLine( const int &line );
-        int EraseLines( int firstRow = 0, int lastRow = N_MATRIX_ROWS - 1 );
+        int eraseCompletedRows( int firstRow = 0, int lastRow = N_MATRIX_ROWS - 1 );
 
 
         /***
-         * 6. Drawing
+         * 5. Drawing
          ***/
-        int Draw( SDL_Renderer* renderer, SDL_Texture* tileset );
-        void Print();
+        int draw( SDL_Renderer* renderer, SDL_Texture* tileset );
+        void print();
+
+
+    private:
+        /***
+         * 6. Updating (private)
+         ***/
+        int eraseRowIfCompleted( const int &rowToBeChecked );
+
+    private:
+        int cells_[N_MATRIX_ROWS][N_MATRIX_COLUMNS];
 };
 
 

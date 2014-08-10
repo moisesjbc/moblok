@@ -21,7 +21,7 @@ char errorMsg[151] = "\0";
 
 Matrix::Matrix()
 {
-    Reset();
+    reset();
 }
 
 
@@ -29,7 +29,7 @@ Matrix::Matrix()
  * 2. Initialization
  ***/
 
-void Matrix::Reset()
+void Matrix::reset()
 {
     unsigned int row, column;
 
@@ -46,7 +46,7 @@ void Matrix::Reset()
  ***/
 
 
-int Matrix::GetCell( CUint& x, CUint& y ) const
+int Matrix::getCell( CUint& x, CUint& y ) const
 {
     if( ( y < N_MATRIX_ROWS) && ( x < (N_MATRIX_COLUMNS ) ) ){
         return cells_[y][x];
@@ -56,48 +56,24 @@ int Matrix::GetCell( CUint& x, CUint& y ) const
 }
 
 
-void Matrix::SetCell( CUint& x, CUint& y, CUint& cell )
+void Matrix::setCell( CUint& x, CUint& y, CUint& cell )
 {
     if( ( y < N_MATRIX_ROWS ) && ( x < (N_MATRIX_COLUMNS) ) && ( cell < N_COLORS ) ){
         cells_[y][x] = cell;
     }
 }
 
-
 /***
  * 4. Updating
  ***/
 
-int Matrix::EraseLine( const int& rowToBeChecked )
-{
-    unsigned int row, column = 0;
-
-    // Check if the given row is completed.
-    for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
-        if( !cells_[rowToBeChecked][column] ){
-            return -1;
-        }
-    }
-
-    // The given row is completed, delete it by making the above rows to
-    // "fall".
-    for( row = rowToBeChecked; row >= FIRST_VISIBLE_ROW; row-- ){
-        for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
-            cells_[row][column] = cells_[row-1][column];
-        }
-    }
-
-    return 0;
-}
-
-
-int Matrix::EraseLines( int firstRow, int lastRow )
+int Matrix::eraseCompletedRows( int firstRow, int lastRow )
 {
     int res = 0;
     int currentRow;
 
     for( currentRow = firstRow; currentRow <= lastRow; ){
-        if( EraseLine( currentRow ) == 0 ){
+        if( eraseRowIfCompleted( currentRow ) == 0 ){
             res++;
             //currentRow++;
         }else{
@@ -109,10 +85,10 @@ int Matrix::EraseLines( int firstRow, int lastRow )
 
 
 /***
- * 6. Drawing
+ * 5. Drawing
  ***/
 
-int Matrix::Draw( SDL_Renderer* renderer, SDL_Texture* tileset )
+int Matrix::draw( SDL_Renderer* renderer, SDL_Texture* tileset )
 {
     unsigned int row, column;
 
@@ -132,7 +108,7 @@ int Matrix::Draw( SDL_Renderer* renderer, SDL_Texture* tileset )
 }
 
 
-void Matrix::Print()
+void Matrix::print()
 {
     unsigned int row, column;
 
@@ -146,4 +122,31 @@ void Matrix::Print()
         std::cout << std::endl;
     }
     std::cout << "-----------------------------------------------" << std::endl;
+}
+
+
+/***
+ * 6. Updating (private)
+ ***/
+
+int Matrix::eraseRowIfCompleted( const int& rowToBeChecked )
+{
+    unsigned int row, column = 0;
+
+    // Check if the given row is completed.
+    for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
+        if( !cells_[rowToBeChecked][column] ){
+            return -1;
+        }
+    }
+
+    // The given row is completed, delete it by making the above rows to
+    // "fall".
+    for( row = rowToBeChecked; row >= FIRST_VISIBLE_ROW; row-- ){
+        for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
+            cells_[row][column] = cells_[row-1][column];
+        }
+    }
+
+    return 0;
 }

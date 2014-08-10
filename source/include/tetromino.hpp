@@ -45,15 +45,6 @@ const int TETROMINO_Y0 = 1;
 /***********************************************************************************************/
 
 class Tetromino {
-    private:
-        SDL_Texture* texture_;
-        Matrix& gameMatrix_;
-
-        int blocks_[4][2];
-        int x_, y_;
-        int color_;
-
-
     public:
         /***
          * 1. Construction
@@ -64,22 +55,37 @@ class Tetromino {
         /***
          * 2. Initialization
          ***/
-        int Reset( int color );
+        int reset( int color );
 
 
         /***
          * 3. Updating
          ***/
-        int MoveTetromino( const int& dx );
-        int RotateTetromino();
-        int TetrominoFall( const int& dy = 1 );
-        void FixTetromino();
+        int moveTetromino( const int& dx );
+        int rotateTetromino();
+        int tetrominoFall( const int& dy = 1 );
 
 
         /***
          * 4. Drawing
          ***/
-        int Draw( SDL_Renderer* renderer );
+        int draw( SDL_Renderer* renderer );
+
+
+        /***
+         * 5. Tetromino fixing.
+         ***/
+    private:
+        void fixTetromino();
+
+
+    private:
+        SDL_Texture* texture_;
+        Matrix& gameMatrix_;
+
+        int blocks_[4][2];
+        int x_, y_;
+        int color_;
 };
 
 #endif

@@ -19,12 +19,6 @@
 /***********************************************************************************************/
 
 struct Player {
-    int level_;
-    int score_;
-    int filledLines_;
-    int gameOver_;
-    int nextTetromino_;
-
     /***
      * 1. Construction
      ***/
@@ -34,7 +28,14 @@ struct Player {
     /***
      * 2. Initialization
      ***/
-    void Reset();
+    void reset();
+
+
+    int level_;
+    int score_;
+    int filledLines_;
+    int gameOver_;
+    int nextTetromino_;
 };
 
 
