@@ -23,14 +23,6 @@
 /***********************************************************************************************/
 
 class Tetris {
-    private:
-        GameLoop *game_;
-        SDL_Window* screen_; // TODO: Rename as window.
-        Mix_Music *music_;
-        SDL_Renderer* renderer_;
-
-        ResourceLoader resourceLoader_;
-
     public:
         /***
          * 1. Construction
@@ -45,9 +37,25 @@ class Tetris {
 
 
         /***
-         * 3. Initialization
+         * 3. Execution
          ***/
-        void start();
+        void run();
+
+
+    private:
+        /***
+         * 4. Initialization
+         ***/
+        void initSDL();
+
+
+    private:
+        GameLoop *game_;
+        SDL_Window* screen_; // TODO: Rename as window.
+        Mix_Music *music_;
+        SDL_Renderer* renderer_;
+
+        ResourceLoader resourceLoader_;
 };
 
 

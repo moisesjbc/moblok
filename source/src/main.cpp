@@ -1,6 +1,7 @@
 
 #include <tetris.hpp>
 #include <iostream>
+#include <exception>
 using namespace std;
 
 int main( int argc, char** argv )
@@ -9,29 +10,11 @@ int main( int argc, char** argv )
     (void)argv;
 
     try{
-        if( SDL_Init( SDL_INIT_VIDEO ) ){
-            std::cerr << SDL_GetError() << std::endl;
-            exit(1);
-        }
-        if( Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) < 0 ){
-            std::cerr << Mix_GetError() << std::endl;
-            exit(1);
-        }
-        if( TTF_Init() == -1 ){
-            std::cerr << TTF_GetError() << std::endl;
-            exit(2);
-        }
-
-        atexit( SDL_Quit );
-        atexit( Mix_Quit );
-        atexit( TTF_Quit );
-
         Tetris tetris;
-
-        tetris.start();
-
-    }catch( const char errorMsg[] ){
-        std::cerr << errorMsg << std::endl;
+        tetris.run();
+    }catch( std::exception& ex ){
+        std::cerr << ex.what() << std::endl;
+        return 1;
     }
 
 	return 0;

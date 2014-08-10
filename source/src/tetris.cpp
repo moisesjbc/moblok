@@ -24,19 +24,25 @@ Tetris::Tetris() :
     resourceLoader_( { DATA_INSTALL_DIR, DATA_SOURCE_DIR } )
 {
     try{
+        initSDL();
+
         screen_ = SDL_CreateWindow( "Moblok'",
                                     SDL_WINDOWPOS_UNDEFINED,
                                     SDL_WINDOWPOS_UNDEFINED,
                                     RES_X,
                                     RES_Y,
                                     0 );
-        renderer_ = SDL_CreateRenderer( screen_, -1, 0);
+        if( !screen_ ){
+            throw std::runtime_error( SDL_GetError() );
+        }
 
-        // TODO: Add checks;
+        renderer_ = SDL_CreateRenderer( screen_, -1, 0);
+        if( !renderer_ ){
+            throw std::runtime_error( SDL_GetError() );
+        }
 
         SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "linear" );
         SDL_RenderSetLogicalSize( renderer_, RES_X, RES_Y );
-
 
         game_ = new GameLoop( screen_, renderer_, &resourceLoader_ );
 
@@ -60,10 +66,10 @@ Tetris::~Tetris(){
 
 
 /***
- * 3. Initialization
+ * 3. Execution
  ***/
 
-void Tetris::start()
+void Tetris::run()
 {
     SDL_Texture* background_ = nullptr;
     SDL_Event event;
@@ -111,3 +117,28 @@ void Tetris::start()
     }
 }
 
+
+/***
+ * 4. Initialization
+ ***/
+
+void Tetris::initSDL()
+{
+    // Initialize the SDL library
+    if( SDL_Init( SDL_INIT_VIDEO ) ){
+        throw std::runtime_error( SDL_GetError() );
+    }
+    atexit( SDL_Quit );
+
+    // Initialize the SDL_mixer library
+    if( Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) < 0 ){
+        throw std::runtime_error( Mix_GetError() );
+    }
+    atexit( Mix_Quit );
+
+    // Initialize the SDL_ttf library
+    if( TTF_Init() == -1 ){
+        throw std::runtime_error( TTF_GetError() );
+    }
+    atexit( TTF_Quit );
+}
