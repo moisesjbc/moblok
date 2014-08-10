@@ -42,8 +42,48 @@ const unsigned int REFRESH_TIME = 33; // 33 ms ~ 30 fps.
 
 const int INITIAL_LOCK_TIME = 250;
 
-
 class GameLoop {
+    public:
+        /***
+         * 1. Construction
+         ***/
+        GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader );
+
+
+        /***
+         * 2. Destruction
+         ***/
+        ~GameLoop();
+
+
+        /***
+         * 3. Execution
+         ***/
+        void run();
+
+
+    private:
+        /***
+         * 4. Initialization
+         ***/
+        void newGame();
+
+
+        /***
+         * 5. Main loop execution
+         ***/
+        int runMainLoop();
+        void updateLogic();
+        void pause( bool& exitGame );
+
+
+        /***
+         * 5. Drawing
+         ***/
+        int draw();
+        int drawGUI();
+
+
     private:
         Player player_;
 
@@ -59,46 +99,6 @@ class GameLoop {
         Tetromino currentTetromino_;
 
         TTF_Font* font_;
-
-    public:
-        /***
-         * 1. Construction
-         ***/
-        GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader );
-
-
-        /***
-         * 2. Destruction
-         ***/
-        ~GameLoop();
-
-
-        /***
-         * 3. Initialization
-         ***/
-        void NewGame();
-
-
-        /***
-         * 4. Updating
-         ***/
-        int MainLoop();
-        void Update();
-        void Pause( bool& exitGame );
-
-
-        /***
-         * 5. Drawing
-         ***/
-        int Draw();
-        int DrawGUI();
-
-
-    private:
-        /***
-         * 6. Auxiliar methods
-         ***/
-        void SetEventsState( int state ) const;
 };
 
 #endif

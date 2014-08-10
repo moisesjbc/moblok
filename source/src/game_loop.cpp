@@ -73,23 +73,24 @@ GameLoop::~GameLoop()
 
 
 /***
+ * 3. Execution
+ ***/
+
+void GameLoop::run()
+{
+    newGame();
+
+    runMainLoop();
+}
+
+/***
  * 3. Initialization
  ***/
 
-void GameLoop::NewGame()
+void GameLoop::newGame()
 {
-    // Ignore all events except SDL_QUIT, SDL_KEYDOWN and SDL_VIDEOEXPOSE.
-    SetEventsState( SDL_IGNORE );
-    SDL_EventState( SDL_QUIT, SDL_ENABLE );
-    SDL_EventState( SDL_KEYDOWN, SDL_ENABLE );
-    SDL_EventState( SDL_WINDOWEVENT, SDL_ENABLE );
-
     player_.Reset();
     matrix_.Reset();
-    MainLoop();
-
-    // Enable all the events.
-    SetEventsState( SDL_ENABLE );
 }
 
 
@@ -97,7 +98,7 @@ void GameLoop::NewGame()
  * 4. Updating
  ***/
 
-int GameLoop::MainLoop()
+int GameLoop::runMainLoop()
 {
     SDL_Event event;
     lockTime_ = INITIAL_LOCK_TIME;
@@ -105,7 +106,7 @@ int GameLoop::MainLoop()
     bool exitGame = false;
 
     // Draws the matrix and GUI.
-    Draw();
+    draw();
 
     // GameLoop loop
     while( !exitGame && !player_.gameOver_ ){
@@ -132,9 +133,7 @@ int GameLoop::MainLoop()
                                 currentTetromino_.TetrominoFall();
                             break;
                             case SDLK_ESCAPE:
-                                //Mix_PauseMusic();
-                                Pause( exitGame );
-                                //Mix_ResumeMusic();
+                                pause( exitGame );
                             break;
                             default:
                             break;
@@ -142,7 +141,7 @@ int GameLoop::MainLoop()
 
                     break;
                     case SDL_WINDOWEVENT:
-                        Draw();
+                        draw();
                     break;
                     case SDL_QUIT:
                         exitGame = true;
@@ -158,17 +157,17 @@ int GameLoop::MainLoop()
         }while( t1-t0 < INITIAL_LOCK_TIME /*REFRESH_TIME*/ );
 
         // Logic update.
-        Update();
+        updateLogic();
 
         // Display.
-        Draw();
+        draw();
     }
 
     return 0;
 }
 
 
-void GameLoop::Update()
+void GameLoop::updateLogic()
 {
     int erasedLines = 0;
 
@@ -189,12 +188,12 @@ void GameLoop::Update()
         player_.gameOver_ = (currentTetromino_.Reset( player_.nextTetromino_ ) == -1);
         player_.nextTetromino_ = (rand()%7)+1;
 
-        DrawGUI();
+        drawGUI();
     }
 }
 
 
-void GameLoop::Pause( bool& exitGame )
+void GameLoop::pause( bool& exitGame )
 {
     SDL_Event event;
     bool exitPauseMenu = false;
@@ -248,7 +247,7 @@ void GameLoop::Pause( bool& exitGame )
  * 5. Drawing
  ***/
 
-int GameLoop::DrawGUI()
+int GameLoop::drawGUI()
 {
     SDL_Rect dstRect = rects[SCORE_RECT_1];
     char scoreString[32];
@@ -278,14 +277,14 @@ int GameLoop::DrawGUI()
 }
 
 
-int GameLoop::Draw()
+int GameLoop::draw()
 {
     // Clear screen with background color.
     SDL_SetRenderDrawColor( renderer_, 20, 171, 180, 255);
     SDL_RenderClear( renderer_ );
 
     // Draw the GUI
-    DrawGUI();
+    drawGUI();
 
     // Draw the game matrix.
     matrix_.Draw( renderer_, graphics_[TILESET] );
@@ -295,19 +294,4 @@ int GameLoop::Draw()
     SDL_RenderPresent( renderer_ );
 
     return 0;
-}
-
-
-/***
- * 6. Auxiliar methods
- ***/
-
-void GameLoop::SetEventsState( int state ) const
-{
-    (void)( state ); // TODO: Reimplement this.
-    /*
-    for( int i=0; i<SDL_NUMEVENTS; i++ ){
-        SDL_EventState( i, state );
-    }
-    */
 }

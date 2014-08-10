@@ -106,7 +106,7 @@ void Tetris::start()
 
         // Start the game if player wants to.
         if( playGame ){
-            game_->NewGame();
+            game_->run();
         }
     }
 }
