@@ -67,6 +67,8 @@ void Matrix::setCell( CUint& x, CUint& y, CUint& cell )
  * 4. Updating
  ***/
 
+// TODO: Remove these arguments and check only the rows affected by the last
+// fixed tetrominos.
 int Matrix::eraseCompletedRows( int firstRow, int lastRow )
 {
     int res = 0;
