@@ -33,14 +33,19 @@ class Tetris {
 
     public:
         /***
-         * 1. Construction and destruction
+         * 1. Construction
          ***/
         Tetris();
+
+
+        /***
+         * 2. Destruction
+         ***/
         ~Tetris();
 
 
         /***
-         * 2. GameLoop initialization
+         * 3. Initialization
          ***/
         void start();
 };

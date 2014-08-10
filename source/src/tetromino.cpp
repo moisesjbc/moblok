@@ -18,7 +18,7 @@ Tetromino::Tetromino( const ResourceLoader* resourceLoader, SDL_Renderer* render
  * 2. Initialization
  ***/
 
-int Tetromino::Reset( int color ) throw()
+int Tetromino::Reset( int color )
 {
     color_ = color;
     x_ = TETROMINO_X0;
@@ -39,7 +39,7 @@ int Tetromino::Reset( int color ) throw()
  * 3. Updating
  ***/
 
-int Tetromino::MoveTetromino( const int& dx ) throw()
+int Tetromino::MoveTetromino( const int& dx )
 {
     for( int i=0; i<4; i++ ){
         if( gameMatrix_.GetCell( blocks_[i][X] + dx, blocks_[i][Y] ) ){
@@ -56,7 +56,7 @@ int Tetromino::MoveTetromino( const int& dx ) throw()
 }
 
 
-int Tetromino::RotateTetromino() throw()
+int Tetromino::RotateTetromino()
 {
     for( int i=0; i<4; i++ ){
         int aux_x = blocks_[i][X];
@@ -75,7 +75,8 @@ int Tetromino::RotateTetromino() throw()
     return 0;
 }
 
-int Tetromino::TetrominoFall( const int& dy ) throw()
+
+int Tetromino::TetrominoFall( const int& dy )
 {
     for( int i=0; i<4; i++ ){
         if( gameMatrix_.GetCell( blocks_[i][X], blocks_[i][Y] + dy )  )
@@ -93,7 +94,7 @@ int Tetromino::TetrominoFall( const int& dy ) throw()
     return 0;
 }
 
-void Tetromino::FixTetromino() throw()
+void Tetromino::FixTetromino()
 {
     gameMatrix_.Print();
 

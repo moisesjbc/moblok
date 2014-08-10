@@ -32,11 +32,11 @@ const SDL_Rect rects[4] = {
 /***********************************************************************************************/
 
 
-/***********************************************************************************************/
-/*                               1. Inicialization and destruction.                            */
-/***********************************************************************************************/
+/***
+ * 1. Construction
+ ***/
 
-GameLoop::GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader ) throw( const char* ) :
+GameLoop::GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader ) :
     screen_(screen),
     renderer_( renderer ),
     graphics_{ nullptr },
@@ -59,7 +59,12 @@ GameLoop::GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLo
     }
 }
 
-GameLoop::~GameLoop() throw()
+
+/***
+ * 2. Destruction
+ ***/
+
+GameLoop::~GameLoop()
 {
     for( int i=0; i<N_GRAPHICS; i++ ){
         SDL_DestroyTexture( graphics_[i] );
@@ -67,7 +72,11 @@ GameLoop::~GameLoop() throw()
 }
 
 
-void GameLoop::NewGame() throw()
+/***
+ * 3. Initialization
+ ***/
+
+void GameLoop::NewGame()
 {
     // Ignore all events except SDL_QUIT, SDL_KEYDOWN and SDL_VIDEOEXPOSE.
     SetEventsState( SDL_IGNORE );
@@ -84,11 +93,11 @@ void GameLoop::NewGame() throw()
 }
 
 
-/***********************************************************************************************/
-/*                                   2. GameLoop loop's related functions.                     */
-/***********************************************************************************************/
+/***
+ * 4. Updating
+ ***/
 
-int GameLoop::MainLoop() throw()
+int GameLoop::MainLoop()
 {
     SDL_Event event;
     lockTime_ = INITIAL_LOCK_TIME;
@@ -159,7 +168,7 @@ int GameLoop::MainLoop() throw()
 }
 
 
-void GameLoop::Update() throw()
+void GameLoop::Update()
 {
     int erasedLines = 0;
 
@@ -185,7 +194,7 @@ void GameLoop::Update() throw()
 }
 
 
-void GameLoop::Pause( bool& exitGame ) throw()
+void GameLoop::Pause( bool& exitGame )
 {
     SDL_Event event;
     bool exitPauseMenu = false;
@@ -235,12 +244,11 @@ void GameLoop::Pause( bool& exitGame ) throw()
 }
 
 
-/***********************************************************************************************/
-/*                                       3. Graphic functions.                                 */
-/***********************************************************************************************/
+/***
+ * 5. Drawing
+ ***/
 
-
-int GameLoop::DrawGUI() throw()
+int GameLoop::DrawGUI()
 {
     SDL_Rect dstRect = rects[SCORE_RECT_1];
     char scoreString[32];
@@ -270,7 +278,7 @@ int GameLoop::DrawGUI() throw()
 }
 
 
-int GameLoop::Draw() throw()
+int GameLoop::Draw()
 {
     // Clear screen with background color.
     SDL_SetRenderDrawColor( renderer_, 20, 171, 180, 255);
@@ -290,11 +298,11 @@ int GameLoop::Draw() throw()
 }
 
 
-/***********************************************************************************************/
-/*                                       4. Auxiliar functions.                                */
-/***********************************************************************************************/
+/***
+ * 6. Auxiliar methods
+ ***/
 
-void GameLoop::SetEventsState( int state ) const throw()
+void GameLoop::SetEventsState( int state ) const
 {
     (void)( state ); // TODO: Reimplement this.
     /*

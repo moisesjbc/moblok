@@ -17,7 +17,7 @@
 /***********************************************************************************************/
 
 /***
- * 1. Construction and destruction
+ * 1. Construction
  ***/
 
 Tetris::Tetris() :
@@ -46,6 +46,11 @@ Tetris::Tetris() :
     }
 }
 
+
+/***
+ * 2. Destruction
+ ***/
+
 Tetris::~Tetris(){
     SDL_DestroyWindow( screen_ );
     SDL_DestroyRenderer( renderer_ );
@@ -55,7 +60,7 @@ Tetris::~Tetris(){
 
 
 /***
- * 2. GameLoop initialization
+ * 3. Initialization
  ***/
 
 void Tetris::start()

@@ -64,16 +64,16 @@ class Tetromino {
         /***
          * 2. Initialization
          ***/
-        int Reset( int color ) throw();
+        int Reset( int color );
 
 
         /***
          * 3. Updating
          ***/
-        int MoveTetromino( const int& dx ) throw();
-        int RotateTetromino() throw();
-        int TetrominoFall( const int& dy = 1 ) throw();
-        void FixTetromino() throw();
+        int MoveTetromino( const int& dx );
+        int RotateTetromino();
+        int TetrominoFall( const int& dy = 1 );
+        void FixTetromino();
 
 
         /***

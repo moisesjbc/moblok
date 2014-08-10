@@ -15,9 +15,9 @@ char errorMsg[151] = "\0";
 /***********************************************************************************************/
 
 
-/***********************************************************************************************/
-/*                               1. Initialization and destruction.                            */
-/***********************************************************************************************/
+/***
+ * 1. Construction
+ ***/
 
 Matrix::Matrix()
 {
@@ -25,27 +25,11 @@ Matrix::Matrix()
 }
 
 
-/***********************************************************************************************/
-/*                                       2. Cells management.                                  */
-/***********************************************************************************************/
+/***
+ * 2. Initialization
+ ***/
 
-void Matrix::SetCell( CUint& x, CUint& y, CUint& cell )
-{
-    if( ( y < N_MATRIX_ROWS ) && ( x < (N_MATRIX_COLUMNS) ) && ( cell < N_COLORS ) ){
-        cells_[y][x] = cell;
-    }
-}
-
-int Matrix::GetCell( CUint& x, CUint& y ) const
-{
-    if( ( y < N_MATRIX_ROWS) && ( x < (N_MATRIX_COLUMNS ) ) ){
-        return cells_[y][x];
-    }else{
-        return -1;
-    }
-}
-
-void Matrix::Reset() throw()
+void Matrix::Reset()
 {
     unsigned int row, column;
 
@@ -57,11 +41,34 @@ void Matrix::Reset() throw()
 }
 
 
-/***********************************************************************************************/
-/*                                         4. Matrix update                                    */
-/***********************************************************************************************/
+/***
+ * 3. Cells management
+ ***/
 
-int Matrix::EraseLine( const int& rowToBeChecked ) throw()
+
+int Matrix::GetCell( CUint& x, CUint& y ) const
+{
+    if( ( y < N_MATRIX_ROWS) && ( x < (N_MATRIX_COLUMNS ) ) ){
+        return cells_[y][x];
+    }else{
+        return -1;
+    }
+}
+
+
+void Matrix::SetCell( CUint& x, CUint& y, CUint& cell )
+{
+    if( ( y < N_MATRIX_ROWS ) && ( x < (N_MATRIX_COLUMNS) ) && ( cell < N_COLORS ) ){
+        cells_[y][x] = cell;
+    }
+}
+
+
+/***
+ * 4. Updating
+ ***/
+
+int Matrix::EraseLine( const int& rowToBeChecked )
 {
     unsigned int row, column = 0;
 
@@ -84,8 +91,7 @@ int Matrix::EraseLine( const int& rowToBeChecked ) throw()
 }
 
 
-
-int Matrix::EraseLines( int firstRow, int lastRow ) throw()
+int Matrix::EraseLines( int firstRow, int lastRow )
 {
     int res = 0;
     int currentRow;
@@ -102,12 +108,11 @@ int Matrix::EraseLines( int firstRow, int lastRow ) throw()
 }
 
 
+/***
+ * 6. Drawing
+ ***/
 
-/***********************************************************************************************/
-/*                                      3. Graphic functions.                                  */
-/***********************************************************************************************/
-
-int Matrix::Draw( SDL_Renderer* renderer, SDL_Texture* tileset ) throw()
+int Matrix::Draw( SDL_Renderer* renderer, SDL_Texture* tileset )
 {
     unsigned int row, column;
 

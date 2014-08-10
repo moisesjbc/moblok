@@ -43,11 +43,6 @@ const unsigned int REFRESH_TIME = 33; // 33 ms ~ 30 fps.
 const int INITIAL_LOCK_TIME = 250;
 
 
-/*
-    NOTE : All the methods  of this class that returns a value returns 0 if they succeded.
-    Otherwise they return -1.
-*/
-
 class GameLoop {
     private:
         Player player_;
@@ -55,7 +50,6 @@ class GameLoop {
         SDL_Window *screen_;
         SDL_Renderer* renderer_;
 
-        //tr::TextRenderer* textRenderer;
         SDL_Texture* graphics_[N_GRAPHICS];
         SDL_Rect rects_[N_RECTS];
 
@@ -67,31 +61,44 @@ class GameLoop {
         TTF_Font* font_;
 
     public:
-        /***************************************************************************************/
-        /*                            1. Inicialization and destruction.                       */
-        /***************************************************************************************/
-        GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader )    throw( const char* );
-        ~GameLoop()                         throw();
-        void NewGame()                  throw();
+        /***
+         * 1. Construction
+         ***/
+        GameLoop( SDL_Window *screen, SDL_Renderer* renderer, const ResourceLoader* resourceLoader );
 
-        /***************************************************************************************/
-        /*                             2. GameLoop loop's related functions.                       */
-        /***************************************************************************************/
-        int MainLoop()  throw();
-        void Update()   throw();
-        void Pause( bool& exitGame ) throw();
 
-        /***************************************************************************************/
-        /*                                 3. Graphic functions.                               */
-        /***************************************************************************************/
-        int Draw()      throw();
-        int DrawGUI()   throw();
+        /***
+         * 2. Destruction
+         ***/
+        ~GameLoop();
 
-        /***************************************************************************************/
-        /*                                4. Auxiliar functions.                               */
-        /***************************************************************************************/
+
+        /***
+         * 3. Initialization
+         ***/
+        void NewGame();
+
+
+        /***
+         * 4. Updating
+         ***/
+        int MainLoop();
+        void Update();
+        void Pause( bool& exitGame );
+
+
+        /***
+         * 5. Drawing
+         ***/
+        int Draw();
+        int DrawGUI();
+
+
     private:
-        void SetEventsState( int state ) const throw();
+        /***
+         * 6. Auxiliar methods
+         ***/
+        void SetEventsState( int state ) const;
 };
 
 #endif
