@@ -130,6 +130,13 @@ void Tetris::initSDL()
     }
     atexit( SDL_Quit );
 
+    // Initialize the SDL_image library.
+    int flags = IMG_INIT_JPG | IMG_INIT_PNG;
+    if( IMG_Init( flags ) != flags ){
+        throw std::runtime_error( IMG_GetError() );
+    }
+    atexit( IMG_Quit );
+
     // Initialize the SDL_mixer library
     if( Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) < 0 ){
         throw std::runtime_error( Mix_GetError() );
