@@ -164,7 +164,7 @@ void GameLoop::Update() throw()
     int erasedLines = 0;
 
     if( currentTetromino_.TetrominoFall() < 0 ){
-        erasedLines = matrix_.EraseLines(  );
+        erasedLines = matrix_.EraseLines();
         if( erasedLines ){
             matrix_.Draw( renderer_, graphics_[TILESET] );
             SDL_RenderPresent( renderer_ );

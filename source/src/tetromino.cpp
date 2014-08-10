@@ -1,6 +1,5 @@
 
 #include <tetromino.hpp>
-#include <iostream>
 
 /***
  * 1. Construction
@@ -98,7 +97,6 @@ void Tetromino::FixTetromino() throw()
 {
     gameMatrix_.Print();
 
-    std::cout << "Fixing tetromino!" << std::endl;
     for( int j=0; j<4; j++ ){
         gameMatrix_.SetCell( blocks_[j][X], blocks_[j][Y], color_ );
     }

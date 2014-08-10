@@ -66,10 +66,8 @@ int Matrix::EraseLine( const int& rowToBeChecked ) throw()
     unsigned int row, column = 0;
 
     // Check if the given row is completed.
-    std::cout << "rowToBeChecked: " << rowToBeChecked << std::endl;
     for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
         if( !cells_[rowToBeChecked][column] ){
-            std::cout << "\t\t(" << rowToBeChecked << ", " << column << ") is empty" << std::endl;
             return -1;
         }
     }
@@ -92,7 +90,7 @@ int Matrix::EraseLines( int firstRow, int lastRow ) throw()
     int res = 0;
     int currentRow;
 
-    for( currentRow = firstRow; currentRow < lastRow; ){
+    for( currentRow = firstRow; currentRow <= lastRow; ){
         if( EraseLine( currentRow ) == 0 ){
             res++;
             //currentRow++;
@@ -136,6 +134,7 @@ void Matrix::Print()
     std::cout << "Matrix::Print()" << std::endl
               << "-----------------------------------------------" << std::endl;
     for( row = 0; row < N_MATRIX_ROWS; row++ ){
+        std::cout << "row(" << row << "): ";
         for( column = 0; column < N_MATRIX_COLUMNS; column++ ){
             std::cout << cells_[row][column] << ", ";
         }
