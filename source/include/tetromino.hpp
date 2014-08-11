@@ -89,7 +89,7 @@ class Tetromino {
         Matrix& gameMatrix_;
 
         PixelPos pos_;
-        int blocks_[4][2];
+        PixelPos blocks_[4];
         int color_;
 };
 
