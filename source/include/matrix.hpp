@@ -31,10 +31,16 @@ const int RES_Y = 768;
 
 extern char errorMsg[151];
 
+struct PixelPos {
+    unsigned int x;
+    unsigned int y;
+};
+
 struct CellPos {
     unsigned int row;
     unsigned int column;
 };
+
 
 /*                                        Type declarations                                    */
 /***********************************************************************************************/
@@ -56,8 +62,8 @@ class Matrix {
         /***
          * 3. Cells management
          ***/
-        int getCell( CUint& x, CUint& y ) const;
-        void setCell( CUint& x, CUint& y, CUint& cell );
+        int getCell( PixelPos pos ) const;
+        void setCell( PixelPos pos, CUint& cell );
 
 
         /***

@@ -154,7 +154,7 @@ int GameLoop::runMainLoop()
 
 
             t1 = SDL_GetTicks();
-        }while( t1-t0 < INITIAL_LOCK_TIME /*REFRESH_TIME*/ );
+        }while( t1-t0 < REFRESH_TIME );
 
         // Logic update.
         updateLogic();

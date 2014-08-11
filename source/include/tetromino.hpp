@@ -37,13 +37,8 @@ const int LAST_POS = 0;
 const int CURRENT_POS = 1;
 const int AUX = 2;
 
-const int TETROMINO_X0 = 5;
-const int TETROMINO_Y0 = 1;
-
-struct PixelPos {
-    unsigned int x;
-    unsigned int y;
-};
+const int TETROMINO_X0 = 5 * TILE_SIZE;
+const int TETROMINO_Y0 = 1 * TILE_SIZE;
 
 
 /*                                        Type declarations                                    */
@@ -68,7 +63,7 @@ class Tetromino {
          ***/
         int moveHorizontally( const int& dx );
         int rotate();
-        int fall( const int& dy = 1 ); // TODO: Remove the argument and rename as update()?
+        int fall( const int& dy = 10 ); // TODO: Remove the argument and rename as update()?
 
 
         /***
