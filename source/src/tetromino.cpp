@@ -21,12 +21,12 @@ Tetromino::Tetromino( const ResourceLoader* resourceLoader, SDL_Renderer* render
 int Tetromino::reset( int color )
 {
     color_ = color;
-    x_ = TETROMINO_X0;
-    y_ = TETROMINO_Y0;
+    pos_.x = TETROMINO_X0;
+    pos_.y = TETROMINO_Y0;
 
     for( int i=0; i<4; i++ ){
-        blocks_[i][X] = x_ + Tetrominos[color-1][i][X];
-        blocks_[i][Y] = y_ + Tetrominos[color-1][i][Y];
+        blocks_[i][X] = pos_.x + Tetrominos[color-1][i][X];
+        blocks_[i][Y] = pos_.y + Tetrominos[color-1][i][Y];
 
         if( gameMatrix_.getCell( blocks_[i][X], blocks_[i][Y] ) ) return -1;
     }
@@ -50,7 +50,7 @@ int Tetromino::moveHorizontally( const int& dx )
     for( int i=0; i<4; i++ ){
         blocks_[i][X] += dx;
     }
-    x_ += dx;
+    pos_.x += dx;
 
     return 0;
 }
@@ -61,15 +61,15 @@ int Tetromino::rotate()
     for( int i=0; i<4; i++ ){
         int aux_x = blocks_[i][X];
 
-        if( gameMatrix_.getCell( x_ - (blocks_[i][Y]-y_) - 1, y_ + (aux_x-x_) ) ){
+        if( gameMatrix_.getCell( pos_.x - (blocks_[i][Y]-pos_.y) - 1, pos_.y + (aux_x-pos_.x) ) ){
                 return -1;
         }
     }
 
     for( int i=0; i<4; i++ ){
         int aux_x = blocks_[i][X];
-        blocks_[i][X] = x_ - (blocks_[i][Y]-y_) - 1;
-        blocks_[i][Y] = y_ + (aux_x-x_);
+        blocks_[i][X] = pos_.x - (blocks_[i][Y]-pos_.y) - 1;
+        blocks_[i][Y] = pos_.y + (aux_x-pos_.x);
     }
 
     return 0;
@@ -89,7 +89,7 @@ int Tetromino::fall( const int& dy )
     for( int i=0; i<4; i++ ){
         blocks_[i][Y] += dy;
     }
-    y_ += dy;
+    pos_.y += dy;
 
     return 0;
 }
