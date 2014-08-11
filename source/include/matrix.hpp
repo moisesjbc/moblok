@@ -31,6 +31,11 @@ const int RES_Y = 768;
 
 extern char errorMsg[151];
 
+struct CellPos {
+    unsigned int row;
+    unsigned int column;
+};
+
 /*                                        Type declarations                                    */
 /***********************************************************************************************/
 

@@ -40,6 +40,11 @@ const int AUX = 2;
 const int TETROMINO_X0 = 5;
 const int TETROMINO_Y0 = 1;
 
+struct PixelPos {
+    unsigned int x;
+    unsigned int y;
+};
+
 
 /*                                        Type declarations                                    */
 /***********************************************************************************************/
