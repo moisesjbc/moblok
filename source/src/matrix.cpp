@@ -48,11 +48,11 @@ void Matrix::reset()
 
 int Matrix::getCell( PixelPos pos ) const
 {
-    CUint x = pos.x >> TILE_SIZE_2;
-    CUint y = pos.y >> TILE_SIZE_2;
+    CUint row = pos.y >> TILE_SIZE_2;
+    CUint column = pos.x >> TILE_SIZE_2;
 
-    if( ( y < N_MATRIX_ROWS) && ( x < (N_MATRIX_COLUMNS ) ) ){
-        return cells_[y][x];
+    if( ( row < N_MATRIX_ROWS) && ( column < (N_MATRIX_COLUMNS ) ) ){
+        return cells_[row][column];
     }else{
         return -1;
     }
@@ -61,11 +61,11 @@ int Matrix::getCell( PixelPos pos ) const
 
 void Matrix::setCell( PixelPos pos, CUint& cell )
 {
-    CUint x = pos.x >> TILE_SIZE_2;
-    CUint y = pos.y >> TILE_SIZE_2;
+    CUint row = pos.y >> TILE_SIZE_2;
+    CUint column = pos.x >> TILE_SIZE_2;
 
-    if( ( y < N_MATRIX_ROWS ) && ( x < (N_MATRIX_COLUMNS) ) && ( cell < N_COLORS ) ){
-        cells_[y][x] = cell;
+    if( ( row < N_MATRIX_ROWS ) && ( column < (N_MATRIX_COLUMNS) ) && ( cell < N_COLORS ) ){
+        cells_[row][column] = cell;
     }
 }
 
