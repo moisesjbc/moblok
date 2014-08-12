@@ -39,8 +39,9 @@ int Tetromino::reset( int color )
  * 3. Updating
  ***/
 
-int Tetromino::moveHorizontally( const int& dx )
+int Tetromino::moveHorizontally( const int& cells )
 {
+    const int dx = cells << TILE_SIZE_2;
     PixelPos auxPos;
 
     for( int i=0; i<4; i++ ){
