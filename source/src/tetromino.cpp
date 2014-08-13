@@ -31,6 +31,8 @@ int Tetromino::reset( int color )
         if( gameMatrix_.getCell( blocks_[i] ) ) return -1;
     }
 
+    pivotPoint_ = pos_;
+
     return 0;
 }
 
@@ -56,7 +58,10 @@ int Tetromino::moveHorizontally( const int& cells )
     for( int i=0; i<4; i++ ){
         blocks_[i].x += dx;
     }
+
+
     pos_.x += dx;
+    pivotPoint_.x += dx;
 
     return 0;
 }
@@ -64,21 +69,19 @@ int Tetromino::moveHorizontally( const int& cells )
 
 int Tetromino::rotate()
 {
-    PixelPos auxPos;
+    PixelPos dstBlocks[4];
 
     for( int i=0; i<4; i++ ){
-        auxPos.x = pos_.x - (blocks_[i].y - pos_.y);
-        auxPos.y = pos_.y + (blocks_[i].x - pos_.x);
+        dstBlocks[i].x = -blocks_[i].y + pivotPoint_.y + pivotPoint_.x;
+        dstBlocks[i].y = blocks_[i].x - pivotPoint_.x + pivotPoint_.y;
 
-        if( gameMatrix_.getCell( auxPos ) ){
+        if( gameMatrix_.getCell( dstBlocks[i] ) ){
                 return -1;
         }
     }
 
     for( int i=0; i<4; i++ ){
-        int aux_x = blocks_[i].x;
-        blocks_[i].x = pos_.x - (blocks_[i].y-pos_.y);
-        blocks_[i].y = pos_.y + (aux_x-pos_.x);
+        blocks_[i] = dstBlocks[i];
     }
 
     return 0;
@@ -104,6 +107,7 @@ int Tetromino::fall( const int& dy )
         blocks_[i].y += dy;
     }
     pos_.y += dy;
+    pivotPoint_.y += dy;
 
     return 0;
 }

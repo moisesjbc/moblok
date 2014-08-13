@@ -77,7 +77,7 @@ void Tetris::run()
     bool exitGame = false;
 
     // Start playing music.
-    Mix_PlayMusic( music_, -1 );
+    //Mix_PlayMusic( music_, -1 );
 
     while( !exitGame ){
         // Load the main menu background and display it.

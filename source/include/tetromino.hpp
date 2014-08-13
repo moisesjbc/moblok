@@ -86,6 +86,8 @@ class Tetromino {
         PixelPos pos_;
         PixelPos blocks_[4];
         int color_;
+
+        PixelPos pivotPoint_;
 };
 
 #endif
