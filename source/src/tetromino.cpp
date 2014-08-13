@@ -67,7 +67,7 @@ int Tetromino::rotate()
     PixelPos auxPos;
 
     for( int i=0; i<4; i++ ){
-        auxPos.x = pos_.x - (blocks_[i].y - pos_.y) - 1;
+        auxPos.x = pos_.x - (blocks_[i].y - pos_.y);
         auxPos.y = pos_.y + (blocks_[i].x - pos_.x);
 
         if( gameMatrix_.getCell( auxPos ) ){
@@ -77,7 +77,7 @@ int Tetromino::rotate()
 
     for( int i=0; i<4; i++ ){
         int aux_x = blocks_[i].x;
-        blocks_[i].x = pos_.x - (blocks_[i].y-pos_.y) - 1;
+        blocks_[i].x = pos_.x - (blocks_[i].y-pos_.y);
         blocks_[i].y = pos_.y + (aux_x-pos_.x);
     }
 
