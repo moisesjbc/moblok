@@ -21,17 +21,16 @@ Tetromino::Tetromino( const ResourceLoader* resourceLoader, SDL_Renderer* render
 int Tetromino::reset( int color )
 {
     color_ = color;
-    pos_.x = TETROMINO_X0;
-    pos_.y = TETROMINO_Y0;
 
     for( int i=0; i<4; i++ ){
-        blocks_[i].x = pos_.x + Tetrominos[color-1][i][X] * TILE_SIZE;
-        blocks_[i].y = pos_.y + Tetrominos[color-1][i][Y] * TILE_SIZE;
+        blocks_[i].x = TETROMINO_X0 + Tetrominos[color-1][i][X] * TILE_SIZE;
+        blocks_[i].y = TETROMINO_Y0 + Tetrominos[color-1][i][Y] * TILE_SIZE;
 
         if( gameMatrix_.getCell( blocks_[i] ) ) return -1;
     }
 
-    pivotPoint_ = pos_;
+    pivotPoint_.x = TETROMINO_X0;
+    pivotPoint_.y = TETROMINO_Y0;
 
     return 0;
 }
@@ -59,8 +58,6 @@ int Tetromino::moveHorizontally( const int& cells )
         blocks_[i].x += dx;
     }
 
-
-    pos_.x += dx;
     pivotPoint_.x += dx;
 
     return 0;
@@ -83,7 +80,6 @@ int Tetromino::rotate()
     for( int i=0; i<4; i++ ){
         blocks_[i] = dstBlocks[i];
     }
-    // TODO: Update pos.
 
     return 0;
 }
@@ -107,7 +103,6 @@ int Tetromino::fall( const int& dy )
     for( int i=0; i<4; i++ ){
         blocks_[i].y += dy;
     }
-    pos_.y += dy;
     pivotPoint_.y += dy;
 
     return 0;

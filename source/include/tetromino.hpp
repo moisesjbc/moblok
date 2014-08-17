@@ -83,7 +83,6 @@ class Tetromino {
         SDL_Texture* texture_;
         Matrix& gameMatrix_;
 
-        PixelPos pos_;
         PixelPos blocks_[4];
         int color_;
 
