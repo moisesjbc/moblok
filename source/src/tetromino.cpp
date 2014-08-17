@@ -83,6 +83,7 @@ int Tetromino::rotate()
     for( int i=0; i<4; i++ ){
         blocks_[i] = dstBlocks[i];
     }
+    // TODO: Update pos.
 
     return 0;
 }
