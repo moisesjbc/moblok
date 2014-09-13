@@ -259,7 +259,7 @@ int GameLoop::drawGUI()
     SDL_RenderCopy( renderer_, graphics_[SCORE], nullptr, &dstRect );
 
     // Draw the score.
-    sprintf( scoreString, "%012i", player_.score_ );
+    sprintf( scoreString, "Score: %u", player_.score_ );
     scoreSurface = TTF_RenderText_Solid( font_, scoreString, scoreColor );
     scoreTexture = SDL_CreateTextureFromSurface( renderer_, scoreSurface );
     dstRect.x = dstRect.x + ( dstRect.w - scoreSurface->w ) / 2;

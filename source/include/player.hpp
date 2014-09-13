@@ -31,11 +31,11 @@ struct Player {
     void reset();
 
 
-    int level_;
-    int score_;
-    int filledLines_;
-    int gameOver_;
-    int nextTetromino_;
+    unsigned int level_;
+    unsigned int score_;
+    unsigned int filledLines_;
+    unsigned int gameOver_;
+    unsigned int nextTetromino_;
 };
 
 
