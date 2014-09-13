@@ -21,10 +21,10 @@ const char graphicsPaths[4][70] = {
     "pause_menu.png"            // PAUSE_MENU
 };
 
-const SDL_Rect rects[4] = {
+const SDL_Rect rects[3] = {
     { 677, 64, 160, 26 },   // SCORE_RECT_1
-    { 753, 67, 80, 21 },    // SCORE_RECT_2
-    { 677, 100, 160, 160 }  // NEXT_TETROMINO_RECT
+    { 677, 100, 160, 26 },  // LINES_RECT
+    { 677, 136, 160, 160 }  // NEXT_TETROMINO_RECT
 };
 
 
@@ -251,9 +251,12 @@ int GameLoop::drawGUI()
 {
     SDL_Rect dstRect = rects[SCORE_RECT_1];
     char scoreString[32];
+    char filledLinesString[32];
     SDL_Surface* scoreSurface = nullptr;
     SDL_Color scoreColor = { 0, 0, 0, 0 };
     SDL_Texture* scoreTexture = nullptr;
+    SDL_Surface* filledLinesSurface = nullptr;
+    SDL_Texture* filledLinesTexture = nullptr;
 
     // Draw the score panel.
     SDL_RenderCopy( renderer_, graphics_[SCORE], nullptr, &dstRect );
@@ -269,6 +272,22 @@ int GameLoop::drawGUI()
     SDL_RenderCopy( renderer_, scoreTexture, nullptr, &dstRect );
     SDL_FreeSurface( scoreSurface );
     SDL_DestroyTexture( scoreTexture );
+
+    // Draw the lines panel.
+    SDL_RenderCopy( renderer_, graphics_[SCORE], nullptr, &rects[LINES_RECT] );
+
+    // Draw the number of lines.
+    sprintf( filledLinesString, "Lines: %u", player_.filledLines_ );
+    filledLinesSurface = TTF_RenderText_Solid( font_, filledLinesString, scoreColor );
+    filledLinesTexture = SDL_CreateTextureFromSurface( renderer_, filledLinesSurface );
+    dstRect = rects[LINES_RECT];
+    dstRect.x = dstRect.x + ( dstRect.w - filledLinesSurface->w ) / 2;
+    dstRect.y = dstRect.y + ( dstRect.h - filledLinesSurface->h ) / 2;
+    dstRect.w = filledLinesSurface->w;
+    dstRect.h = filledLinesSurface->h;
+    SDL_RenderCopy( renderer_, filledLinesTexture, nullptr, &dstRect );
+    SDL_FreeSurface( filledLinesSurface );
+    SDL_DestroyTexture( filledLinesTexture );
 
     // Draws the next Tetromino;
     SDL_Rect srcRect = { (Sint16)((player_.nextTetromino_-1)*160), 0, 160, 160 };
