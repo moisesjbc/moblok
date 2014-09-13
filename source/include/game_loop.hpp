@@ -34,6 +34,7 @@ enum GRAPHICS {
 enum RECTS {
     SCORE_RECT_1 = 0,
     LINES_RECT,
+    LEVEL_RECT,
     NEXT_TETROMINO_RECT,
     N_RECTS
 };

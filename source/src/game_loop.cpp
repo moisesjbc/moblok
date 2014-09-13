@@ -21,10 +21,11 @@ const char graphicsPaths[4][70] = {
     "pause_menu.png"            // PAUSE_MENU
 };
 
-const SDL_Rect rects[3] = {
+const SDL_Rect rects[4] = {
     { 677, 64, 160, 26 },   // SCORE_RECT_1
-    { 677, 100, 160, 26 },  // LINES_RECT
-    { 677, 136, 160, 160 }  // NEXT_TETROMINO_RECT
+    { 677, 100, 160, 26 },  // LINES_RECT,
+    { 677, 136, 160, 26 },  // LEVEL_RECT
+    { 677, 172, 160, 160 }  // NEXT_TETROMINO_RECT
 };
 
 
@@ -250,44 +251,46 @@ void GameLoop::pause( bool& exitGame )
 int GameLoop::drawGUI()
 {
     SDL_Rect dstRect = rects[SCORE_RECT_1];
-    char scoreString[32];
-    char filledLinesString[32];
-    SDL_Surface* scoreSurface = nullptr;
-    SDL_Color scoreColor = { 0, 0, 0, 0 };
-    SDL_Texture* scoreTexture = nullptr;
-    SDL_Surface* filledLinesSurface = nullptr;
-    SDL_Texture* filledLinesTexture = nullptr;
+    char panelString[32];
+    SDL_Color fontColor = { 0, 0, 0, 0 };
+    SDL_Surface* panelSurface = nullptr;
+    SDL_Texture* panelTexture = nullptr;
+    unsigned int i;
 
-    // Draw the score panel.
-    SDL_RenderCopy( renderer_, graphics_[SCORE], nullptr, &dstRect );
 
-    // Draw the score.
-    sprintf( scoreString, "Score: %u", player_.score_ );
-    scoreSurface = TTF_RenderText_Solid( font_, scoreString, scoreColor );
-    scoreTexture = SDL_CreateTextureFromSurface( renderer_, scoreSurface );
-    dstRect.x = dstRect.x + ( dstRect.w - scoreSurface->w ) / 2;
-    dstRect.y = dstRect.y + ( dstRect.h - scoreSurface->h ) / 2;
-    dstRect.w = scoreSurface->w;
-    dstRect.h = scoreSurface->h;
-    SDL_RenderCopy( renderer_, scoreTexture, nullptr, &dstRect );
-    SDL_FreeSurface( scoreSurface );
-    SDL_DestroyTexture( scoreTexture );
+    unsigned int textRectsIndices[] =
+        { SCORE_RECT_1, LINES_RECT, LEVEL_RECT };
+    char formatStrings[][32] =
+    {
+        "Score: %u",
+        "Lines: %u",
+        "Level: %u"
+    };
+    unsigned int* varPointers[] =
+    {
+        &( player_.score_ ),
+        &( player_.filledLines_ ),
+        &( player_.level_ )
+    };
 
-    // Draw the lines panel.
-    SDL_RenderCopy( renderer_, graphics_[SCORE], nullptr, &rects[LINES_RECT] );
+    for( i = 0; i < 3; i++ ){
+        dstRect = rects[textRectsIndices[i]];
 
-    // Draw the number of lines.
-    sprintf( filledLinesString, "Lines: %u", player_.filledLines_ );
-    filledLinesSurface = TTF_RenderText_Solid( font_, filledLinesString, scoreColor );
-    filledLinesTexture = SDL_CreateTextureFromSurface( renderer_, filledLinesSurface );
-    dstRect = rects[LINES_RECT];
-    dstRect.x = dstRect.x + ( dstRect.w - filledLinesSurface->w ) / 2;
-    dstRect.y = dstRect.y + ( dstRect.h - filledLinesSurface->h ) / 2;
-    dstRect.w = filledLinesSurface->w;
-    dstRect.h = filledLinesSurface->h;
-    SDL_RenderCopy( renderer_, filledLinesTexture, nullptr, &dstRect );
-    SDL_FreeSurface( filledLinesSurface );
-    SDL_DestroyTexture( filledLinesTexture );
+        // Draw the text panel.
+        SDL_RenderCopy( renderer_, graphics_[SCORE], nullptr, &dstRect );
+
+        // Draw the text
+        sprintf( panelString, formatStrings[i], *( varPointers[i] ) );
+        panelSurface = TTF_RenderText_Solid( font_, panelString, fontColor );
+        panelTexture = SDL_CreateTextureFromSurface( renderer_, panelSurface );
+        dstRect.x = dstRect.x + ( dstRect.w - panelSurface->w ) / 2;
+        dstRect.y = dstRect.y + ( dstRect.h - panelSurface->h ) / 2;
+        dstRect.w = panelSurface->w;
+        dstRect.h = panelSurface->h;
+        SDL_RenderCopy( renderer_, panelTexture, nullptr, &dstRect );
+        SDL_FreeSurface( panelSurface );
+        SDL_DestroyTexture( panelTexture );
+    }
 
     // Draws the next Tetromino;
     SDL_Rect srcRect = { (Sint16)((player_.nextTetromino_-1)*160), 0, 160, 160 };
