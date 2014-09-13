@@ -70,7 +70,7 @@ int Tetromino::rotate()
 
     for( int i=0; i<4; i++ ){
         dstBlocks[i].x = -blocks_[i].y + pivotPoint_.y + pivotPoint_.x;
-        dstBlocks[i].y = blocks_[i].x - pivotPoint_.x + pivotPoint_.y;
+        dstBlocks[i].y = blocks_[i].x - pivotPoint_.x + pivotPoint_.y + TILE_SIZE;
 
         if( gameMatrix_.getCell( dstBlocks[i] ) ){
                 return -1;
