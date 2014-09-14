@@ -172,16 +172,16 @@ void GameLoop::updateLogic()
 {
     int erasedLines = 0;
 
-    if( currentTetromino_.fall() < 0 ){
+    if( currentTetromino_.fall( 4 + player_.level_ ) < 0 ){
         erasedLines = matrix_.eraseCompletedRows();
+        player_.score_ += 2;
         if( erasedLines ){
             matrix_.draw( renderer_, graphics_[TILESET] );
             SDL_RenderPresent( renderer_ );
             player_.filledLines_ += erasedLines;
             player_.score_ += 10*erasedLines;
 
-            if( player_.filledLines_ >= player_.level_*10 ){
-                player_.score_ += 100;
+            if( player_.score_ >= ( player_.level_ * 10 ) ){ // TODO: Do I make higher levels larger?
                 player_.level_++;
                 lockTime_ -= 10;
             }
