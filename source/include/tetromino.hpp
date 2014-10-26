@@ -63,7 +63,7 @@ class Tetromino {
          ***/
         int moveHorizontally( const int& cells );
         int rotate();
-        int fall( const int& dy = 7 ); // TODO: Remove the argument and rename as update()?
+        int fall( const unsigned int& dy = 7 ); // TODO: Remove the argument and rename as update()?
 
 
         /***
@@ -77,6 +77,12 @@ class Tetromino {
          ***/
     private:
         void fixToGameMatrix();
+
+
+        /***
+         * 6. Auxiliar methods
+         ***/
+        unsigned int minDistanceToObstacle() const;
 
 
     private:

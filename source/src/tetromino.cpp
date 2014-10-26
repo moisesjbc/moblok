@@ -85,27 +85,25 @@ int Tetromino::rotate()
 }
 
 
-int Tetromino::fall( const int& dy )
+int Tetromino::fall( const unsigned int& dy )
 {
     // FIXME: With big dy, the tetrominos' collision and fixing aren't computed
     // correctly.
-    PixelPos auxPos;
+    const unsigned int distanceToObstacle = minDistanceToObstacle();
 
-    for( int i=0; i<4; i++ ){
-        auxPos.x = blocks_[i].x;
-        auxPos.y = blocks_[i].y + dy;
-
-        if( gameMatrix_.getCell( auxPos ) )
-        {
-            fixToGameMatrix();
-            return -1;
+    if( distanceToObstacle < dy ){
+        for( int i=0; i<4; i++ ){
+            blocks_[i].y += distanceToObstacle;
         }
+        pivotPoint_.y += distanceToObstacle;
+        fixToGameMatrix();
+        return -1;
+    }else{
+        for( int i=0; i<4; i++ ){
+            blocks_[i].y += dy;
+        }
+        pivotPoint_.y += dy;
     }
-
-    for( int i=0; i<4; i++ ){
-        blocks_[i].y += dy;
-    }
-    pivotPoint_.y += dy;
 
     return 0;
 }
@@ -141,4 +139,35 @@ int Tetromino::draw( SDL_Renderer* renderer )
     }
 
     return 0;
+}
+
+
+/***
+ * 6. Auxiliar methods
+ ***/
+
+unsigned int Tetromino::minDistanceToObstacle() const
+{
+    PixelPos auxPos;
+    int minDistanceToObstacle = 99999;
+    int currentDistanceToObstacle;
+
+    for( int i=0; i<4; i++ ){
+        currentDistanceToObstacle = TILE_SIZE - ( blocks_[i].y % TILE_SIZE );
+
+        auxPos.x = blocks_[i].x;
+        auxPos.y = blocks_[i].y + currentDistanceToObstacle;
+
+        assert( ( auxPos.y % TILE_SIZE ) == 0 );
+        while( !gameMatrix_.getCell( auxPos ) ){
+            currentDistanceToObstacle += TILE_SIZE;
+            auxPos.y = blocks_[i].y + currentDistanceToObstacle;
+        }
+
+        if( currentDistanceToObstacle < minDistanceToObstacle ){
+            minDistanceToObstacle = currentDistanceToObstacle;
+        }
+    }
+
+    return minDistanceToObstacle - 1;
 }
