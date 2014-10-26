@@ -87,6 +87,8 @@ int Tetromino::rotate()
 
 int Tetromino::fall( const int& dy )
 {
+    // FIXME: With big dy, the tetrominos' collision and fixing aren't computed
+    // correctly.
     PixelPos auxPos;
 
     for( int i=0; i<4; i++ ){
