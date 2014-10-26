@@ -172,6 +172,8 @@ void GameLoop::updateLogic()
 {
     int erasedLines = 0;
 
+    // FIXME: With big dy, sometimes the tetromino looks "broken" while
+    // falling.
     if( currentTetromino_.fall( 4 + player_.level_ ) < 0 ){
         erasedLines = matrix_.eraseCompletedRows();
         player_.score_ += 2;
