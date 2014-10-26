@@ -65,11 +65,8 @@ set( CPACK_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR
 if( UNIX )
 #DEB
 set( CPACK_DEBIAN_PACKAGE_MAINTAINER "Moisés J. Bonilla Caraballo <moisesjbc@gmail.com>" )
-set( CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl1.2debian (>= 1.2), libsdl-mixer1.2 (>= 1.2), libsdl-image1.2 (>= 1.2), g++ (>= 4.6), cmake (>= 2.8)" ) #TODO: Change this to SDL2
+set( CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl2-2.0-0, libsdl2-mixer-2.0-0, libsdl2-image-2.0-0, libsdl2-ttf-2.0-0" )
 set( CPACK_DEBIAN_PACKAGE_SECTION "games" )
-
-#RPM
-#set( CPACK_RPM_PACKAGE_REQUIRES "libsdl1.2 (>= 1.2), libsdl-mixer1.2 (>= 1.2), libsdl-image1.2 (>= 1.2), g++ (>= 4.6), cmake (>= 2.8)" ) #TODO: Change this to SDL2
 endif( UNIX )
 
 include(CPack)
