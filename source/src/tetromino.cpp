@@ -20,19 +20,23 @@ Tetromino::Tetromino( const ResourceLoader* resourceLoader, SDL_Renderer* render
 
 int Tetromino::reset( int color )
 {
+    int resetResult = 0;
+
     color_ = color;
 
     for( int i=0; i<4; i++ ){
         blocks_[i].x = TETROMINO_X0 + Tetrominos[color-1][i][X] * TILE_SIZE;
         blocks_[i].y = TETROMINO_Y0 + Tetrominos[color-1][i][Y] * TILE_SIZE;
 
-        if( gameMatrix_.getCell( blocks_[i] ) ) return -1;
+        if( gameMatrix_.getCell( blocks_[i] ) ){
+            resetResult = -1;
+        }
     }
 
     pivotPoint_.x = TETROMINO_X0;
     pivotPoint_.y = TETROMINO_Y0;
 
-    return 0;
+    return resetResult;
 }
 
 
