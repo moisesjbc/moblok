@@ -182,7 +182,7 @@ void GameLoop::updateLogic()
             player_.filledLines_ += erasedLines;
             player_.score_ += 10*erasedLines;
         }
-        if( player_.score_ >= ( player_.level_ * 10 ) ){ // TODO: Do I make higher levels larger?
+        if( player_.score_ >= ( player_.level_ * 30 ) ){ // TODO: Do I make higher levels larger?
             player_.level_++;
         }
         player_.gameOver_ = (currentTetromino_.reset( player_.nextTetromino_ ) == -1);
