@@ -188,8 +188,6 @@ void GameLoop::updateLogic()
         }
         player_.gameOver_ = (currentTetromino_.reset( player_.nextTetromino_ ) == -1);
         player_.nextTetromino_ = (rand()%7)+1;
-
-        drawGUI();
     }
 }
 
