@@ -91,8 +91,6 @@ int Tetromino::rotate()
 
 int Tetromino::fall( const unsigned int& dy )
 {
-    // FIXME: With big dy, the tetrominos' collision and fixing aren't computed
-    // correctly.
     const unsigned int distanceToObstacle = minDistanceToObstacle();
 
     if( distanceToObstacle < dy ){
