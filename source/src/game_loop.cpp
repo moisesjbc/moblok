@@ -168,7 +168,6 @@ void GameLoop::updateLogic()
 {
     int erasedLines = 0;
 
-    SDL_PumpEvents();
     const Uint8 *keysState = SDL_GetKeyboardState( nullptr );
 
     const unsigned int fallSpeed =
