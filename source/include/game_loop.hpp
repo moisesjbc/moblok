@@ -94,8 +94,6 @@ class GameLoop {
         SDL_Texture* graphics_[N_GRAPHICS];
         SDL_Rect rects_[N_RECTS];
 
-        unsigned int lockTime_;
-
         Matrix matrix_;
         Tetromino currentTetromino_;
 

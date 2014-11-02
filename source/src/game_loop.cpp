@@ -102,7 +102,6 @@ void GameLoop::newGame()
 int GameLoop::runMainLoop()
 {
     SDL_Event event;
-    lockTime_ = INITIAL_LOCK_TIME;
     Uint32 t0, t1;
     bool exitGame = false;
 
@@ -188,7 +187,6 @@ void GameLoop::updateLogic()
 
             if( player_.score_ >= ( player_.level_ * 10 ) ){ // TODO: Do I make higher levels larger?
                 player_.level_++;
-                lockTime_ -= 10;
             }
         }
         player_.gameOver_ = (currentTetromino_.reset( player_.nextTetromino_ ) == -1);
