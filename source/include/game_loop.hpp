@@ -76,6 +76,7 @@ class GameLoop {
         int runMainLoop();
         void updateLogic();
         void pause( bool& exitGame );
+        void gameOver();
 
 
         /***

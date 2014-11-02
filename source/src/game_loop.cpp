@@ -160,6 +160,10 @@ int GameLoop::runMainLoop()
         draw();
     }
 
+    if( player_.gameOver_ ){
+        gameOver();
+    }
+
     return 0;
 }
 
@@ -238,6 +242,48 @@ void GameLoop::pause( bool& exitGame )
             }
         }
     }
+}
+
+
+void GameLoop::gameOver()
+{
+    const SDL_Color FONT_COLOR = { 0, 0, 0, 0 };
+    const SDL_Color BACKGROUND_COLOR = { 255, 255, 255, 255 };
+    const char pressEnterText[] =
+            "Press [ENTER] to continue";
+    SDL_Rect pressEnterRect = { 0, 0, 0, 0 };
+    SDL_Event event;
+
+    // Generate the texture containing the text.
+    SDL_Surface* textSurface =
+            TTF_RenderText_Shaded( font_,
+                                   pressEnterText,
+                                   FONT_COLOR,
+                                   BACKGROUND_COLOR );
+    SDL_Texture* textTexture = SDL_CreateTextureFromSurface( renderer_, textSurface );
+
+    // Compute the rect with the position and dimensions of
+    // previous texture.
+    pressEnterRect = {
+        (RES_X - textSurface->w ) >> 1,
+        (RES_Y - textSurface->h ) >> 1,
+        textSurface->w,
+        textSurface->h
+    };
+
+    // Keep rendering "Press [ENTER] to continue" until user presses
+    // [ENTER] or exits the app.
+    do{
+        SDL_RenderCopy( renderer_, textTexture, nullptr, &pressEnterRect );
+        SDL_RenderPresent( renderer_ );
+        SDL_WaitEvent( &event );
+    }while( ( event.type != SDL_QUIT ) &&
+            ( ( event.type != SDL_KEYDOWN ) ||
+              ( event.key.keysym.sym != SDLK_RETURN ) ) );
+
+    // Free allocated resources.
+    SDL_FreeSurface( textSurface );
+    SDL_DestroyTexture( textTexture );
 }
 
 
