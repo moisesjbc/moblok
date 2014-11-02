@@ -180,8 +180,6 @@ void GameLoop::updateLogic()
         erasedLines = matrix_.eraseCompletedRows();
         player_.score_ += 2;
         if( erasedLines ){
-            matrix_.draw( renderer_, graphics_[TILESET] );
-            SDL_RenderPresent( renderer_ );
             player_.filledLines_ += erasedLines;
             player_.score_ += 10*erasedLines;
 
