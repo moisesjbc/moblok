@@ -26,17 +26,17 @@ Tetris::Tetris() :
     try{
         initSDL();
 
-        screen_ = SDL_CreateWindow( "Moblok'",
+        window_ = SDL_CreateWindow( "Moblok'",
                                     SDL_WINDOWPOS_UNDEFINED,
                                     SDL_WINDOWPOS_UNDEFINED,
                                     RES_X,
                                     RES_Y,
                                     0 );
-        if( !screen_ ){
+        if( !window_ ){
             throw std::runtime_error( SDL_GetError() );
         }
 
-        renderer_ = SDL_CreateRenderer( screen_, -1, 0);
+        renderer_ = SDL_CreateRenderer( window_, -1, 0);
         if( !renderer_ ){
             throw std::runtime_error( SDL_GetError() );
         }
@@ -44,7 +44,7 @@ Tetris::Tetris() :
         SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "linear" );
         SDL_RenderSetLogicalSize( renderer_, RES_X, RES_Y );
 
-        game_ = new GameLoop( screen_, renderer_, &resourceLoader_ );
+        game_ = new GameLoop( window_, renderer_, &resourceLoader_ );
 
         music_ = resourceLoader_.loadMusic( "Tetris_theme.ogg" );
     }catch( const char* ){
@@ -58,7 +58,7 @@ Tetris::Tetris() :
  ***/
 
 Tetris::~Tetris(){
-    SDL_DestroyWindow( screen_ );
+    SDL_DestroyWindow( window_ );
     SDL_DestroyRenderer( renderer_ );
     Mix_FreeMusic( music_ );
     delete game_;

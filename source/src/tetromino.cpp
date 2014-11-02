@@ -158,7 +158,6 @@ unsigned int Tetromino::minDistanceToObstacle() const
         auxPos.x = blocks_[i].x;
         auxPos.y = blocks_[i].y + currentDistanceToObstacle;
 
-        assert( ( auxPos.y % TILE_SIZE ) == 0 );
         while( !gameMatrix_.getCell( auxPos ) ){
             currentDistanceToObstacle += TILE_SIZE;
             auxPos.y = blocks_[i].y + currentDistanceToObstacle;
