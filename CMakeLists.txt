@@ -8,7 +8,7 @@ set( ${PROJECT_NAME}_VERSION_MAJOR 0 )
 set( ${PROJECT_NAME}_VERSION_MINOR 9 )
 set( ${PROJECT_NAME}_VERSION_PATCH 0 )
 
-configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/source/include/config.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/source/include/config.hpp )
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/source/include/config.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/source/include/config.hpp )
 
 # Add sources
 file( GLOB ${PROJECT_NAME}_INCLUDES source/include/*.hpp )
