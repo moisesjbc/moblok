@@ -130,9 +130,6 @@ int GameLoop::runMainLoop()
                             case SDLK_UP:
                                 currentTetromino_.rotate();
                             break;
-                            case SDLK_DOWN:
-                                currentTetromino_.fall();
-                            break;
                             case SDLK_ESCAPE:
                                 pause( exitGame );
                             break;
@@ -172,9 +169,15 @@ void GameLoop::updateLogic()
 {
     int erasedLines = 0;
 
+    SDL_PumpEvents();
+    const Uint8 *keysState = SDL_GetKeyboardState( nullptr );
+
+    const unsigned int fallSpeed =
+            4 + player_.level_ + (keysState[ SDL_GetScancodeFromKey( SDLK_DOWN ) ]) * 3;
+
     // FIXME: With big dy, sometimes the tetromino looks "broken" while
     // falling.
-    if( currentTetromino_.fall( 4 + player_.level_ ) < 0 ){
+    if( currentTetromino_.fall( fallSpeed ) < 0 ){
         erasedLines = matrix_.eraseCompletedRows();
         player_.score_ += 2;
         if( erasedLines ){

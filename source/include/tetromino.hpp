@@ -63,7 +63,7 @@ class Tetromino {
          ***/
         int moveHorizontally( const int& cells );
         int rotate();
-        int fall( const unsigned int& dy = 7 ); // TODO: Remove the argument and rename as update()?
+        int fall( const unsigned int& dy ); // TODO: Remove the argument and rename as update()?
 
 
         /***

@@ -111,13 +111,9 @@ int Tetromino::fall( const unsigned int& dy )
 
 void Tetromino::fixToGameMatrix()
 {
-    gameMatrix_.print();
-
     for( int j=0; j<4; j++ ){
         gameMatrix_.setCell( blocks_[j], color_ );
     }
-
-    gameMatrix_.print();
 }
 
 
