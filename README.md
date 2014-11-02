@@ -65,14 +65,3 @@ The libraries SDL, SDL_image and SDL_mixer, as well as their dependencies are pr
 The music played in the game (directory "share/moblok/music/Tetris_theme.ogg") has been downloaded from Wikimedia Commons on [this url](http://commons.wikimedia.org/wiki/File:Tetris_theme.ogg?uselang=es). As stated by that url, the music has been made by Bogozi and it is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0). To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.
 
 The font used in the game is [LiberationSans-Bold.ttf](http://en.wikipedia.org/wiki/Liberation_fonts).
-
-## Changelog
-
-### v0.7.1
-- Added license advices and a README I forgot in previous release (Ooops!).
-- Building system changed to CMake.
-- Minor changes and fixes in source code.
-- Added facilities for building a DEB package for Moblok' from source code.
-
-### v0.7.0
-- First demo. It allows you to play calmly to death (no score, no levels, no victory screen).
