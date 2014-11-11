@@ -33,7 +33,7 @@ Libraries (both development and runtime versions):
 
 2. Clone the [Moblok' repository at Github](https://github.com/Neodivert/moblok/)
 ```
-git clone git@github.com:Neodivert/moblok 
+git clone git@github.com:moisesjbc/moblok.git
 ```
 
 3. Enter in Moblok' directory
