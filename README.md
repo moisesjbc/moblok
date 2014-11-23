@@ -1,10 +1,7 @@
 # Moblok'
 Moblok' is just another tetris clone, as simple as that!.
 
-## Current project status
-Currently, this project is "slightly active", meaning that I'm planning to finish it, but I am doing it on my free time and not on a regular basis.
-
-## Playing the latest demo
+## Playing the latest release
 
 1. Go to the [releases page](https://github.com/Neodivert/moblok/releases).
 2. Find and download the latest release that matches your OS and architecture.
@@ -60,7 +57,7 @@ The images used by the game (directory "share/moblok/img/") are licensed under t
 
 ### Third-party work
 
-The libraries SDL, SDL_image and SDL_mixer, as well as their dependencies are property of their respective owners. The licenses for every library used by the game are present in the directory "share/moblok/license/sdl*.
+The libraries SDL, SDL_image and SDL_mixer, as well as their dependencies are property of their respective owners. The licenses for every library used by the game are present in the directory "share/moblok/license".
 
 The music played in the game (directory "share/moblok/music/Tetris_theme.ogg") has been downloaded from Wikimedia Commons on [this url](http://commons.wikimedia.org/wiki/File:Tetris_theme.ogg?uselang=es). As stated by that url, the music has been made by Bogozi and it is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0). To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.
 
