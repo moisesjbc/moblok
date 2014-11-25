@@ -177,8 +177,6 @@ void GameLoop::updateLogic()
     const unsigned int fallSpeed =
             4 + player_.level_ + (keysState[ SDL_GetScancodeFromKey( SDLK_DOWN ) ]) * 3;
 
-    // FIXME: With big dy, sometimes the tetromino looks "broken" while
-    // falling.
     if( currentTetromino_.fall( fallSpeed ) < 0 ){
         erasedLines = matrix_.eraseCompletedRows();
         player_.score_ += 2;

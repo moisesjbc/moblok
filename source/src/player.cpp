@@ -19,10 +19,8 @@
  ***/
 
 Player::Player()
-    : level_(1), score_(0), filledLines_(0), gameOver_(0)
 {
-    // TODO: Call Reset()?
-    nextTetromino_ = (rand()%7)+1;
+    reset();
 }
 
 
