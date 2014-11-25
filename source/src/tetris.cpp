@@ -99,6 +99,12 @@ void Tetris::run()
                         playGame = true;
                     }else if( event.key.keysym.sym == SDLK_ESCAPE ){
                         exitGame = true;
+                    }else if( event.key.keysym.sym == SDLK_m ){
+                        if( Mix_PausedMusic() ){
+                            Mix_ResumeMusic();
+                        }else{
+                            Mix_PauseMusic();
+                        }
                     }
                 break;
                 case SDL_QUIT:
