@@ -38,14 +38,14 @@ git clone git@github.com:moisesjbc/moblok.git
 cd moblok
 ```
 
-3. Build the game
+4. Build the game
 ```
 cmake .
 make
 sudo make install
 ```
 
-4. Enjoy!
+5. Enjoy!
 
 ## License
 
