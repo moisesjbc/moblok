@@ -29,21 +29,24 @@ Libraries (both development and runtime versions):
 1. Install the dependencies listed in previous section.
 
 2. Clone the [Moblok' repository at Github](https://github.com/Neodivert/moblok/)
-```
-git clone git@github.com:moisesjbc/moblok.git
-```
+
+ ```
+ git clone git@github.com:moisesjbc/moblok.git
+ ```
 
 3. Enter in Moblok' directory
-```
-cd moblok
-```
+
+ ```
+ cd moblok
+ ```
 
 4. Build the game
-```
-cmake .
-make
-sudo make install
-```
+
+ ```
+ cmake .
+ make
+ sudo make install
+ ```
 
 5. Enjoy!
 
