@@ -66,7 +66,7 @@ if( UNIX )
 #DEB
 set( CPACK_DEBIAN_PACKAGE_MAINTAINER "Moisés J. Bonilla Caraballo <moisesjbc@gmail.com>" )
 set( CPACK_DEBIAN_PACKAGE_DESCRIPTION "Just another tetris clone." )
-set( CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl2-2.0-0, libsdl2-mixer-2.0-0, libsdl2-image-2.0-0, libsdl2-ttf-2.0-0" )
+set( CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, libsdl2-2.0-0, libsdl2-mixer-2.0-0, libsdl2-image-2.0-0, libsdl2-ttf-2.0-0" )
 set( CPACK_DEBIAN_PACKAGE_SECTION "games" )
 endif( UNIX )
 
