@@ -41,6 +41,11 @@ target_link_libraries (${PROJECT_NAME} ${SDL2TTF_LIBRARIES} )
 message( STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}" )
 message( STATUS "CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}" )
 
+# Install in /usr
+# Source: http://www.cmake.org/pipermail/cmake/2009-March/027859.html
+set( CMAKE_INSTALL_PREFIX /usr )
+set( CPACK_SET_DESTDIR "ON" )
+
 # Install
 install( TARGETS ${PROJECT_NAME} DESTINATION bin )
 install( DIRECTORY ${CMAKE_HOME_DIRECTORY}/share/moblok DESTINATION share )
