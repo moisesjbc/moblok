@@ -25,7 +25,7 @@ PKG_SEARCH_MODULE( SDL2TTF REQUIRED SDL2_ttf>=2.0.0 )
 include_directories( source/include )
 
 # Compiler flags
-set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -ansi -Werror -pedantic -pedantic-errors -std=c++0x" )
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -s -ansi -Werror -pedantic -pedantic-errors -std=c++0x" )
 
 # Executable
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES} ${${PROJECT_NAME}_INCLUDES} )
