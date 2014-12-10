@@ -44,6 +44,8 @@ Tetris::Tetris() :
         SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "linear" );
         SDL_RenderSetLogicalSize( renderer_, RES_X, RES_Y );
 
+        srand( time( NULL ) );
+
         game_ = new GameLoop( window_, renderer_, &resourceLoader_ );
 
         music_ = resourceLoader_.loadMusic( "Tetris_theme.ogg" );
