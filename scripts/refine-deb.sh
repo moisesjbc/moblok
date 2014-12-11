@@ -26,6 +26,23 @@ cp debian/changelog.gz .tmp/usr/share/doc/moblok/changelog.gz
 # Include copyright file.
 cp debian/copyright .tmp/usr/share/doc/moblok/copyright
 
+# Include control file.
+DEB_SOFTWARE_NAME="moblok"
+DEB_MAJOR_VERSION="1"
+DEB_MINOR_VERSION="0"
+DEB_REVISION="1"
+
+echo "Package: $DEB_SOFTWARE_NAME
+Version: $DEB_MAJOR_VERSION.$DEB_MINOR_VERSION-$DEB_REVISION
+Section: games
+Priority: optional
+Architecture: amd64
+Depends: libc6, fonts-liberation, libsdl2-2.0-0, libsdl2-mixer-2.0-0, libsdl2-image-2.0-0, libsdl2-ttf-2.0-0
+Maintainer: Moisés J. Bonilla Caraballo <moisesjbc@gmail.com>
+Description: Just another tetris clone.
+ Moblok' is a clone of the famous game Tetris.
+" > ".tmp/DEBIAN/control"
+
 # Compress the deb package again.
 fakeroot dpkg-deb --build .tmp $DST_DEB
 
