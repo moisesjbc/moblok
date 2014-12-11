@@ -2,6 +2,7 @@
 # refine-deb.sh
 
 SOURCE_DEB="moblok-1-0-0.x86_64.deb"
+DST_DEB=$SOURCE_DEB
 
 # We are about to change the current directory, so we save the current one for
 # returning.
@@ -22,8 +23,11 @@ mkdir -p .tmp/usr/share/doc/moblok
 gzip -9 --keep debian/changelog
 cp debian/changelog.gz .tmp/usr/share/doc/moblok/changelog.gz
 
+# Include copyright file.
+cp debian/copyright .tmp/usr/share/doc/moblok/copyright
+
 # Compress the deb package again.
-fakeroot dpkg-deb --build .tmp moblok-cool.deb
+fakeroot dpkg-deb --build .tmp $DST_DEB
 
 #dpkg -b .tmp moblok-cool.deb
 
