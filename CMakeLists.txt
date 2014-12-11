@@ -47,7 +47,7 @@ set( CMAKE_INSTALL_PREFIX /usr )
 set( CPACK_SET_DESTDIR "ON" )
 
 # Install
-install( TARGETS ${PROJECT_NAME} DESTINATION bin )
+install( TARGETS ${PROJECT_NAME} DESTINATION games )
 install( DIRECTORY ${CMAKE_HOME_DIRECTORY}/share/moblok DESTINATION share )
 
 #<----snip your usual build instructions snip--->
