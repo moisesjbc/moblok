@@ -16,6 +16,9 @@ rm -r CMakeCache.txt _CPack_Packages CPackSourceConfig.cmake CPackConfig.cmake c
 cmake .
 make package
 
+# Refine the generated DEB so lintian doesn't throw any errors.
+./scripts/refine-deb.sh
+
 # Return to the directory from where this script was invoked.
 cd "$old_directory"
 
