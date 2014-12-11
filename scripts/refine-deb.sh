@@ -21,7 +21,7 @@ dpkg --control $SOURCE_DEB .tmp/DEBIAN
 # Include changelog file.
 mkdir -p .tmp/usr/share/doc/moblok
 gzip -9 --keep debian/changelog
-cp debian/changelog.gz .tmp/usr/share/doc/moblok/changelog.gz
+cp debian/changelog.gz .tmp/usr/share/doc/moblok/changelog.Debian.gz
 
 # Include copyright file.
 cp debian/copyright .tmp/usr/share/doc/moblok/copyright
