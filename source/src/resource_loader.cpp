@@ -69,8 +69,15 @@ TTF_Font *ResourceLoader::loadFont( const std::string relativePath, int ptSize )
     std::string fullFontPath;
     TTF_Font* font = nullptr;
 
-    while( !font && (i < dataDirectories_.size() ) ){
-        fullFontPath = dataDirectories_[i] + "/fonts/" + relativePath;
+    // TODO: Remove this "trick".
+    std::vector< std::string > fontDirectories;
+    fontDirectories.push_back( "/usr/share/fonts/truetype/liberation/" );
+    for( const std::string& str : dataDirectories_ ){
+        fontDirectories.push_back( str + "/fonts/" );
+    }
+
+    while( !font && (i < fontDirectories.size() ) ){
+        fullFontPath = fontDirectories[i] + relativePath;
 
         font = TTF_OpenFont( fullFontPath.c_str(), ptSize );
 
