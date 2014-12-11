@@ -69,7 +69,7 @@ set( CPACK_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR
 
 if( UNIX )
 #DEB
-set( CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, libsdl2-2.0-0, libsdl2-mixer-2.0-0, libsdl2-image-2.0-0, libsdl2-ttf-2.0-0" )
+set( CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, fonts-liberation, libsdl2-2.0-0, libsdl2-mixer-2.0-0, libsdl2-image-2.0-0, libsdl2-ttf-2.0-0" )
 set( CPACK_DEBIAN_PACKAGE_SECTION "games" )
 endif( UNIX )
 
