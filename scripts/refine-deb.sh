@@ -43,6 +43,15 @@ Description: Just another tetris clone.
  Moblok' is a clone of the famous game Tetris.
 " > ".tmp/DEBIAN/control"
 
+# Change permissions to the standar expected by lintian.
+chmod 0755 .tmp/usr/
+chmod 0755 .tmp/usr/share/
+chmod 0755 .tmp/usr/games/
+chmod 0755 .tmp/usr/share/doc/
+chmod 0755 .tmp/usr/share/doc/moblok/
+chmod 0644 .tmp/usr/share/doc/moblok/changelog.Debian.gz
+chmod 0644 .tmp/usr/share/doc/moblok/copyright
+
 # Compress the deb package again.
 fakeroot dpkg-deb --build .tmp $DST_DEB
 
