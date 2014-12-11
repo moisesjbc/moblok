@@ -22,7 +22,7 @@ SDL_Texture* ResourceLoader::loadImage( const std::string relativePath, SDL_Rend
     SDL_Surface* imageSurface = nullptr;
     SDL_Texture* image = nullptr;
 
-    while( !image && (i < dataDirectories_.size() ) ){
+    while( !imageSurface && (i < dataDirectories_.size() ) ){
         fullImagePath = dataDirectories_[i] + "/img/" + relativePath;
 
         imageSurface = IMG_Load( fullImagePath.c_str() );
