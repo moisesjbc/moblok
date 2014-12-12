@@ -31,7 +31,7 @@ cp moblok $TMP_DEB_DIR/usr/games
 
 # Include changelog file.
 mkdir -p .tmp/usr/share/doc/moblok
-gzip -9 --keep debian/changelog
+gzip -9f --keep debian/changelog
 cp debian/changelog.gz .tmp/usr/share/doc/moblok/changelog.Debian.gz
 
 # Include copyright file.
