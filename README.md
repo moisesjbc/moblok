@@ -6,7 +6,7 @@ Moblok' is just another tetris clone, as simple as that!.
 1. Go to the [releases page](https://github.com/Neodivert/moblok/releases).
 2. Find and download the latest release that matches your OS and architecture.
 3. (Windows only): Unzip the downloaded file and execute moblok.exe.
-3. (Linux only - DEB): Unzip and install the downloaded DEB package. Then, open a terminal and execute "moblok".
+3. (Linux only - DEB): Unzip and install the downloaded DEB package. Then, execute Moblok' from Ubuntu's dashboard.
 4. Enjoy!.
 
 ## Building Moblok' from code
@@ -15,7 +15,6 @@ Moblok' is just another tetris clone, as simple as that!.
 
 Building tools:
 - [g++ (C++ compiler)](http://gcc.gnu.org/).
-- [Qt Creator](http://qt-project.org/wiki/category:tools::qtcreator)
 - [cmake 2.8](http://www.cmake.org/)
 
 Libraries (both development and runtime versions):
@@ -55,8 +54,6 @@ Libraries (both development and runtime versions):
 5. Enjoy!
 
 ## License
-
-### Own work
 
 The source code of the game (directory "source") is under the GPLv3 license. You can find a copy of this license in the file share/moblok/license/LICENSE.moblok.txt.
 
