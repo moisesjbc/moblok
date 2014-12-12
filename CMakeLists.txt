@@ -54,6 +54,9 @@ install( DIRECTORY ${CMAKE_HOME_DIRECTORY}/share/moblok DESTINATION share )
 # Package building
 if( UNIX )
 # DEB package
+configure_file(
+    ./scripts/config.in
+    ./scripts/config )
 add_custom_target(
     deb
     COMMAND ./scripts/build-deb.sh )

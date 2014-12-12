@@ -13,6 +13,8 @@ old_directory=`pwd`
 # script's dir.
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../"
 
+source scripts/config
+
 # Create a temporal dir for the debian package.
 rm -r $TMP_DEB_DIR
 mkdir -p $TMP_DEB_DIR/DEBIAN
@@ -38,14 +40,10 @@ mkdir .tmp/usr/share/applications
 cp debian/moblok.desktop .tmp/usr/share/applications
 
 # Include control file.
-DEB_SOFTWARE_NAME="moblok"
-DEB_MAJOR_VERSION="1"
-DEB_MINOR_VERSION="0"
-DEB_REVISION="1"
 DEB_INSTALED_SIZE=`du -s .tmp | cut -f1`
 
-echo "Package: $DEB_SOFTWARE_NAME
-Version: $DEB_MAJOR_VERSION.$DEB_MINOR_VERSION-$DEB_REVISION
+echo "Package: $PROJECT_NAME
+Version: $PACKAGE_MAJOR_VERSION.$PACKAGE_MINOR_VERSION-$PACKAGE_REVISION
 Section: games
 Priority: optional
 Architecture: amd64
