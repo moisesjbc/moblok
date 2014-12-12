@@ -4,9 +4,9 @@ project( moblok )
 cmake_minimum_required( VERSION 2.8 )
 
 # Set the version number.
-set( ${PROJECT_NAME}_VERSION_MAJOR 1 )
-set( ${PROJECT_NAME}_VERSION_MINOR 0 )
-set( ${PROJECT_NAME}_VERSION_PATCH 0 )
+set( PROJECT_VERSION_MAJOR 1 )
+set( PROJECT_VERSION_MINOR 0 )
+set( PROJECT_VERSION_PATCH 0 )
 
 # Add sources
 file( GLOB ${PROJECT_NAME}_INCLUDES source/include/*.hpp )
