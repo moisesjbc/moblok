@@ -67,9 +67,6 @@ chmod 0644 .tmp/usr/share/doc/moblok/changelog.Debian.gz
 chmod 0644 .tmp/usr/share/doc/moblok/copyright
 chmod 0644 .tmp/usr/share/applications/moblok.desktop
 
-# Remove file "md5sums" so it will be regenerated when rebuilding package.
-rm .tmp/DEBIAN/md5sums
-
 # Compress the deb package.
 fakeroot dpkg-deb --build .tmp $DST_DEB
 
