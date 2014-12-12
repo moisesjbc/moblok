@@ -35,6 +35,7 @@ target_link_libraries (${PROJECT_NAME} ${SDL2_LIBRARIES} )
 target_link_libraries (${PROJECT_NAME} ${SDL2IMAGE_LIBRARIES} )
 target_link_libraries (${PROJECT_NAME} ${SDL2MIXER_LIBRARIES} )
 target_link_libraries (${PROJECT_NAME} ${SDL2TTF_LIBRARIES} )
+# TODO: Add dependencies "Liberation*ttf" and libc6.
 
 message( STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}" )
 message( STATUS "CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}" )
