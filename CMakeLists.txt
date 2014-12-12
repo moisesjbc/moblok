@@ -51,30 +51,14 @@ configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/source/include/config.hpp.in ${CMAKE
 install( TARGETS ${PROJECT_NAME} DESTINATION games )
 install( DIRECTORY ${CMAKE_HOME_DIRECTORY}/share/moblok DESTINATION share )
 
-#<----snip your usual build instructions snip--->
-set( CPACK_PACKAGE_VERSION ${VERSION} )
-set( CPACK_GENERATOR "DEB" ) # TODO: RPM and anything else?
-set( CPACK_PACKAGE_NAME "moblok" )
-set( CPACK_PACKAGE_VERSION_MAJOR ${${PROJECT_NAME}_VERSION_MAJOR} )
-set( CPACK_PACKAGE_VERSION_MINOR ${${PROJECT_NAME}_VERSION_MINOR} )
-set( CPACK_PACKAGE_VERSION_PATCH ${${PROJECT_NAME}_VERSION_PATCH} )
-set( CPACK_PACKAGE_DESCRIPTION_SUMMARY "Just another tetris clone." )
-set( CPACK_PACKAGE_CONTACT "Moisés J. Bonilla Caraballo <moisesjbc@gmail.com>" )
-set( CPACK_PACKAGE_VENDOR "Moisés J. Bonilla Caraballo" )
-set( CPACK_PACKAGE_DESCRIPTION_SUMMARY "Just another tetris clone." )
-
-set( CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md" )
-
-set( CPACK_PACKAGING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX} )
-set( CPACK_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}-${CPACK_PACKAGE_VERSION_MINOR}-${CPACK_PACKAGE_VERSION_PATCH}.${CMAKE_SYSTEM_PROCESSOR} )
-
+# Package building
 if( UNIX )
-#DEB
-set( CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, fonts-liberation, libsdl2-2.0-0, libsdl2-mixer-2.0-0, libsdl2-image-2.0-0, libsdl2-ttf-2.0-0" )
-set( CPACK_DEBIAN_PACKAGE_SECTION "games" )
+# DEB package
+add_custom_target(
+    deb
+    COMMAND ./scripts/build-deb.sh )
+add_dependencies( deb ${PROJECT_NAME} )
 endif( UNIX )
-
-include(CPack)
 
 # Uninstall target
 configure_file(
