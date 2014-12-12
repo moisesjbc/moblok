@@ -43,7 +43,7 @@ cp debian/moblok.desktop .tmp/usr/share/applications
 DEB_INSTALED_SIZE=`du -s .tmp | cut -f1`
 
 echo "Package: $PROJECT_NAME
-Version: $PACKAGE_MAJOR_VERSION.$PACKAGE_MINOR_VERSION-$PACKAGE_REVISION
+Version: $PACKAGE_MAJOR_VERSION.$PACKAGE_MINOR_VERSION.$PACKAGE_PATCH_VERSION-$PACKAGE_REVISION
 Section: games
 Priority: optional
 Architecture: amd64
