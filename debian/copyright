@@ -1,0 +1,44 @@
+Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
+Name: moblok
+Maintainer: Moisés J. Bonilla Caraballo <moisesjbc@gmail.com>
+Source: https://github.com/moisesjbc/moblok
+Copyright: 2014 Moisés J. Bonilla Caraballo <moisesjbc@gmail.com>
+License: GPL-3+
+
+Files: usr/share/moblok/img/*
+Copyright: 2014 Moisés J. Bonilla Caraballo <moisesjbc@gmail.com>
+License: CC-BY-NC-SA-4
+
+Files: usr/share/moblok/music/Tetris_theme.ogg
+Copyright: 2014 Bogozi
+License: CC-BY-SA-3
+
+
+License: GPL-3+
+This file is part of Moblok'.
+
+Moblok' is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Moblok' is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Moblok'.  If not, see <http://www.gnu.org/licenses/>.
+
+On Debian systems, the full text of the GNU General Public
+License version 3 can be found in the file
+`/usr/share/common-licenses/GPL-3'
+
+
+License: CC-BY-NC-SA-4
+This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+
+
+License: CC-BY-SA-3
+This work is licensed under the Creative Commons Attribution 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/.
+
