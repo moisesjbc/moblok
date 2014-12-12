@@ -9,7 +9,7 @@ Moblok' is just another tetris clone, as simple as that!.
 3. (Linux only - DEB): Unzip and install the downloaded DEB package. Then, execute Moblok' from Ubuntu's dashboard.
 4. Enjoy!.
 
-## Building Moblok' from code
+## Building Moblok' from code (Tested in Ubuntu 14.04)
 
 ### Dependencies
 
