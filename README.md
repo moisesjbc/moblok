@@ -26,7 +26,11 @@ Libraries (both development and runtime versions):
 
 ### Donwloading and building
 
-1. Install the dependencies listed in previous section.
+1. Install the dependencies.
+
+ ```
+ sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev fonts-liberation
+ ```
 
 2. Clone the [Moblok' repository at Github](https://github.com/Neodivert/moblok/)
 
