@@ -37,6 +37,9 @@ cp debian/changelog.gz .tmp/usr/share/doc/moblok/changelog.Debian.gz
 # Include copyright file.
 cp debian/copyright .tmp/usr/share/doc/moblok/copyright
 
+# Include README.md file.
+cp README.md .tmp/usr/share/doc/moblok/
+
 # Set the desktop file for the game.
 mkdir .tmp/usr/share/applications
 cp debian/moblok.desktop .tmp/usr/share/applications
