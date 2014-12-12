@@ -1,10 +1,6 @@
 #!/bin/bash
 # refine-deb.sh
 
-SOURCE_DEB="moblok-1-0-0.x86_64.deb"
-DST_DEB=$SOURCE_DEB
-TMP_DEB_DIR=".tmp"
-
 # We are about to change the current directory, so we save the current one for
 # returning.
 old_directory=`pwd`
@@ -13,7 +9,13 @@ old_directory=`pwd`
 # script's dir.
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../"
 
+# Load configuration file.
 source scripts/config
+
+# Set package's name.
+ARCH=`uname -p`
+DST_DEB="${PROJECT_NAME}_${PACKAGE_MAJOR_VERSION}.${PACKAGE_MINOR_VERSION}.${PACKAGE_PATCH_VERSION}-${PACKAGE_REVISION}_${ARCH}.deb"
+TMP_DEB_DIR=".tmp"
 
 # Create a temporal dir for the debian package.
 rm -r $TMP_DEB_DIR
