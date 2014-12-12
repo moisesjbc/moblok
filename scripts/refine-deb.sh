@@ -26,11 +26,16 @@ cp debian/changelog.gz .tmp/usr/share/doc/moblok/changelog.Debian.gz
 # Include copyright file.
 cp debian/copyright .tmp/usr/share/doc/moblok/copyright
 
+# Set the desktop file for the game.
+mkdir .tmp/usr/share/applications
+cp debian/moblok.desktop .tmp/usr/share/applications
+
 # Include control file.
 DEB_SOFTWARE_NAME="moblok"
 DEB_MAJOR_VERSION="1"
 DEB_MINOR_VERSION="0"
 DEB_REVISION="1"
+DEB_INSTALED_SIZE=`du -s .tmp | cut -f1`
 
 echo "Package: $DEB_SOFTWARE_NAME
 Version: $DEB_MAJOR_VERSION.$DEB_MINOR_VERSION-$DEB_REVISION
@@ -39,13 +44,10 @@ Priority: optional
 Architecture: amd64
 Depends: libc6, fonts-liberation, libsdl2-2.0-0, libsdl2-mixer-2.0-0, libsdl2-image-2.0-0, libsdl2-ttf-2.0-0
 Maintainer: Moisés J. Bonilla Caraballo <moisesjbc@gmail.com>
+Installed-Size: $DEB_INSTALED_SIZE
 Description: Just another tetris clone.
  Moblok' is a clone of the famous game Tetris.
 " > ".tmp/DEBIAN/control"
-
-# Set the desktop file for the game.
-mkdir .tmp/usr/share/applications
-cp debian/moblok.desktop .tmp/usr/share/applications
 
 # Change permissions to the standar expected by lintian.
 chmod 0755 .tmp/usr/
@@ -73,4 +75,7 @@ cd "$old_directory"
 ###############################################################################
 # Modify dependencies, add/remove files of debian(.deb) package
 # http://geekwentfreak-raviteja.rhcloud.com/blog/2012/10/10/modify-dependencies-addremove-files-of-debian-deb-package/
+#
+# Check folder size in bash
+# http://stackoverflow.com/questions/16661982/check-folder-size-in-bash
 ###############################################################################
