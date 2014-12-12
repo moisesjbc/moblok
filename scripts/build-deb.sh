@@ -3,6 +3,7 @@
 
 SOURCE_DEB="moblok-1-0-0.x86_64.deb"
 DST_DEB=$SOURCE_DEB
+TMP_DEB_DIR=".tmp"
 
 # We are about to change the current directory, so we save the current one for
 # returning.
@@ -12,11 +13,17 @@ old_directory=`pwd`
 # script's dir.
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../"
 
-# Uncompress the deb package in a temp dir.
-rm -r .tmp
-mkdir -p .tmp/DEBIAN
-dpkg -x $SOURCE_DEB .tmp
-dpkg --control $SOURCE_DEB .tmp/DEBIAN
+# Create a temporal dir for the debian package.
+rm -r $TMP_DEB_DIR
+mkdir -p $TMP_DEB_DIR/DEBIAN
+mkdir -p $TMP_DEB_DIR/usr
+
+# Copy the dir "share" to temporal DEB dir.
+cp -R share $TMP_DEB_DIR/usr
+
+# Copy the executable to DEB dir.
+mkdir -p $TMP_DEB_DIR/usr/games
+cp moblok $TMP_DEB_DIR/usr/games
 
 # Include changelog file.
 mkdir -p .tmp/usr/share/doc/moblok
@@ -63,10 +70,8 @@ chmod 0644 .tmp/usr/share/applications/moblok.desktop
 # Remove file "md5sums" so it will be regenerated when rebuilding package.
 rm .tmp/DEBIAN/md5sums
 
-# Compress the deb package again.
+# Compress the deb package.
 fakeroot dpkg-deb --build .tmp $DST_DEB
-
-#dpkg -b .tmp moblok-cool.deb
 
 # Return to the directory from where this script was invoked.
 cd "$old_directory"
