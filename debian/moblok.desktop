@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Moblok'
+Comment=Moblok' - A tetris clone
+Exec=moblok
+Icon=/usr/share/moblok/img/icon.png
+Terminal=false
+Categories=Game;

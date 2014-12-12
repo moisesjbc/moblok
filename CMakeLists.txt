@@ -8,8 +8,6 @@ set( ${PROJECT_NAME}_VERSION_MAJOR 1 )
 set( ${PROJECT_NAME}_VERSION_MINOR 0 )
 set( ${PROJECT_NAME}_VERSION_PATCH 0 )
 
-configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/source/include/config.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/source/include/config.hpp )
-
 # Add sources
 file( GLOB ${PROJECT_NAME}_INCLUDES source/include/*.hpp )
 file( GLOB ${PROJECT_NAME}_SOURCES source/src/*.cpp )
@@ -45,6 +43,8 @@ message( STATUS "CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}" )
 # Source: http://www.cmake.org/pipermail/cmake/2009-March/027859.html
 set( CMAKE_INSTALL_PREFIX /usr )
 set( CPACK_SET_DESTDIR "ON" )
+
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/source/include/config.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/source/include/config.hpp )
 
 # Install
 install( TARGETS ${PROJECT_NAME} DESTINATION games )
