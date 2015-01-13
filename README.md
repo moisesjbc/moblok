@@ -1,6 +1,10 @@
 # Moblok'
 Moblok' is just another tetris clone, as simple as that!.
 
+## Current status
+
+**Inactive**. A demo can be downloaded from the [releases page](https://github.com/Neodivert/moblok/releases).
+
 ## Playing the latest release
 
 1. Go to the [releases page](https://github.com/Neodivert/moblok/releases).
