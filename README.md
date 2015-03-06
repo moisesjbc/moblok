@@ -10,7 +10,7 @@ Moblok' is a clone of the game Tetris. It has been developed in C++ and making u
 
 ## Current status
 
-**Inactive**. A demo can be downloaded from the [releases page](https://github.com/moisesjbc/moblok/releases).
+**Almost completed but inactive**. A playable demo can be downloaded from the [releases page](https://github.com/moisesjbc/moblok/releases).
 
 ## Playing the latest release
 
