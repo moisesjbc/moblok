@@ -1,9 +1,14 @@
 # Moblok'
-Moblok' is just another tetris clone, as simple as that!.
+
+![Moblok' screenshot](img/moblok.png "Moblok' screenshot")
+
+## About
+
+Moblok' is a clone of the game Tetris. It has been developed in C++ and making use of the SDL libraries (2.0).
 
 ## Current status
 
-**Inactive**. A demo can be downloaded from the [releases page](https://github.com/Neodivert/moblok/releases).
+**Inactive**. A demo can be downloaded from the [releases page](https://github.com/moisesjbc/moblok/releases).
 
 ## Playing the latest release
 
@@ -55,10 +60,21 @@ Libraries (both development and runtime versions):
  sudo make install
  ```
 
-5. Enjoy!
+5. Run the game and enjoy!
+
+ ```
+ moblok
+ ```
 
 ## License
 
-The source code of the game (directory "source") is under the GPLv3 license. You can find a copy of this license in the file share/moblok/license/LICENSE.moblok.txt.
+### Own work
 
-The images used by the game (directory "share/moblok/img/") are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+* **Source code:** GPLv3.
+* **Images:** [Creative Commons Attribution 4.0 International (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/).
+
+## Third-party work
+
+* **Libraries SDL, SDL_image, SDL_mixer and SDL_ttf:** License for each one can be found in their respective websites.
+* **Music:** The music used in the game has been downloaded from Wikimedia Commons on [this link](http://commons.wikimedia.org/wiki/File:Tetris_theme.ogg?uselang=es). As mentioned in that link, the music has been created by user "Bogozi" and it is licensed under a [Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0)](http://creativecommons.org/licenses/by-sa/3.0/).
+* **Font:** The font used in Moblok' is LiberationSans-Bold.ttf, [licensed under SIL Open Font License (version 2 onwards) or GPL v2 with some exceptions (older versions)](http://en.wikipedia.org/wiki/Liberation_fonts).
