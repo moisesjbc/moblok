@@ -1,5 +1,7 @@
 # Moblok'
 
+[Ver en Español](README.md)
+
 ![Moblok' screenshot](img/moblok.png "Moblok' screenshot")
 
 ## About
